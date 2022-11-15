@@ -2,8 +2,9 @@
   <div class="app">
     <div class="header">
       <div class="head">
-      <div class="back"><img src="../assets/light.jpg" alt=""></div>
-      <div class="light"></div>
+      <!-- <div class="back"></div> -->
+      <return_box></return_box>
+      <div class="light"><img src="../assets/light.jpg" alt=""></img></div>
       <h1 class="term">学期</h1>
       <div class="shu">
           <p class="head_p" style="color:white">属性值</p>
@@ -33,10 +34,14 @@
 
 <script>
 import { provide } from 'vue';
+import return_box from './return_box.vue'
 
   export default{
     name: "play",
-    components: { provide }
+    components: { 
+      provide,
+      return_box
+     }
 }
 </script>
 
@@ -148,7 +153,6 @@ h1{
   float: left;
   margin: 0;
   padding-left: 20px;
-  padding-top: 30px;
 }
 hr{
   display: inline-block;
@@ -163,9 +167,9 @@ img{
   position: absolute;
   width: 145px;
   height: 195px;
-  left: 205px;
+  left: -15px;
   top: 5px;
-  transform: rotate(15deg);
+  transform: rotate(deg);
 }
 
 

@@ -1,6 +1,6 @@
 <template>
     <div class="return_box">
-        <img src="@/assets/return_icon.jpg" class="return_icon">
+        <img src="@/assets/return_icon.png" class="return_icon">
     </div>
 </template>
 <script lang="ts">
