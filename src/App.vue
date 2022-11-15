@@ -1,9 +1,10 @@
 <template>
   <div class="app">
-    <index></index>
+    <router-view></router-view>
   </div>
 </template>
-<script >
+
+<script lang="ts">
 import index from '@/components/index.vue'
 export default {
   name: 'app',

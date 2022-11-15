@@ -12,11 +12,14 @@
         <div class="restart">{{ English_name }}</div>
         <div class="line"></div>
         <div class="life">{{ Chinese_name }}</div>
-        <img src="@/assets/play.png" class="play">
+        <router-link to="/about">
+            <img src="@/assets/play.png" class="play">
+        </router-link>
+        
         <index></index>
     </div>
 </template>
-<script lang="ts">
+<script lang="ts"> 
 export default {
     name: 'app',
     data() {
