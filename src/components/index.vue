@@ -1,17 +1,16 @@
 <template>
-    <div class="app">
+    <div id="background">
         <div class="upper_list">
             <img src="@/assets/sound.png" class="sound">
             <img src="@/assets/change.png" class="sound">
             <img src="@/assets/prize.jpg" class="prize">
         </div>
         <div class="test_list">
-            <h1 class="word">成就</h1>>
+            <h1 class="word">成就</h1>
         </div>
-
-        <div class="restart">{{ English_name }}</div>
-        <div class="line"></div>
-        <div class="life">{{ Chinese_name }}</div>
+        <img src="@/assets/RESTART@1x.png" class='restart'/>
+        <img src='@/assets/线条@1x.png' class='line'/>
+        <img src="@/assets/福大人生@1x.png" class='life'/>
         <router-link to="/about">
             <img src="@/assets/play.png" class="play">
         </router-link>
@@ -25,7 +24,7 @@ export default {
     data() {
         return {
             English_name: 'RESTART',
-            Chinese_name: '福大人生'
+            Chinese_name: '福大人生',
         }
     }
 
@@ -33,6 +32,14 @@ export default {
 </script>
   
 <style scoped lang="scss">
+
+.line{
+    left: 41px;
+    top: 360px;
+    width: 310px;
+    height: NaNpx;
+    border: 9px solid rgba(149, 29, 29, 1);
+}
 .app {
     width: 390px;
     height: 722px;
@@ -87,7 +94,7 @@ body {
 }
 
 .restart {
-    padding-left: 48px;
+    padding-left: 10px;
     padding-top: 110px;
     padding-bottom: 5px;
     width: 297px;
@@ -98,19 +105,12 @@ body {
     font-family: Microsoft YaHei;
 }
 
-.line {
-    padding-left: 81px;
-    width: 310px;
-    height: 9px;
-    background-color: rgba(149, 29, 29, 1);
-}
-
 .life {
     width: 200px;
     height: 74px;
     color: rgba(149, 29, 29, 1);
     font-size: 48px;
-    padding-left: 105px;
+    padding-left: 30px;
     padding-top: 5px;
     font-family: YouYuan;
     font-weight: bold
