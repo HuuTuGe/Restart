@@ -1,12 +1,12 @@
 <template>
-    <div class="app">
+    <div class="app" id="background">
         <div class="upper_list">
             <img src="@/assets/sound.png" class="sound">
             <img src="@/assets/change.png" class="sound">
             <img src="@/assets/prize.jpg" class="prize">
         </div>
         <div class="test_list">
-            <h1 class="word">成就</h1>>
+            <h1 class="word">成就</h1>
         </div>
 
         <div class="restart">{{ English_name }}</div>
@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             English_name: 'RESTART',
-            Chinese_name: '福大人生'
+            Chinese_name: '福大人生',
         }
     }
 
