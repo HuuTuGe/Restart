@@ -106,7 +106,6 @@ export default {
     background-color: rgba(255, 255, 255, 0.2);
     width: 246px;
     height: 68px;
-    margin-left: 72px;
     margin-top: 8px;
     font-size: 28px;
     text-align: center;
