@@ -1,18 +1,17 @@
 <template>
   <div class="app">
     <div class="box1">
-            <img src="..\public\return.png" alt="" class="return">
+      <img src="..\public\return.png" alt="" class="return" />
       <p class="text1">{{ msg }}</p>
-      <img src="..\public\普通成就.jpg" alt="" class="p1" />
+      <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
     <div class="box2">
-      <p class="text3">成就</p>
-      <p class="text4">收集进度</p>
-
+      <p class="text3">本次收集</p>
+      <p class="text4">成就个数</p>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src="..\public\成就一览.png" alt="" class="p3" />
       <span class="num1">{{ fz1 }}</span>
-      <span class="num2">/</span>
-      <span class="num3">60</span>
     </div>
 
     <div class="box3">
@@ -33,7 +32,6 @@
       <NAlist class="cont1"></NAlist>
       <NAlist class="cont1"></NAlist>
     </div>
-
     <div class="box5">
       <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -58,7 +56,7 @@ export default {
   },
   data() {
     return {
-      msg: "普通成就",
+      msg: "成就一览",
       fz1: "15",
       cj: "<<",
       fz: "1",
@@ -123,6 +121,7 @@ export default {
   font-family: Arial;
   position: relative;
 }
+
 .box4 {
   width: 390px;
   height: 310px;
@@ -193,40 +192,48 @@ export default {
   top: px;
   bottom: 130px;
   width: 150px;
-  height: 100px;
+  height: 130px;
   position: relative;
 }
+.p2 {
+  bottom: px;
+  width: 275px;
+  height: 69px;
+  text-align: left;
+  font-display: 700px;
+  font-family: ZKQingKeHuangYou-regular;
+  position: relative;
+}
+.p3 {
+  top: 20px;
+  left: px;
+  right: 130px;
+  bottom: px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+}
+
 .num1 {
-  left: 180px;
-  top: 30px;
+  left: 220px;
+  top: 40px;
   width: 67px;
   height: 64px;
   color: rgba(252, 202, 0, 1);
-  font-size: 48px;
+  font-size: 80px;
   text-align: right;
   font-family: ZKQingKeHuangYou-regular;
   position: absolute;
 }
-.num2 {
-  left: 205px;
-  top: 47px;
-  width: 105px;
-  height: 164px;
-  color: white;
-  font-size: 100px;
-  font-style: italic;
-  position: absolute;
-}
-.num3 {
-  left: 130px;
-  top: 70px;
-  width: 67px;
-  height: 64px;
-  color: rgba(255, 255, 255, 1);
-  font-size: 48px;
-  text-align: left;
-  font-family: ZKQingKeHuangYou-regular;
-  position: relative;
+
+.r {
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 3px;
+  padding-right: 10px;
+  margin-left: 20px;
+  margin-top: px;
+  /* float: left; */
 }
 .r {
   padding-top: 5px;
@@ -253,15 +260,7 @@ export default {
   right: px;
   font-size: 20px;
 }
-.p2 {
-  bottom: px;
-  width: 275px;
-  height: 69px;
-  text-align: left;
-  font-display: 700px;
-  font-family: ZKQingKeHuangYou-regular;
-  position: relative;
-}
+
 .gr {
   bottom: px;
   width: 275px;
@@ -280,13 +279,7 @@ export default {
   float: left;
   margin: 10px;
 }
-/* .cont2 {
-  padding-left: 10px;
-  padding-right: 10px;
-  float: right;
-  margin: 6px;
-} */
-.return{
+.return {
   left: 4px;
   top: 6px;
   bottom: px;
