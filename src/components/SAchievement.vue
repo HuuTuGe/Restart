@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <div class="box1">
-            <img src="..\public\return.png" alt="" class="return">
+      <img src="..\public\return.png" alt="" class="return" />
       <p class="text1">{{ msg }}</p>
-      <img src="..\public\普通成就.jpg" alt="" class="p1" />
+      <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
     <div class="box2">
@@ -12,7 +12,7 @@
 
       <span class="num1">{{ fz1 }}</span>
       <span class="num2">/</span>
-      <span class="num3">60</span>
+      <span class="num3">10</span>
     </div>
 
     <div class="box3">
@@ -58,10 +58,10 @@ export default {
   },
   data() {
     return {
-      msg: "普通成就",
-      fz1: "15",
+      msg: "特殊成就",
+      fz1: "2",
       cj: "<<",
-      fz: "1",
+      fz: "2",
       fm: "5",
     };
   },
@@ -193,7 +193,7 @@ export default {
   top: px;
   bottom: 130px;
   width: 150px;
-  height: 100px;
+  height: 130px;
   position: relative;
 }
 .num1 {
@@ -286,7 +286,7 @@ export default {
   float: right;
   margin: 6px;
 } */
-.return{
+.return {
   left: 4px;
   top: 6px;
   bottom: px;
