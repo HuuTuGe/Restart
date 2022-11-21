@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="box1">
-            <img src="../assets/return_icon.png" alt="" class="return">
+      <return_box></return_box>
       <p class="text1">{{ msg }}</p>
       <img src="..\public\普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -47,14 +47,15 @@
 </template>
 
 
-
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
+import return_box from '../components/return_box.vue'
 export default defineComponent({
   name: "app",
   components: {
     NAlist,
+    return_box,
   },
   data() {
     return {
@@ -146,6 +147,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
+  margin:10px;
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
@@ -190,11 +192,11 @@ export default defineComponent({
   position: absolute;
 }
 .p1 {
-  left: 95px;
+  left: 105px;
   top: px;
-  bottom: 130px;
-  width: 150px;
-  height: 100px;
+  bottom: 70px;
+  width: 130px;
+  height: 90px;
   position: relative;
 }
 .num1 {
