@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="box1">
-      <img src="..\public\return.png" alt="" class="return" />
+      <img src="../assets/return_icon.png" alt="" class="return" />
       <p class="text1">{{ msg }}</p>
       <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -49,7 +49,7 @@
 
 
 <script >
-import NAlist from "./NAlist.vue";
+import NAlist from "../components/NAlist.vue"
 
 export default {
   name: "app",
