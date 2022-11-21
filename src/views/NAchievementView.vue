@@ -49,7 +49,7 @@
 
 
 <script >
-import NAlist from "./NAlist.vue";
+import NAlist from "../components/NAlist.vue";
 
 export default {
   name: "app",

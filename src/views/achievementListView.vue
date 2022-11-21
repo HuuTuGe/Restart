@@ -21,7 +21,7 @@
     </div>
 
     <div class="box4">
-      <NAlist class="cont1" msg="四大天坑我来闯"></NAlist>
+      <NAlist class="cont1"></NAlist>
       <NAlist class="cont1" msg=""></NAlist>
       <NAlist class="cont1"></NAlist>
       <NAlist class="cont1"></NAlist>
@@ -32,6 +32,7 @@
       <NAlist class="cont1"></NAlist>
       <NAlist class="cont1"></NAlist>
     </div>
+
     <div class="box5">
       <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
