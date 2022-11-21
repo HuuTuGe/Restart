@@ -48,7 +48,7 @@
 
 
 
-<script >
+<script lang="ts">
 import NAlist from "../components/NAlist.vue"
 
 export default {
@@ -61,8 +61,8 @@ export default {
       msg: "特殊成就",
       fz1: "2",
       cj: "<<",
-      fz: "2",
-      fm: "5",
+      fz: 2,
+      fm: 5,
     };
   },
   methods: {
