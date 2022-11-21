@@ -19,8 +19,11 @@
          <div class="talentone">{{m1}}</div>
          <div class="talenttwo">强身健体{{m2}}</div>
          <div class="talentthree">{{m3}}</div>
-         <div class="sure">确认</div>
-
+         <router-link to="/Play">
+          <button class="sure">确认</button>
+         </router-link>
+         
+            
         </div>
 </template>
 
@@ -173,8 +176,8 @@ font-family: Arial;
 border: 1px solid rgba(187, 187, 187, 1);
 }
 .sure{
-  margin-top: 18px;
-  margin-left: 92px;
+margin-top: 18px;
+margin-left: 92px;
 width: 190px;
 height: 60px;
 line-height: 60px;

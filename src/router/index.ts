@@ -6,8 +6,9 @@ import Success from '../views/SuccessView.vue'
 import NAchievement from '../views/NAchievementView.vue'
 import SAchievement from '../views/SAchievementView.vue' 
 import AchievementList from '../views/AchievementListView.vue'
-import summary from '../components/summary.vue'
-import play from '../components/play.vue'
+import summary from '../views/SummaryView.vue'
+import play from '../views/PlayView.vue'
+import anniversary from '../views/AnniversaryView.vue'
 
 Vue.use(VueRouter)
 
@@ -18,17 +19,17 @@ const routes: Array<RouteConfig> = [
     component: index
   },
   {
-    path: '/select_talent',
+    path: '/SelectTalent',
     name: 'select-talent',
     component: SelectTalent
   },
   {
-    path: '/success',
+    path: '/Success',
     name: 'success',
     component: Success
   },
   {
-    path: '/summary',
+    path: '/Smmary',
     name: 'summary',
     component: summary
   },
@@ -48,14 +49,24 @@ const routes: Array<RouteConfig> = [
     component: AchievementList
   },
   {
+    path: '/Play',
+    name: 'play',
+    component: play
+  },
+  {
+    path: '/Anniversary',
+    name: 'anniversary',
+    component: anniversary
+  },
+  {
+    path: '/AchievementList',
+    name: 'AchievementList',  
+    component: AchievementList
+  },
+  {
     path: '*', redirect: '/',
     name: 'redirected'
   },
-  {
-    path: '/play',
-    name: 'play',
-    component: play
-  }
 ]
 
 const router = new VueRouter({

@@ -11,7 +11,7 @@
         <img src="@/assets/RESTART@1x.png" class='restart'/>
         <img src='@/assets/线条@1x.png' class='line'/>
         <img src="@/assets/福大人生@1x.png" class='life'/>
-        <router-link to="/select_talent">
+        <router-link to="/SelectTalent">
             <img src="@/assets/play.png" class="play">
         </router-link>
         
