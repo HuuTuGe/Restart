@@ -1,6 +1,8 @@
 <template>
       <div id="largestborder">
+        <return_box class="return"></return_box>
          <div class="result">
+          
           您被分配到<span id="blue">{{msg1}}</span>，请自行分配属性(共25点)
          </div>
          <div class="medium">
@@ -30,10 +32,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
+import return_box from '@/components/return_box.vue'
 export default {
 name: 'selecttalent',
 components:{
     add_reduce,
+    return_box
 },
 data () {
   return {
@@ -63,10 +67,13 @@ data () {
 
 
 }
-
+.return{
+  margin-top: 0px;
+  margin-left: 5px;
+}
 .result{
   float:left;
-  margin-top: 61px;
+  margin-top: 20px;
   margin-left:33px;
   margin-right:32px;
   width:325px;
@@ -80,7 +87,7 @@ data () {
   
 }
 .medium{
-  height:289px;
+  height:269px;
   
 }
 .ml{
@@ -113,7 +120,7 @@ background-color: rgba(255, 255, 255, 1);
 color: rgba(16, 16, 16, 1);
 font-size: 20px;
 margin-left: 118px;
-margin-top: 20px;
+margin-top: 0px;
 line-height: 47px;
 text-align: center;
 font-family: Arial;
@@ -177,7 +184,7 @@ border: 1px solid rgba(187, 187, 187, 1);
 }
 .sure{
 margin-top: 18px;
-margin-left: 92px;
+margin-left: 0px;
 width: 190px;
 height: 60px;
 line-height: 60px;

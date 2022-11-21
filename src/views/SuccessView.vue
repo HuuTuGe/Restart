@@ -1,5 +1,6 @@
 <template>
     <div id="largestborder">
+      <return_box class="return"></return_box>
       <!--<div id="success_fix">
        <div id="bluebg">
          <div id="SuccessCount"><div id="count1">{{count1}}</div></div>
@@ -44,8 +45,12 @@
 </template>
 
 <script lang="ts">
+import return_box from '@/components/return_box.vue';
 export default {
 name: 'success',
+components:{
+  return_box
+},
 data () {
   return {
     msg: '成就榜',
@@ -65,6 +70,9 @@ data () {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped >
+.return{
+  float:left;
+}
 #largestborder {
  height:722px;
  width:390px;
@@ -107,7 +115,7 @@ width:390px;
     
     }
      .justplace{
-      height:145px;
+      height:105px;
       width:390px;
       float:left;
       opacity: 0.7;
