@@ -48,7 +48,7 @@
 
 
 
-<script >
+<script lang="ts">
 import NAlist from "../components/NAlist.vue";
 
 export default {
@@ -61,8 +61,8 @@ export default {
       msg: "普通成就",
       fz1: "15",
       cj: "<<",
-      fz: "1",
-      fm: "5",
+      fz: 1,
+      fm: 5,
     };
   },
   methods: {
@@ -75,6 +75,7 @@ export default {
   },
 };
 </script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .app {
