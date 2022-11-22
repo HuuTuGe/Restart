@@ -46,13 +46,17 @@
   </div>
 </template>
 
-
+interface isState {
+  pageTitle: string,
+  store: any,
+  num: any
+}
 
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
-import return_box from "@/components/return_box.vue";
 import { defineComponent } from 'vue'
 import Return_box from "@/components/return_box.vue";
+
 export default defineComponent({
   name: "app",
   components: {
@@ -77,6 +81,7 @@ export default defineComponent({
     },
   },
 });
+
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

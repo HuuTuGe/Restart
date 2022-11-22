@@ -4,6 +4,7 @@
       <!-- <img src="../assets/return_icon.png" alt="" class="return" /> -->
       <Return_box from="/Success" class="return"></Return_box>
       <p class="text1">{{ msg }}</p>
+
       <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -51,15 +52,8 @@
 
 <script lang="ts">
 import NAlist from "../components/NAlist.vue"
-import { defineComponent } from 'vue'
-import Return_box from "@/components/return_box.vue";
-// interface NALIST {
-//   msg: string
-//   fz1: string
-//   cj: string
-//   fz: number
-//   fm: number
-// }
+import { defineComponent } from "vue";
+import Return_box from '../components/return_box.vue'
 export default defineComponent({
   name: "app",
   components: {
@@ -159,6 +153,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
+  margin:10px;
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
@@ -203,9 +198,9 @@ export default defineComponent({
   position: absolute;
 }
 .p1 {
-  left: 95px;
+  left: 110px;
   top: px;
-  bottom: 130px;
+  bottom: 70px;
   width: 150px;
   height: 130px;
   position: relative;

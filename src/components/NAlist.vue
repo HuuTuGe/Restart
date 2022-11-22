@@ -15,8 +15,8 @@ export default defineComponent({
     return {
       Dstyle: {
         background: "red",
-        id: 1,
-        achievement: 0,
+        id:1,
+        achievement : 0,
       },
     };
   },

@@ -3,6 +3,7 @@
     <div class="box1">
       <!-- <img src="../assets/return_icon.png" alt="" class="return"> -->
       <Return_box from="/Success" class="return"></Return_box>
+
       <p class="text1">{{ msg }}</p>
       <img src="..\public\普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -46,7 +47,6 @@
     </div>
   </div>
 </template>
-
 
 
 <script lang="ts">
@@ -149,6 +149,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
+  margin:10px;
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
@@ -193,11 +194,11 @@ export default defineComponent({
   position: absolute;
 }
 .p1 {
-  left: 95px;
+  left: 105px;
   top: px;
-  bottom: 130px;
-  width: 150px;
-  height: 100px;
+  bottom: 70px;
+  width: 130px;
+  height: 90px;
   position: relative;
 }
 .num1 {
