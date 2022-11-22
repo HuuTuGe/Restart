@@ -1,7 +1,8 @@
 <template>
   <div class="app">
     <div class="box1">
-            <img src="../assets/return_icon.png" alt="" class="return">
+      <!-- <img src="../assets/return_icon.png" alt="" class="return"> -->
+      <Return_box from="/Success" class="return"></Return_box>
       <p class="text1">{{ msg }}</p>
       <img src="..\public\普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -50,12 +51,14 @@
 
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
-
-export default {
+import { defineComponent } from 'vue'
+import Return_box from "@/components/return_box.vue";
+export default defineComponent({
   name: "app",
   components: {
     NAlist,
-  },
+    Return_box
+},
   data() {
     return {
       msg: "普通成就",
@@ -73,7 +76,7 @@ export default {
       if (this.fz < this.fm) this.fz++;
     },
   },
-};
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,6 +1,6 @@
 <template>
       <div id="largestborder">
-        <return_box class="return"></return_box>
+        <return_box class="return" from="/"></return_box>
          <div class="result">
           
           您被分配到<span id="blue">{{msg1}}</span>，请自行分配属性(共25点)

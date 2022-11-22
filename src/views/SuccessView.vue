@@ -29,16 +29,28 @@
           
        </div>
 
-       <div id="details">
-           <p>成就详情</p>
-           <div id="specialtotal">
-           <div id="special"></div>
-           <div id="specialdt"><div class="stype">特殊成就</div><div class="sreason">学校特色剧情触发</div><div class="COUNT">{{count2}}/{{total2}}</div> <div class="check"></div></div>
-          </div>
-          <div id="commomtotal">
-           <div id="commom"></div>
-           <div id="commomdt"><div class="stype">普通成就</div><div class="sreason">学院/常规剧情触发</div><div class="COUNT">{{count3}}/{{total3}}</div> <div class="check"></div></div>
-          </div>
+       <div id="details" >
+          <p>成就详情</p>
+          <router-link to="/SAchievement">
+            <div id="specialtotal">
+            <div id="special"></div>
+            <div id="specialdt"><div class="stype">特殊成就</div>
+            <div class="sreason">学校特色剧情触发</div>
+            <div class="COUNT">{{count2}}/{{total2}}</div> 
+            <div class="check"></div></div>
+            </div>
+          </router-link>
+          <router-link to="/NAchievement">
+            <div id="commomtotal">
+            <div id="commom"></div>
+            <div id="commomdt">
+            <div class="stype">普通成就</div>
+            <div class="sreason">学院/常规剧情触发</div>
+            <div class="COUNT">{{count3}}/{{total3}}</div> 
+            <div class="check"></div></div>
+            </div>
+          </router-link>
+          
        </div>
     </div>
    
@@ -62,6 +74,7 @@ data () {
     total3:15
 
   }
+
 }
 }
 
@@ -102,16 +115,16 @@ width:390px;
 }*/
 .box1{
       
-      width: 390px;
-      height: 242px;
-      
-      background:url(../assets/成就榜大字.png)  0px 0px;
-      background-color:#D4EBF7;
-      background-size:390px 253px;
-      color: rgba(16, 16, 16, 1);
-      font-size: 14px;
-     
-      font-family: Arial;
+  width: 390px;
+  height: 242px;
+  
+  background:url(../assets/成就榜大字.png)  0px 0px;
+  background-color:#D4EBF7;
+  background-size:390px 253px;
+  color: rgba(16, 16, 16, 1);
+  font-size: 14px;
+  
+  font-family: Arial;
     
     }
      .justplace{
@@ -148,95 +161,95 @@ width:390px;
        
         
     }
-              .text1{
-              margin-left:21 px;
-              
-              margin-top: 34 px;
-              
-              width: 275px;
-              height: 69px;
-              color: rgba(16, 16, 16, 1);
-              font-size: 55px;
-              /* text-align: left; */
-              /* font-display: 700px; */
-              font-weight: 700px;
-              font-family: ZKQingKeHuangYou-regular;
-                  position: relative;
-              }
-              .text2{
-              left: 20px;
-              right: 5px;
-              bottom: 130px;
-              top:px;
-              width: 158px;
-              height: 28px;
-              color: rgba(16, 16, 16, 1);
-              font-size: 20px;
-              text-align: left;
-              font-family: PingFangSC-regular;
-              position: relative;
-                }
-                .text3{
-              left: 18px;
-              bottom:px;
-              top: px;
-              width: 250px;
-              height: 310px;
-              color: rgb(250, 248, 248);
-              font-size: 33px;
-              text-align: left;
-              /* font-family: PingFangSC-regular; */
-              position:absolute;
-              }
-             .text4{
-              left: 18px;
-              top: 35px;
-              width: 250px;
-              height: 310px;
-              color: rgba(255, 255, 255, 1);
-              font-size: 36px;
-              text-align: left;
-              font-family: PingFangSC-regular;
-              position:absolute;
-              }
-              .p1{
-         float:right;
-         margin:6px 29px 66px 182px;
-          width: 150px;
-          height: 100px;
-          position: relative;
-        }
-              .num1{
-          left: 180px;
-          top: 30px;
-          width: 67px;
-          height: 64px;
-          color: rgba(252, 202, 0, 1);
-          font-size: 48px;
-          text-align: right;
-          font-family: ZKQingKeHuangYou-regular;
-          position: absolute;
-        }
-        .num2{
-          left: 205px;
-          top: 47px;
-          width: 105px;
-          height: 164px;
-          color: white;
-          font-size: 100px;
-          font-style: italic;
-          position: absolute;
-        }
-      .num3{
-        left: 130px;
-          top: 70px;
-          width: 67px;
-          height: 64px;
-          color: rgba(255, 255, 255, 1);
-          font-size: 48px;
-          text-align: left;
-          font-family: ZKQingKeHuangYou-regular;
-          position: relative;
+  .text1{
+  margin-left:21 px;
+
+  margin-top: 34 px;
+
+  width: 275px;
+  height: 69px;
+  color: rgba(16, 16, 16, 1);
+  font-size: 55px;
+  /* text-align: left; */
+  /* font-display: 700px; */
+  font-weight: 700px;
+  font-family: ZKQingKeHuangYou-regular;
+      position: relative;
+  }
+  .text2{
+  left: 20px;
+  right: 5px;
+  bottom: 130px;
+  top:px;
+  width: 158px;
+  height: 28px;
+  color: rgba(16, 16, 16, 1);
+  font-size: 20px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  position: relative;
+    }
+    .text3{
+  left: 18px;
+  bottom:px;
+  top: px;
+  width: 250px;
+  height: 310px;
+  color: rgb(250, 248, 248);
+  font-size: 33px;
+  text-align: left;
+  /* font-family: PingFangSC-regular; */
+  position:absolute;
+  }
+  .text4{
+  left: 18px;
+  top: 35px;
+  width: 250px;
+  height: 310px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 36px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+  position:absolute;
+  }
+  .p1{
+  float:right;
+  margin:6px 29px 66px 182px;
+  width: 150px;
+  height: 100px;
+  position: relative;
+  }
+  .num1{
+  left: 180px;
+  top: 30px;
+  width: 67px;
+  height: 64px;
+  color: rgba(252, 202, 0, 1);
+  font-size: 48px;
+  text-align: right;
+  font-family: ZKQingKeHuangYou-regular;
+  position: absolute;
+  }
+  .num2{
+  left: 205px;
+  top: 47px;
+  width: 105px;
+  height: 164px;
+  color: white;
+  font-size: 100px;
+  font-style: italic;
+  position: absolute;
+  }
+  .num3{
+  left: 130px;
+  top: 70px;
+  width: 67px;
+  height: 64px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 48px;
+  text-align: left;
+  font-family: ZKQingKeHuangYou-regular;
+  position: relative;
       }
 #details{
 margin-bottom: 0px;
@@ -323,7 +336,7 @@ height:150px;
 .COUNT{
   float:left;
   display:inline;
-  margin-left: 5px;
+  margin-left: 80px;
   margin-top: 40px;
   color:#F5222D;
 }
