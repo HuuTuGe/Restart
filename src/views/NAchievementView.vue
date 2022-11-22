@@ -149,7 +149,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
-  margin:10px;
+  /* margin:10px; */
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
