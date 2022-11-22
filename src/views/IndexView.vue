@@ -3,15 +3,18 @@
         <div class="upper_list">
             <img src="@/assets/sound.png" class="sound">
             <img src="@/assets/change.png" class="sound">
-            <img src="@/assets/prize.jpg" class="prize">
+            <router-link to="/Success">
+                <img src="@/assets/prize.jpg" class="prize">
+            </router-link>
         </div>
         <div class="test_list">
             <h1 class="word">成就</h1>
         </div>
+        
         <img src="@/assets/RESTART@1x.png" class='restart'/>
         <img src='@/assets/线条@1x.png' class='line'/>
         <img src="@/assets/福大人生@1x.png" class='life'/>
-        <router-link to="/SelectTalent">
+        <router-link to="/Choice">
             <img src="@/assets/play.png" class="play">
         </router-link>
         

@@ -1,12 +1,36 @@
 <template>
-    <div class="return_box">
-        <img src="@/assets/return_icon.png" class="return_icon">
+    <div class="return_box" >
+        <router-link :to="from">
+            <img src="../assets/antFill-home.svg" class="return_icon" v-if="home">
+            <img src="../assets/return_icon.png" class="return_icon" v-if="back">
+        </router-link>
     </div>
 </template>
+
 <script lang="ts">
-export default {
-    name: 'return_box'
-}
+import Vue from 'vue';
+
+export default Vue.extend({
+    name: 'return_box',
+    props: {
+        from: {required: true, type: String, default: "/"}
+    },
+    data() {
+        return {
+            home: false,
+            back: false
+        }
+    },
+    mounted() {
+        if (this.from == "/" ) {
+                this.home = true
+        }
+        else {
+            this.back = true
+        }
+    }
+
+}); 
 </script>
   
 <style scoped lang="scss">

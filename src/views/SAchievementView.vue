@@ -1,7 +1,10 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>      <p class="text1">{{ msg }}</p>
+      <!-- <img src="../assets/return_icon.png" alt="" class="return" /> -->
+      <Return_box from="/Success" class="return"></Return_box>
+      <p class="text1">{{ msg }}</p>
+
       <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -50,12 +53,12 @@
 <script lang="ts">
 import NAlist from "../components/NAlist.vue"
 import { defineComponent } from "vue";
-import return_box from '../components/return_box.vue'
+import Return_box from '../components/return_box.vue'
 export default defineComponent({
   name: "app",
   components: {
     NAlist,
-    return_box,
+    Return_box,
   },
   data() {
     return {
@@ -67,11 +70,15 @@ export default defineComponent({
     };
   },
   methods: {
-    changebefore() {
-      if (this.fz > 1) this.fz--;
+    changebefore(): void {
+      if (this.fz > 1) {
+        this.fz--;
+      }
     },
     changelast() {
-      if (this.fz < this.fm) this.fz++;
+      if (this.fz < this.fm) {
+        this.fz++;
+      }
     },
   },
 });
@@ -146,7 +153,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
-  margin:10px;
+  /* margin:10px; */
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);

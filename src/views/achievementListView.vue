@@ -1,7 +1,8 @@
 <template>
   <div class="app">
-    <div class="box1">
-      <img src="src\assets\return_icon.png" alt="" class="return" />
+    <div class="box1">  
+      <Return_box class="return" from="/summary"></Return_box>
+      <!-- <img src="../assets/return_icon.png" alt="" class="return" /> -->
       <p class="text1">{{ msg }}</p>
       <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -53,12 +54,15 @@ interface isState {
 
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
+import Return_box from "@/components/return_box.vue";
+
 export default defineComponent({
   name: "app",
   components: {
     NAlist,
-  },
+    Return_box
+},
   data() {
     return {
       msg: "成就一览",
@@ -69,10 +73,10 @@ export default defineComponent({
     };
   },
   methods: {
-    changebefore() {
+    changebefore: function() {
       if (this.fz > 1) this.fz--;
     },
-    changelast() {
+    changelast: function() {
       if (this.fz < this.fm) this.fz++;
     },
   },

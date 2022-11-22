@@ -3,7 +3,7 @@
     <div class="header">
       <div class="head">
         <!-- <div class="back"></div> -->
-        <return_box></return_box>
+        <return_box from="/" ></return_box>
         <div class="light"><img src="../assets/light.jpg" alt=""></div>
         <h1 class="term">学期</h1>
         <div class="shu">

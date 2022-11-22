@@ -5,8 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: "NAlist",
   props: {
@@ -49,7 +48,6 @@ export default defineComponent({
     this.Change_Color();
   },
 });
-
 </script>
 
 <style>
