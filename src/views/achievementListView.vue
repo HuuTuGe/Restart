@@ -45,12 +45,16 @@
   </div>
 </template>
 
+interface isState {
+  pageTitle: string,
+  store: any,
+  num: any
+}
 
-
-<script >
+<script lang="ts">
 import NAlist from "../components/NAlist.vue";
-
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   name: "app",
   components: {
     NAlist,
@@ -60,8 +64,8 @@ export default {
       msg: "成就一览",
       fz1: "15",
       cj: "<<",
-      fz: "1",
-      fm: "5",
+      fz: 1,
+      fm: 5,
     };
   },
   methods: {
@@ -72,7 +76,8 @@ export default {
       if (this.fz < this.fm) this.fz++;
     },
   },
-};
+});
+
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
