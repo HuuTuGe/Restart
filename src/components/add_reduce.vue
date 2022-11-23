@@ -1,8 +1,8 @@
 <template>
     <div class="bigc">
-    <button class="reduce" @click="reducedata" >-</button>
+    <button class="reduce" @click="reducedata" :disabled="dis">-</button>
     <div class="number">{{count}}</div>
-    <button class="add" @click="adddata">+</button>
+    <button class="add" @click="adddata" :disabled="dis">+</button>
     </div>
    
 </template>
@@ -13,6 +13,7 @@ export default {
 name: 'add_reduce',
 props:{
       count:Number,
+      dis:Boolean
 },
 methods:{
      reducedata(){

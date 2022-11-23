@@ -18,7 +18,7 @@
 
          <div class="ml" @click.capture="getindex" index="4"><div class="shuxing">家境</div><add_reduce v-if="countamout[4]" :count="countamout[4]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
          -->
-         <div class="ml" v-for="(item,index) in countamout" :index="index"><div class="shuxing">{{item.shuxing}}</div><add_reduce  :count="item.count" @reducechangedata="reducechild(index)" @addchangedata="addchild(index)" ></add_reduce></div>
+         <div class="ml" v-for="(item,index) in countamout" :index="index"><div class="shuxing">{{item.shuxing}}</div><add_reduce   :count="item.count" @reducechangedata="reducechild(index)" @addchangedata="addchild(index)" ></add_reduce></div>
          
         </div>
          <div class="Randombutton" @click="randomassign">随机分配属性</div>
@@ -56,26 +56,32 @@ computed:{
 methods:{
      
       reducechild(index){
-        
+      
+        if(this.countamout[index].count>0)
         this.countamout[index].count-=1;
         
       },
       addchild(index){
-        
-        this.countamout[index].count+=1;
-        
+        let acount= this.countamout[0].count+ this.countamout[1].count +this.countamout[2].count +this.countamout[3].count +this.countamout[4].count;
+       
+        if( acount<20)
+        {
+          this.countamout[index].count+=1;
+             
+        }
+   
       },
       randomassign(){
         let a1=Math.floor(Math.random() * (25 - 0)) ;
         let a2=Math.floor(Math.random() * (25 - a1));
         let a3=Math.floor(Math.random() * (25 - a1-a2));
         let a4=Math.floor(Math.random() * (25 - a1-a2-a3));
-        let a5=Math.floor(Math.random() * (25 - a1-a2-a3-a4));
-        this.countamout[1].count=a1;
-        this.countamout[2].count=a2;
-        this.countamout[3].count=a3;
-        this.countamout[4].count=a4;
-        this.countamout[5].count=a5;
+        let a5=25-a1-a2-a3-a4;
+        this.countamout[0].count=a1;
+        this.countamout[1].count=a2;
+        this.countamout[2].count=a3;
+        this.countamout[3].count=a4;
+        this.countamout[4].count=a5;
 
       },
       chooseone(){
@@ -99,7 +105,8 @@ data () {
        flag3:true,
        m1:"社交牛逼症(魅力+3)",
        m2:"强身健体(体质+2,心情+1)",
-       m3:"天选之子(运气+3)"
+       m3:"天选之子(运气+3)",
+
 
 
   }
@@ -147,7 +154,7 @@ data () {
   display:flex;
   align-items: center;
   justify-content:space-between;
-  background-color:red;
+ 
  
 }
 .shuxing{
