@@ -1,7 +1,9 @@
 <template>
-    <button class="profession_box">
-        <div class="test_center">{{ msg }}</div>
-    </button>
+    <router-link to="/SelectTalent">
+        <button class="profession_box">
+            <div class="test_center">{{ msg }}</div>
+        </button>
+    </router-link>
 </template>
 <script lang="ts">
 export default {

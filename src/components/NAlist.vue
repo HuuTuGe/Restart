@@ -4,8 +4,9 @@
   </span>
 </template>
 
-<script >
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: "NAlist",
   props: {
     msg: String,
@@ -14,8 +15,8 @@ export default {
     return {
       Dstyle: {
         background: "red",
-        id: 1,
-        achievement: 0,
+        id:1,
+        achievement : 0,
       },
     };
   },
@@ -46,7 +47,7 @@ export default {
   mounted() {
     this.Change_Color();
   },
-};
+});
 </script>
 
 <style>

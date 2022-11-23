@@ -5,6 +5,7 @@
       <div class="ach_con">{{x}}</div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'ach_box',

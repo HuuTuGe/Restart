@@ -37,8 +37,6 @@ export default {
     float: left;
 }
 
-.month_content {}
-
 .photo_text {
     float: left;
     width: 256px;
