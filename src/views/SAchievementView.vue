@@ -1,7 +1,8 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>      <p class="text1">{{ msg }}</p>
+      <return_box></return_box>     
+       <p class="text1">{{ msg }}</p>
       <img src="..\public\特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -20,17 +21,12 @@
       <span class="gr"> >> </span>
     </div>
 
-    <div class="box4">
-      <NAlist class="cont1" msg="四大天坑我来闯"></NAlist>
-      <NAlist class="cont1" msg=""></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
+    <div class="box4" >
+      <!-- <div class="cont1" msg="万无一失" color="blue"></div> -->
+      <NAlist class="cont1" :msg="item.message" :c="item.id" v-for="(item, index) in items" 
+      :value="item.message" :key="index" ></NAlist> 
+      <!-- <NAlist class="cont1" msg="" :class="classObj"></NAlist>
+      <NAlist class="cont1" msg=""></NAlist> -->
     </div>
 
     <div class="box5">
@@ -64,6 +60,8 @@ export default defineComponent({
       cj: "<<",
       fz: 2,
       fm: 5,
+      items:[{message:"qdwfre",id:"1"},{message:"wwded",id:"2"},{message:"wwded",id:"3"},
+     ]
     };
   },
   methods: {
