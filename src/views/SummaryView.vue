@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Return_box></Return_box>
+        <Return_box from="/"></Return_box>
         <div class="accomplishment_box">
             <div class="accomplishment_blankbox"></div>
 
@@ -8,8 +8,10 @@
                 <h1 class="summary_title">总结</h1>
             </div>
             <div class="accomplishment_linking">
-                <img src="@/assets/prize.jpg" class="accomplishment_prize">
-                <h1 class="word">成就</h1>
+                <router-link to="/AchievementList">
+                    <img src="@/assets/prize.jpg" class="accomplishment_prize">
+                    <h1 class="word">成就</h1>
+                </router-link>
             </div>
         </div>
         <div class="blue_background">
@@ -17,7 +19,9 @@
                 comments="和大部分大学牲一样，体质下降了；每学期在各方面大起大落，还好有惊无险，整体还算努力，顺利考研，走上人生巅峰。个人魅力获得提升，不久后应该会获得对象一枚。钱包不小心空空了，在运用自己的财产方面还需进步哦。">
             </comment>
             <div class="summary_end">
-                <button class="summary_circle">进入纪念册</button>
+                <router-link to="/Anniversary">
+                    <button class="summary_circle">进入纪念册</button>
+                </router-link>
             </div>
         </div>
 

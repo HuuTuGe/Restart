@@ -46,12 +46,12 @@
 <script lang="ts">
 import NAlist from "../components/NAlist.vue"
 import { defineComponent } from "vue";
-import return_box from '../components/return_box.vue'
+import Return_box from '../components/return_box.vue'
 export default defineComponent({
   name: "app",
   components: {
     NAlist,
-    return_box,
+    Return_box,
   },
   data() {
     return {
@@ -65,11 +65,15 @@ export default defineComponent({
     };
   },
   methods: {
-    changebefore() {
-      if (this.fz > 1) this.fz--;
+    changebefore(): void {
+      if (this.fz > 1) {
+        this.fz--;
+      }
     },
     changelast() {
-      if (this.fz < this.fm) this.fz++;
+      if (this.fz < this.fm) {
+        this.fz++;
+      }
     },
   },
 });
@@ -144,7 +148,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
-  margin:10px;
+  /* margin:10px; */
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);

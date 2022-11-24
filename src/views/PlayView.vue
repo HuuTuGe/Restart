@@ -3,7 +3,7 @@
     <div class="header">
       <div class="head">
         <!-- <div class="back"></div> -->
-        <return_box></return_box>
+        <return_box from="/"></return_box>
         <div class="light"><img src="../assets/light.jpg" alt=""></div>
         <h1 class="term">学期</h1>
         <div class="shu">
@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 /* 注意scoped*/
 .app {
   width: 390px;
@@ -120,8 +120,31 @@ div {
   top: 330px;
   width: 390px;
   height: 400px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
+
+.con::-webkit-scrollbar {
+  background-color: #f8f8f800;
+}
+
+.con::-webkit-scrollbar-thumb {
+  background-color: #dddddd;
+  border-radius: 100px;
+}
+
+.con::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.con::-webkit-scrollbar-corner {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.con::-webkit-scrollbar {
+  width: 20px;
+  transition: all 2s;
+}
+
 
 .back {
   display: inline-block;

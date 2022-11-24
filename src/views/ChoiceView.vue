@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Return_box></Return_box>
+        <Return_box from="/"></Return_box>
         <div class="major_choice">选择专业方向：</div>
         <Profession msg="文" onclick="choice1()"></Profession>
         <div class="major_margin"></div>
@@ -9,12 +9,13 @@
         <Profession msg="工" onclick="choice3()"></Profession>
     </div>
 </template>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script lang="ts">
-import axios from 'axios';
-import Profession from './profession.vue';
-import Return_box from './return_box.vue';
-
-export default {
+import Profession from '../components/profession.vue';
+import Return_box from '../components/return_box.vue';
+import { defineComponent } from 'vue'
+import axios from 'axios'
+export default defineComponent({
     name: "app",
     data() {
         return {
@@ -29,13 +30,13 @@ export default {
             axios
                 .get('/academychoice', {
                     params: {
-                        id: 1
+                        academy_type:'文'
                     }
                 })
-                .then(function (response) {
+                .then(function (response:any) {
                     console.log(response);
                 })
-                .catch(function (error) {
+                .catch(function (error:any) {
                     console.log(error);
                 })
         },
@@ -43,13 +44,13 @@ export default {
             axios
                 .get('/academychoice', {
                     params: {
-                        ID: 2
+                        academy_type:'理'
                     }
                 })
-                .then(function (response) {
+                .then(function (response: any) {
                     console.log(response);
                 })
-                .catch(function (error) {
+                .catch(function (error: any) {
                     console.log(error);
                 })
         },
@@ -57,18 +58,18 @@ export default {
             axios
                 .get('/academychoice', {
                     params: {
-                        ID: 3
+                        academy_type:'工'
                     }
                 })
-                .then(function (response) {
+                .then(function (response: any) {
                     console.log(response);
                 })
-                .catch(function (error) {
+                .catch(function (error: any) {
                     console.log(error);
                 })
         }
     }
-}
+})
 </script>
 
 <style scoped lang="scss">
