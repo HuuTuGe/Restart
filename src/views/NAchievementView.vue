@@ -24,11 +24,8 @@
     </div>
 
     <div class="box4" >
-      <!-- <div class="cont1" msg="万无一失" color="blue"></div> -->
       <NAlist class="cont1" :msg="item.message" :c="item.id" v-for="(item, index) in items" 
       :value="item.message" :key="index" ></NAlist> 
-      <!-- <NAlist class="cont1" msg="" :class="classObj"></NAlist>
-      <NAlist class="cont1" msg=""></NAlist> -->
     </div>
 
     <div class="box5">
