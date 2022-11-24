@@ -23,21 +23,13 @@
       <span class="gr"> >> </span>
     </div>
 
-    <div class="box4">
-      <NAlist class="cont1" msg="四大天坑我来闯"></NAlist>
-      <NAlist class="cont1" msg=""></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
+    <div class="box4" >
+      <NAlist class="cont1" :msg="item.message" :c="item.id" v-for="(item, index) in items" 
+      :value="item.message" :key="index" ></NAlist> 
     </div>
 
     <div class="box5">
-      <input type="button" value="上一页" class="r" @click="changebefore" />
+      <input type="button" value="上一页" class="r" res="chenbushui" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <span class="one">{{ fz }} </span>
       <span class="one">/</span>
@@ -50,6 +42,7 @@
 
 
 <script lang="ts">
+
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from 'vue'
 import Return_box from "@/components/return_box.vue";
@@ -66,6 +59,12 @@ export default defineComponent({
       cj: "<<",
       fz: 1,
       fm: 5,
+      // classObj:{
+      //   atguigu1:true,
+      // },
+      items:[{message:"qdwfre",id:"1"},{message:"wwded",id:"2"},{message:"wwded",id:"3"},
+     ]
+      // content:"items[index].id"
     };
   },
   methods: {
@@ -77,10 +76,17 @@ export default defineComponent({
     },
   },
 });
+
+// var btns = document.getElementsByTagName('Nalist')
+//   for(var i = 0;length=btns.length,i<length;i++)
+//   {
+//     let btn =btns[i]
+//   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style >
+
 .app {
   width: 390px;
   height: 722px;
@@ -284,6 +290,16 @@ export default defineComponent({
   padding-right: 10px;
   float: left;
   margin: 10px;
+  background-color: rgb(255, 255, 255);
+  width: 145px;
+  height: 35px;
+  line-height: 40px;
+  /* background-color: rgb(253, 251, 251); */
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid rgba(187, 187, 187, 1);
+  border: 1px solid #000;
+  border-radius: 5px 5px 5px 5px;
 }
 /* .cont2 {
   padding-left: 10px;
@@ -299,5 +315,6 @@ export default defineComponent({
   height: 40px;
   position: absolute;
 }
+/* .active{background-color: gray;} */
 </style>
 
