@@ -124,7 +124,6 @@ export default defineComponent({
       if (acount < 20) {
         this.countamout[index].count += 1;
 
-=======
 
     reducechild(index) {
 
@@ -138,7 +137,7 @@ export default defineComponent({
       if (acount < 20) {
         this.countamout[index].count += 1;
 
->>>>>>> 690440e979d10f6750df19c8ac4b999da8d18ebd
+
       }
 
     },
