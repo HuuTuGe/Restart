@@ -30,7 +30,7 @@ export default defineComponent({
             axios
                 .get('/academychoice', {
                     params: {
-                        id: 1
+                        ID: 1
                     }
                 })
                 .then(function (response:any) {
