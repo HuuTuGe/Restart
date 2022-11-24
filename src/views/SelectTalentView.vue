@@ -3,11 +3,11 @@
     <return_box class="return" from="/"></return_box>
     <div class="result">
 
-<<<<<<< HEAD
+
       您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点)
-=======
+
       您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{ indexvalue }}
->>>>>>> 690440e979d10f6750df19c8ac4b999da8d18ebd
+
     </div>
     <div class="medium">
       <!--<div class="ml"   @click.capture="getindex" index="0"><div class="shuxing">智力</div><add_reduce  v-if="countamout[0]" :count="countamout[0]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
@@ -31,19 +31,19 @@
     </div>
     <div class="Randombutton" @click="randomassign">随机分配属性</div>
     <div class="talentchoose">请选择两个天赋</div>
-<<<<<<< HEAD
+
     <div class="talentone" v-if="flag1" @click="chooseone" :style="Dstyleone">{{ m1 }}</div>
     <div class="talenttwo" v-if="flag2" @click="choosetwo" :style="Dstyletwo">{{ m2 }}</div>
     <div class="talentthree" v-if="flag3" @click="choosethree" :style="Dstylethree">{{ m3 }}</div>
-    <router-link to="/Play">
+   
       <button class="sure" @click="givenext">确认</button>
-=======
+    
     <div class="talentone" v-if="flag1" @click="chooseone">{{ m1 }}</div>
     <div class="talenttwo" v-if="flag2" @click="choosetwo">{{ m2 }}</div>
     <div class="talentthree" v-if="flag3" @click="choosethree">{{ m3 }}</div>
     <router-link to="/Play">
       <button class="sure">确认</button>
->>>>>>> 690440e979d10f6750df19c8ac4b999da8d18ebd
+
     </router-link>
 
 
@@ -53,12 +53,12 @@
 <script lang="js" >
 import Vue, { defineComponent } from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
-<<<<<<< HEAD
+
 import return_box from '@/components/return_box.vue';
 import axios from 'axios';
-=======
+
 import return_box from '@/components/return_box.vue'
->>>>>>> 690440e979d10f6750df19c8ac4b999da8d18ebd
+
 export default defineComponent({
   name: 'selecttalent',
   components: {
@@ -75,7 +75,7 @@ export default defineComponent({
   },
 
   methods: {
-<<<<<<< HEAD
+
     givenext(){
       
     },
@@ -171,7 +171,7 @@ export default defineComponent({
       msg1: '计算机科学与技术学院',
       countamout: [{ shuxing: '智力', count: 1 }, { shuxing: '体质', count: 1 },
       { shuxing: '魅力', count: 1 }, { shuxing: '运气', count: 1 }, { shuxing: '家境', count: 1 }],
-<<<<<<< HEAD
+
       resultamout: [{ shuxing: '智力', count: 0 }, { shuxing: '体质', count: 0 },
       { shuxing: '魅力', count: 0 }, { shuxing: '运气', count: 0 }, { shuxing: '家境', count: 0 }],
 
@@ -381,13 +381,13 @@ export default defineComponent({
   height: 44px;
   line-height: 29px;
   border-radius: 15px 15px 15px 15px;
-<<<<<<< HEAD
+
   background-color: rgba(255, 255, 255, 255);
   color: black;
-=======
+
   background-color: rgba(89, 27, 183, 1);
   color: rgba(255, 255, 255, 1);
->>>>>>> 690440e979d10f6750df19c8ac4b999da8d18ebd
+
   font-size: 20px;
   line-height: 44px;
   text-align: center;
