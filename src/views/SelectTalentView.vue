@@ -235,7 +235,7 @@ export default defineComponent({
 
   ]);
 }
-=======
+
       flag1: true,
       flag2: true,
       flag3: true,
@@ -247,7 +247,7 @@ export default defineComponent({
 
     }
   }
->>>>>>> 690440e979d10f6750df19c8ac4b999da8d18ebd
+
 });
 
 </script >
