@@ -4,7 +4,7 @@
     <div class="result">
 
 
-      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点)
+      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{$store.state.talent.intelligence}}
 
     </div>
     <div class="medium">
@@ -42,10 +42,10 @@
   </div>
 </template>
 
-<script lang="js" >
+<script lang="ts" >
 import Vue, { defineComponent } from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
-
+import axios from 'axios';
 import return_box from '@/components/return_box.vue';
 
 export default defineComponent({
@@ -55,13 +55,13 @@ export default defineComponent({
     return_box
 
   },
-  computed: {
-    getindex(ev) {
+  // computed: {
+  //   getindex(ev) {
 
-      this.indexvalue = ev.target.index;
+  //     this.indexvalue = ev.target.index;
 
-    }
-  },
+  //   }
+  // },
 
   methods: {
 
@@ -71,7 +71,7 @@ export default defineComponent({
     Change_Colorone() {
       
         switch(this.Dstyleone.rarity){
-          case 1:this.Dstyleone.background = 'white';break;
+          case 1:this.Dstyleone.background = 'white';this.Dstyleone.color = 'black';break;
           case 2:this.Dstyleone.background = 'blue';this.Dstyleone.color = 'white';break;
           case 3:this.Dstyleone.background = 'purple';this.Dstyleone.color = 'white';break;
           case 4:this.Dstyleone.background = 'orange';this.Dstyleone.color = 'white';break;
@@ -81,7 +81,7 @@ export default defineComponent({
       Change_Colortwo() {
       
       switch(this.Dstyletwo.rarity){
-        case 1:this.Dstyletwo.background = 'white';break;
+        case 1:this.Dstyletwo.background = 'white';this.Dstyletwo.color = 'black';break;
         case 2:this.Dstyletwo.background = 'blue';this.Dstyletwo.color = 'white';break;
         case 3:this.Dstyletwo.background = 'purple';this.Dstyletwo.color = 'white';break;
         case 4:this.Dstyletwo.background = 'orange';this.Dstyletwo.color = 'white';break;
@@ -91,7 +91,7 @@ export default defineComponent({
     Change_Colorthree() {
       
       switch(this.Dstylethree.rarity){
-        case 1:this.Dstylethree.background = 'white';;break;
+        case 1:this.Dstylethree.background = 'white';this.Dstylethree.color = 'black';;break;
         case 2:this.Dstylethree.background = 'blue';this.Dstylethree.color = 'white';break;
         case 3:this.Dstylethree.background = 'purple';this.Dstylethree.color = 'white';break;
         case 4:this.Dstylethree.background = 'orange';this.Dstylethree.color = 'white';break;
@@ -101,36 +101,25 @@ export default defineComponent({
    
    
 
-    reducechild(index) {
+    reducechild(index: number) {
 
       if (this.countamout[index].count > 0)
         this.countamout[index].count -= 1;
+       
 
     },
-    addchild(index) {
+    addchild(index: number) {
       let acount = this.countamout[0].count + this.countamout[1].count + this.countamout[2].count + this.countamout[3].count + this.countamout[4].count;
 
       if (acount < 20) {
         this.countamout[index].count += 1;
-      }},
-
-
-    reducechild(index) {
-
-      if (this.countamout[index].count > 0)
-        this.countamout[index].count -= 1;
-
-    },
-    addchild(index) {
-      let acount = this.countamout[0].count + this.countamout[1].count + this.countamout[2].count + this.countamout[3].count + this.countamout[4].count;
-
-      if (acount < 20) {
-        this.countamout[index].count += 1;
-
-
+        this.$store.commit('addstate_intel',1);
       }
-
     },
+      
+
+
+    
     randomassign() {
       let a1 = Math.floor(Math.random() * (25 - 0));
       let a2 = Math.floor(Math.random() * (25 - a1));
@@ -145,12 +134,15 @@ export default defineComponent({
 
     },
     chooseone() {
+      if(!(this.flag2===false&&this.flag3==false))
       this.flag1 = false;
     },
     choosetwo() {
+      if(!(this.flag1===false&&this.flag3==false))
       this.flag2 = false;
     },
     choosethree() {
+      if(!(this.flag2===false&&this.flag1==false))
       this.flag3 = false;
     }
 
@@ -173,49 +165,48 @@ export default defineComponent({
       Dstyleone: {
         background: "white",
         rarity:4,
-        property_change_talent:[0,0,0,0,0,0],
+        property_change:[0,0,0,0,0,0],
+        color:'white',
       },
       Dstyletwo: {
         background: "white",
         rarity:2,
-        property_change_talent:[0,0,0,0,0,0],
+        property_change:[0,0,0,0,0,0],
+        color:'white',
       },
       Dstylethree: {
         background: "white",
         rarity:3,
-        prop_change:[0,0,0,0,0,0],
+        property_change:[0,0,0,0,0,0],
+        color:'white',
       },
       
       
 
     }
   },
-  mounted() {
-    this.Change_Colorone();
-    this.Change_Colortwo();
-    this.Change_Colorthree();
-  },
+ 
   created(){
   let _this=this;
   Promise.all([
       new Promise((resolve) =>{
-        axios({
-          methods:'get',
-          // url:"/talentchoice",
-          url:"https://mock.apifox.cn/m1/1984536-0-default/talentchoice"
-          
+        axios.get("https://mock.apifox.cn/m1/1984536-0-default/talentchoice",{
+         
         }).then((res)=>{
-          
-          _this.m1=res.data.array[0].name
-          _this.m2=res.data.array[1].name
-          _this.m3=res.data.array[2].name
           _this.Dstyleone.rarity=res.data.array[0].rarity
           _this.Dstyletwo.rarity=res.data.array[1].rarity
           _this.Dstylethree.rarity=res.data.array[2].rarity
-          _this.Dstyleone.prop_change=res.data.array[0].prop_change
-          _this.Dstyletwo.prop_change=res.data.array[1].prop_change
-          _this.Dstylethree.pro_change=res.data.array[2].prop_change
-
+          _this.m1=res.data.array[0].name
+          _this.m2=res.data.array[1].name
+          _this.m3=res.data.array[2].name
+          
+          _this.Dstyleone.property_change=res.data.array[0].prop_change
+          _this.Dstyletwo.property_change=res.data.array[1].prop_change
+          _this.Dstylethree.property_change=res.data.array[2].prop_change
+         
+          _this.Change_Colorone();
+          _this.Change_Colortwo();
+          _this.Change_Colorthree();
          
         })
 
@@ -223,6 +214,9 @@ export default defineComponent({
 
 
   ]);
+  
+
+
 }
 
       
