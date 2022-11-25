@@ -1,6 +1,6 @@
 <template>
     <div id="largestborder">
-      <return_box class="return"></return_box>
+      
       <!--<div id="success_fix">
        <div id="bluebg">
          <div id="SuccessCount"><div id="count1">{{count1}}</div></div>
@@ -9,7 +9,7 @@
        
       </div>-->
       <div class="box1">
-      
+        <return_box class="ret" ></return_box>
         <div class="justplace"></div>
         <div class="box2">
           <p class="text3">成就</p>
@@ -83,16 +83,15 @@ data () {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped >
-.return{
-  float:left;
-}
+
 #largestborder {
- height:722px;
- width:390px;
+  height:722px;
+ 
  background-color: #efefef;
  margin:0 auto;
  padding-top: 0px;
-
+ margin-bottom: 0px;
+ float:left;
 
 
 }
@@ -117,14 +116,14 @@ width:390px;
       
   width: 390px;
   height: 242px;
-  
+  margin-top: 0px;
   background:url(../assets/成就榜大字.png)  0px 0px;
   background-color:#D4EBF7;
   background-size:390px 253px;
   color: rgba(16, 16, 16, 1);
   font-size: 14px;
-  
   font-family: Arial;
+  
     
     }
      .justplace{
@@ -136,6 +135,8 @@ width:390px;
      }
      
         .box2{
+          left: 10px;
+         top: 10px;
       float:left;
       margin-left: 16px;;
       width: 344px;
@@ -148,7 +149,9 @@ width:390px;
       position: relative;
     }
     .box3{
-       margin-top: 25px;
+
+      left: 0px;
+      top: 10px;
         width: 390px;
         height: 64px;
         line-height: 64px;
@@ -157,6 +160,7 @@ width:390px;
         font-size: 36px;
         text-align: center;
         font-family: Arial;
+        position: relative;
        
        
         
@@ -252,7 +256,7 @@ width:390px;
   position: relative;
       }
 #details{
-margin-bottom: 0px;
+  margin-bottom: 0px;
 height:380px;
 width:390px;
 

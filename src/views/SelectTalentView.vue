@@ -1,6 +1,6 @@
 <template>
   <div id="largestborder">
-    <return_box class="return" from="/"></return_box>
+    <return_box  from="/"></return_box>
     <div class="result">
 
 
@@ -47,7 +47,6 @@ import Vue, { defineComponent } from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
 
 import return_box from '@/components/return_box.vue';
-
 
 export default defineComponent({
   name: 'selecttalent',
@@ -168,9 +167,9 @@ export default defineComponent({
       flag1: true,
       flag2: true,
       flag3: true,
-      m1: '社交牛逼症(魅力+3)',
-      m2: '强身健体(体质+2,心情+1)',
-      m3: '天选之子(运气+3)',
+      m1: '',
+      m2: '',
+      m3: '',
       Dstyleone: {
         background: "white",
         rarity:4,
@@ -243,14 +242,11 @@ export default defineComponent({
 
 }
 
-.return {
-  margin-top: 0px;
-  margin-left: 5px;
-}
+
 
 .result {
   float: left;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-left: 33px;
   margin-right: 32px;
   width: 325px;
@@ -266,7 +262,7 @@ export default defineComponent({
 }
 
 .medium {
-  height: 269px;
+  height: 249px;
 
 }
 
