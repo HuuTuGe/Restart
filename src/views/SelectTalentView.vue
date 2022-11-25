@@ -6,8 +6,6 @@
 
       您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点)
 
-      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{ indexvalue }}
-
     </div>
     <div class="medium">
       <!--<div class="ml"   @click.capture="getindex" index="0"><div class="shuxing">智力</div><add_reduce  v-if="countamout[0]" :count="countamout[0]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
@@ -35,15 +33,9 @@
     <div class="talentone" v-if="flag1" @click="chooseone" :style="Dstyleone">{{ m1 }}</div>
     <div class="talenttwo" v-if="flag2" @click="choosetwo" :style="Dstyletwo">{{ m2 }}</div>
     <div class="talentthree" v-if="flag3" @click="choosethree" :style="Dstylethree">{{ m3 }}</div>
-   
+    <router-link to="/Play">
       <button class="sure" @click="givenext">确认</button>
     
-    <div class="talentone" v-if="flag1" @click="chooseone">{{ m1 }}</div>
-    <div class="talenttwo" v-if="flag2" @click="choosetwo">{{ m2 }}</div>
-    <div class="talentthree" v-if="flag3" @click="choosethree">{{ m3 }}</div>
-    <router-link to="/Play">
-      <button class="sure">确认</button>
-
     </router-link>
 
 
@@ -55,9 +47,7 @@ import Vue, { defineComponent } from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
 
 import return_box from '@/components/return_box.vue';
-import axios from 'axios';
 
-import return_box from '@/components/return_box.vue'
 
 export default defineComponent({
   name: 'selecttalent',
@@ -123,6 +113,7 @@ export default defineComponent({
 
       if (acount < 20) {
         this.countamout[index].count += 1;
+      }},
 
 
     reducechild(index) {
@@ -235,17 +226,8 @@ export default defineComponent({
   ]);
 }
 
-      flag1: true,
-      flag2: true,
-      flag3: true,
-      m1: "社交牛逼症(魅力+3)",
-      m2: "强身健体(体质+2,心情+1)",
-      m3: "天选之子(运气+3)",
-
-
-
-    }
-  }
+      
+ 
 
 });
 
