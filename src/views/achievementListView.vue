@@ -1,17 +1,16 @@
 <template>
   <div class="app">
-    <div class="box1">  
-      <Return_box class="return" from="/summary"></Return_box>
-      <!-- <img src="../assets/return_icon.png" alt="" class="return" /> -->
-      <p class="text1">{{ msg }}</p>
-      <img src="..\public\特殊成就.png" alt="" class="p1" />
+    <div class="box1">
+      <return_box></return_box>
+      <p class="text1">{{ mg }}</p>
+      <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
     <div class="box2">
       <p class="text3">本次收集</p>
       <p class="text4">成就个数</p>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="..\public\成就一览.png" alt="" class="p3" />
+      <img src="../assets/成就一览.png" alt="" class="p3" />
       <span class="num1">{{ fz1 }}</span>
     </div>
 
@@ -22,16 +21,14 @@
     </div>
 
     <div class="box4">
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1" msg=""></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
-      <NAlist class="cont1"></NAlist>
+      <NAlist
+        class="cont1"
+        :msg="item.message"
+        :c="item.id"
+        v-for="(item, index) in items"
+        :value="item.message"
+        :key="index"
+      ></NAlist>
     </div>
 
     <div class="box5">
@@ -51,34 +48,65 @@ interface isState {
   store: any,
   num: any
 }
-
+<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
+
 import NAlist from "../components/NAlist.vue";
-import { defineComponent } from 'vue'
-import Return_box from "@/components/return_box.vue";
+import { defineComponent } from "vue";
+import return_box from '../components/return_box.vue';
+import axios from "axios";
 
 export default defineComponent({
-  name: "app",
-  components: {
+    name: "app",
+    components: {
     NAlist,
-    Return_box
-},
+    return_box,
+  },
   data() {
     return {
-      msg: "成就一览",
-      fz1: "15",
+      mg: "成就一览",
+      fz1: 17,
       cj: "<<",
       fz: 1,
       fm: 5,
+      items: [{ message: " ", id: 0 }],
+     
     };
   },
   methods: {
-    changebefore: function() {
+    next1() {
+      let _this = this;
+      axios
+        .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
+          params: {
+            page_num: this.fz,
+          },
+        })
+        .then(function (response: any) {
+          console.log(_this.fz);
+          // console.log(response);             
+          _this.items = response.data.item;   //给存储数组的数组赋值
+          console.log(_this.items);
+        })
+        .catch(function (error: any) {
+          console.log(error);
+        });
+    },
+    //上一页
+    changebefore() {
       if (this.fz > 1) this.fz--;
+      console.log(this.fz); 
+      this.next1();
     },
-    changelast: function() {
+    //下一页
+    changelast() {
       if (this.fz < this.fm) this.fz++;
+      console.log(this.fz); 
+      this.next1();
     },
+  },
+  mounted: function () {
+    this.next1();
   },
 });
 
@@ -154,6 +182,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
+  margin:10px;
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
@@ -198,9 +227,9 @@ export default defineComponent({
   position: absolute;
 }
 .p1 {
-  left: 95px;
+  left: 110px;
   top: px;
-  bottom: 130px;
+  bottom: 80px;
   width: 150px;
   height: 130px;
   position: relative;

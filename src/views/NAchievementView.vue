@@ -1,11 +1,9 @@
 <template>
   <div class="app">
     <div class="box1">
-      <!-- <img src="../assets/return_icon.png" alt="" class="return"> -->
-      <Return_box from="/Success" class="return"></Return_box>
-
+      <return_box from="/"></return_box>
       <p class="text1">{{ msg }}</p>
-      <img src="..\public\普通成就.jpg" alt="" class="p1" />
+      <img src="../assets/普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
     <div class="box2">
@@ -23,13 +21,19 @@
       <span class="gr"> >> </span>
     </div>
 
-    <div class="box4" >
-      <NAlist class="cont1" :msg="item.message" :c="item.id" v-for="(item, index) in items" 
-      :value="item.message" :key="index" ></NAlist> 
+    <div class="box4">
+      <NAlist
+        class="cont1"
+        :msg="item.message"
+        :c="item.id"
+        v-for="(item, index) in items"
+        :value="item.message"
+        :key="index"
+      ></NAlist>
     </div>
 
     <div class="box5">
-      <input type="button" value="上一页" class="r" res="chenbushui" @click="changebefore" />
+      <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <span class="one">{{ fz }} </span>
       <span class="one">/</span>
@@ -40,53 +44,71 @@
   </div>
 </template>
 
-
+<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
 
 import NAlist from "../components/NAlist.vue";
-import { defineComponent } from 'vue'
-import Return_box from "@/components/return_box.vue";
+import { defineComponent } from "vue";
+import return_box from "../components/return_box.vue";
+import axios from "axios";
+
 export default defineComponent({
   name: "app",
   components: {
     NAlist,
-    Return_box
-},
+    return_box,
+  },
   data() {
     return {
       msg: "普通成就",
-      fz1: "15",
+      fz1: 15,
       cj: "<<",
       fz: 1,
-      fm: 5,
-      // classObj:{
-      //   atguigu1:true,
-      // },
-      items:[{message:"qdwfre",id:"1"},{message:"wwded",id:"2"},{message:"wwded",id:"3"},
-     ]
-      // content:"items[index].id"
+      fm: 4,
+      // arr:[{ items:[{ message:" ",  id: 0 }] }],
+      items: [{ message: " ", id: 0 }],
     };
   },
   methods: {
+    next1() {
+      let _this = this;
+      axios
+        .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
+          params: {
+            page_num: this.fz,
+          },
+        })
+        .then(function (response: any) {
+          console.log(_this.fz);
+          // console.log(response);             
+          _this.items = response.data.item;   //给存储数组的数组赋值
+          console.log(_this.items);
+        })
+        .catch(function (error: any) {
+          console.log(error);
+        });
+    },
+    //上一页
     changebefore() {
       if (this.fz > 1) this.fz--;
+      console.log(this.fz); 
+      this.next1();
     },
+    //下一页
     changelast() {
       if (this.fz < this.fm) this.fz++;
+      console.log(this.fz); 
+      this.next1();
     },
   },
+  mounted: function () {
+    this.next1();
+  },
 });
-
-// var btns = document.getElementsByTagName('Nalist')
-//   for(var i = 0;length=btns.length,i<length;i++)
-//   {
-//     let btn =btns[i]
-//   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
-
 .app {
   width: 390px;
   height: 722px;
@@ -155,7 +177,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
-  /* margin:10px; */
+  margin: 10px;
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
@@ -307,7 +329,7 @@ export default defineComponent({
   float: right;
   margin: 6px;
 } */
-.return{
+.return {
   left: 4px;
   top: 6px;
   bottom: px;

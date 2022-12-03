@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>     
-       <p class="text1">{{ msg }}</p>
-      <img src="..\public\特殊成就.png" alt="" class="p1" />
+      <return_box></return_box>
+      <p class="text1">{{ msg }}</p>
+      <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
     <div class="box2">
@@ -20,13 +20,15 @@
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
-
-    <div class="box4" >
-      <!-- <div class="cont1" msg="万无一失" color="blue"></div> -->
-      <NAlist class="cont1" :msg="item.message" :c="item.id" v-for="(item, index) in items" 
-      :value="item.message" :key="index" ></NAlist> 
-      <!-- <NAlist class="cont1" msg="" :class="classObj"></NAlist>
-      <NAlist class="cont1" msg=""></NAlist> -->
+    <div class="box4">
+      <NAlist
+        class="cont1"
+        :msg="item.message"
+        :c="item.id"
+        v-for="(item, index) in items"
+        :value="item.message"
+        :key="index"
+      ></NAlist>
     </div>
 
     <div class="box5">
@@ -42,11 +44,14 @@
 </template>
 
 
-
+<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
-import NAlist from "../components/NAlist.vue"
+
+import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
-import Return_box from '../components/return_box.vue'
+import Return_box from "../components/return_box.vue";
+import axios from "axios";
+
 export default defineComponent({
   name: "app",
   components: {
@@ -56,25 +61,47 @@ export default defineComponent({
   data() {
     return {
       msg: "特殊成就",
-      fz1: "2",
+      fz1: 2,
       cj: "<<",
       fz: 2,
       fm: 5,
-      items:[{message:"qdwfre",id:"1"},{message:"wwded",id:"2"},{message:"wwded",id:"3"},
-     ]
+      items: [{ message: " ", id: 0 }],
     };
   },
   methods: {
-    changebefore(): void {
-      if (this.fz > 1) {
-        this.fz--;
-      }
+    next1() {
+      let _this = this;
+      axios
+        .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
+          params: {
+            page_num: this.fz,
+          },
+        })
+        .then(function (response: any) {
+          console.log(_this.fz);
+          // console.log(response);
+          _this.items = response.data.item; //给存储数组的数组赋值
+          console.log(_this.items);
+        })
+        .catch(function (error: any) {
+          console.log(error);
+        });
     },
+    //上一页
+    changebefore() {
+      if (this.fz > 1) this.fz--;
+      console.log(this.fz);
+      this.next1();
+    },
+    //下一页
     changelast() {
-      if (this.fz < this.fm) {
-        this.fz++;
-      }
+      if (this.fz < this.fm) this.fz++;
+      console.log(this.fz);
+      this.next1();
     },
+  },
+  mounted: function () {
+    this.next1();
   },
 });
 </script>
@@ -195,7 +222,7 @@ export default defineComponent({
 .p1 {
   left: 110px;
   top: px;
-  bottom: 70px;
+  bottom: 80px;
   width: 150px;
   height: 130px;
   position: relative;

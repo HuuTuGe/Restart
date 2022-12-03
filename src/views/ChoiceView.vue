@@ -15,6 +15,7 @@ import Profession from '../components/profession.vue';
 import Return_box from '../components/return_box.vue';
 import { defineComponent } from 'vue'
 import axios from 'axios'
+
 export default defineComponent({
     name: "app",
     data() {
