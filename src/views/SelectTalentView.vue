@@ -1,9 +1,11 @@
 <template>
   <div id="largestborder">
-    <return_box class="return" from="/"></return_box>
+    <return_box  from="/"></return_box>
     <div class="result">
 
-      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{ indexvalue }}
+
+      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{$store.state.talent.intelligence}}
+
     </div>
     <div class="medium">
       <!--<div class="ml"   @click.capture="getindex" index="0"><div class="shuxing">智力</div><add_reduce  v-if="countamout[0]" :count="countamout[0]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
@@ -27,21 +29,25 @@
     </div>
     <div class="Randombutton" @click="randomassign">随机分配属性</div>
     <div class="talentchoose">请选择两个天赋</div>
-    <div class="talentone" v-if="flag1" @click="chooseone">{{ m1 }}</div>
-    <div class="talenttwo" v-if="flag2" @click="choosetwo">{{ m2 }}</div>
-    <div class="talentthree" v-if="flag3" @click="choosethree">{{ m3 }}</div>
+
+    <div class="talentone" v-if="flag1" @click="chooseone" :style="Dstyleone">{{ m1 }}</div>
+    <div class="talenttwo" v-if="flag2" @click="choosetwo" :style="Dstyletwo">{{ m2 }}</div>
+    <div class="talentthree" v-if="flag3" @click="choosethree" :style="Dstylethree">{{ m3 }}</div>
     <router-link to="/Play">
-      <button class="sure">确认</button>
+      <button class="sure" @click="givenext">确认</button>
+    
     </router-link>
 
 
   </div>
 </template>
 
-<script lang="js" >
+<script lang="ts" >
 import Vue, { defineComponent } from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
-import return_box from '@/components/return_box.vue'
+import axios from 'axios';
+import return_box from '@/components/return_box.vue';
+
 export default defineComponent({
   name: 'selecttalent',
   components: {
@@ -49,31 +55,71 @@ export default defineComponent({
     return_box
 
   },
-  computed: {
-    getindex(ev) {
+  // computed: {
+  //   getindex(ev) {
 
-      this.indexvalue = ev.target.index;
+  //     this.indexvalue = ev.target.index;
 
-    }
-  },
+  //   }
+  // },
 
   methods: {
 
-    reducechild(index) {
+    givenext(){
+      
+    },
+    Change_Colorone() {
+      
+        switch(this.Dstyleone.rarity){
+          case 1:this.Dstyleone.background = 'white';this.Dstyleone.color = 'black';break;
+          case 2:this.Dstyleone.background = 'blue';this.Dstyleone.color = 'white';break;
+          case 3:this.Dstyleone.background = 'purple';this.Dstyleone.color = 'white';break;
+          case 4:this.Dstyleone.background = 'orange';this.Dstyleone.color = 'white';break;
+          default:console.log('none');}
+        
+      } ,
+      Change_Colortwo() {
+      
+      switch(this.Dstyletwo.rarity){
+        case 1:this.Dstyletwo.background = 'white';this.Dstyletwo.color = 'black';break;
+        case 2:this.Dstyletwo.background = 'blue';this.Dstyletwo.color = 'white';break;
+        case 3:this.Dstyletwo.background = 'purple';this.Dstyletwo.color = 'white';break;
+        case 4:this.Dstyletwo.background = 'orange';this.Dstyletwo.color = 'white';break;
+        default:console.log('none');}
+      
+    } ,
+    Change_Colorthree() {
+      
+      switch(this.Dstylethree.rarity){
+        case 1:this.Dstylethree.background = 'white';this.Dstylethree.color = 'black';;break;
+        case 2:this.Dstylethree.background = 'blue';this.Dstylethree.color = 'white';break;
+        case 3:this.Dstylethree.background = 'purple';this.Dstylethree.color = 'white';break;
+        case 4:this.Dstylethree.background = 'orange';this.Dstylethree.color = 'white';break;
+        default:console.log('none');}
+      
+    } ,
+   
+   
+
+    reducechild(index: number) {
 
       if (this.countamout[index].count > 0)
         this.countamout[index].count -= 1;
+       
 
     },
-    addchild(index) {
+    addchild(index: number) {
       let acount = this.countamout[0].count + this.countamout[1].count + this.countamout[2].count + this.countamout[3].count + this.countamout[4].count;
 
       if (acount < 20) {
         this.countamout[index].count += 1;
-
+        this.$store.commit('addstate_intel',1);
       }
-
     },
+      
+
+
+    
     randomassign() {
       let a1 = Math.floor(Math.random() * (25 - 0));
       let a2 = Math.floor(Math.random() * (25 - a1));
@@ -88,12 +134,15 @@ export default defineComponent({
 
     },
     chooseone() {
+      if(!(this.flag2===false&&this.flag3==false))
       this.flag1 = false;
     },
     choosetwo() {
+      if(!(this.flag1===false&&this.flag3==false))
       this.flag2 = false;
     },
     choosethree() {
+      if(!(this.flag2===false&&this.flag1==false))
       this.flag3 = false;
     }
 
@@ -103,17 +152,76 @@ export default defineComponent({
       msg1: '计算机科学与技术学院',
       countamout: [{ shuxing: '智力', count: 1 }, { shuxing: '体质', count: 1 },
       { shuxing: '魅力', count: 1 }, { shuxing: '运气', count: 1 }, { shuxing: '家境', count: 1 }],
+
+      resultamout: [{ shuxing: '智力', count: 0 }, { shuxing: '体质', count: 0 },
+      { shuxing: '魅力', count: 0 }, { shuxing: '运气', count: 0 }, { shuxing: '家境', count: 0 }],
+
       flag1: true,
       flag2: true,
       flag3: true,
-      m1: "社交牛逼症(魅力+3)",
-      m2: "强身健体(体质+2,心情+1)",
-      m3: "天选之子(运气+3)",
-
-
+      m1: '',
+      m2: '',
+      m3: '',
+      Dstyleone: {
+        background: "white",
+        rarity:4,
+        property_change:[0,0,0,0,0,0],
+        color:'white',
+      },
+      Dstyletwo: {
+        background: "white",
+        rarity:2,
+        property_change:[0,0,0,0,0,0],
+        color:'white',
+      },
+      Dstylethree: {
+        background: "white",
+        rarity:3,
+        property_change:[0,0,0,0,0,0],
+        color:'white',
+      },
+      
+      
 
     }
-  }
+  },
+ 
+  created(){
+  let _this=this;
+  Promise.all([
+      new Promise((resolve) =>{
+        axios.get("https://mock.apifox.cn/m1/1984536-0-default/talentchoice",{
+         
+        }).then((res)=>{
+          _this.Dstyleone.rarity=res.data.array[0].rarity
+          _this.Dstyletwo.rarity=res.data.array[1].rarity
+          _this.Dstylethree.rarity=res.data.array[2].rarity
+          _this.m1=res.data.array[0].name
+          _this.m2=res.data.array[1].name
+          _this.m3=res.data.array[2].name
+          
+          _this.Dstyleone.property_change=res.data.array[0].prop_change
+          _this.Dstyletwo.property_change=res.data.array[1].prop_change
+          _this.Dstylethree.property_change=res.data.array[2].prop_change
+         
+          _this.Change_Colorone();
+          _this.Change_Colortwo();
+          _this.Change_Colorthree();
+         
+        })
+
+      }),
+
+
+  ]);
+  
+
+
+}
+
+      
+ 
+
 });
 
 </script >
@@ -128,14 +236,11 @@ export default defineComponent({
 
 }
 
-.return {
-  margin-top: 0px;
-  margin-left: 5px;
-}
+
 
 .result {
   float: left;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-left: 33px;
   margin-right: 32px;
   width: 325px;
@@ -151,7 +256,7 @@ export default defineComponent({
 }
 
 .medium {
-  height: 269px;
+  height: 249px;
 
 }
 
@@ -247,8 +352,13 @@ export default defineComponent({
   height: 44px;
   line-height: 29px;
   border-radius: 15px 15px 15px 15px;
+
+  background-color: rgba(255, 255, 255, 255);
+  color: black;
+
   background-color: rgba(89, 27, 183, 1);
   color: rgba(255, 255, 255, 1);
+
   font-size: 20px;
   line-height: 44px;
   text-align: center;

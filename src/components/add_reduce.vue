@@ -1,19 +1,19 @@
 <template>
     <div class="bigc">
-    <button class="reduce" @click="reducedata" :disabled="dis">-</button>
+    <button class="reduce" @click="reducedata" >-</button>
     <div class="number">{{count}}</div>
-    <button class="add" @click="adddata" :disabled="dis">+</button>
+    <button class="add" @click="adddata" >+</button>
     </div>
-   
+    
 </template>
 
-<script lang="js">
+<script lang="ts">
 import Vue from 'vue';
 export default {
 name: 'add_reduce',
 props:{
       count:Number,
-      dis:Boolean
+     
 },
 methods:{
      reducedata(){
@@ -21,7 +21,7 @@ methods:{
      },
      adddata(){
         this.$emit("addchangedata")
-     }
+     },
 }
 
   

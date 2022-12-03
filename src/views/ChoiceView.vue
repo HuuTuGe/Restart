@@ -31,7 +31,7 @@ export default defineComponent({
             axios
                 .get('/academychoice', {
                     params: {
-                        academy_type:'文'
+                       type:'文'
                     }
                 })
                 .then(function (response:any) {
@@ -45,7 +45,7 @@ export default defineComponent({
             axios
                 .get('/academychoice', {
                     params: {
-                        academy_type:'理'
+                       type:'理'
                     }
                 })
                 .then(function (response: any) {
@@ -59,7 +59,7 @@ export default defineComponent({
             axios
                 .get('/academychoice', {
                     params: {
-                        academy_type:'工'
+                       type:'工'
                     }
                 })
                 .then(function (response: any) {
