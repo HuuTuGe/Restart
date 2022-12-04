@@ -53,7 +53,7 @@ interface isState {
 
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
-import return_box from '../components/return_box.vue';
+import return_box from '../components/return_box.vue';  
 import axios from "axios";
 
 export default defineComponent({
