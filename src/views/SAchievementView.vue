@@ -10,7 +10,7 @@
       <p class="text3">成就</p>
       <p class="text4">收集进度</p>
 
-      <span class="num1">{{ fz1 }}</span>
+      <span class="num1">{{ achievement_num }}</span>
       <span class="num2">/</span>
       <span class="num3">10</span>
     </div>
@@ -24,7 +24,7 @@
       <NAlist
         class="cont1"
         :msg="item.message"
-        :c="item.id"
+        :colorId="item.id"
         v-for="(item, index) in items"
         :value="item.message"
         :key="index"
@@ -46,7 +46,6 @@
 
 <script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
-
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import Return_box from "../components/return_box.vue";
@@ -58,10 +57,13 @@ export default defineComponent({
     NAlist,
     Return_box,
   },
+  watch: {
+    fz: "sendRequest", //绑定函数
+  },
   data() {
     return {
       msg: "特殊成就",
-      fz1: 2,
+      achievement_num: 2,
       cj: "<<",
       fz: 2,
       fm: 5,
@@ -69,7 +71,7 @@ export default defineComponent({
     };
   },
   methods: {
-    next1() {
+    sendRequest() {
       let _this = this;
       axios
         .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
@@ -78,30 +80,29 @@ export default defineComponent({
           },
         })
         .then(function (response: any) {
-          console.log(_this.fz);
-          // console.log(response);
+          //请求成功
+          // console.log(_this.fz);  console.log(response);
           _this.items = response.data.item; //给存储数组的数组赋值
           console.log(_this.items);
         })
         .catch(function (error: any) {
+          //请求失败
           console.log(error);
         });
     },
+
     //上一页
     changebefore() {
       if (this.fz > 1) this.fz--;
-      console.log(this.fz);
-      this.next1();
     },
+
     //下一页
     changelast() {
       if (this.fz < this.fm) this.fz++;
-      console.log(this.fz);
-      this.next1();
     },
   },
   mounted: function () {
-    this.next1();
+    this.sendRequest();
   },
 });
 </script>

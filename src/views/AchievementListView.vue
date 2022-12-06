@@ -11,7 +11,7 @@
       <p class="text4">成就个数</p>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="../assets/成就一览.png" alt="" class="p3" />
-      <span class="num1">{{ fz1 }}</span>
+      <span class="num1">{{ achievement_num }}</span>
     </div>
 
     <div class="box3">
@@ -24,7 +24,7 @@
       <NAlist
         class="cont1"
         :msg="item.message"
-        :c="item.id"
+        :colorId="item.id"
         v-for="(item, index) in items"
         :value="item.message"
         :key="index"
@@ -50,31 +50,32 @@ interface isState {
 }
 <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script lang="ts">
-
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
-import return_box from '../components/return_box.vue';  
+import return_box from "../components/return_box.vue";
 import axios from "axios";
 
 export default defineComponent({
-    name: "app",
-    components: {
+  name: "app",
+  components: {
     NAlist,
     return_box,
+  },
+  watch: {
+    fz: "sendRequest", //绑定函数
   },
   data() {
     return {
       mg: "成就一览",
-      fz1: 17,
+      achievement_num: 17,
       cj: "<<",
       fz: 1,
       fm: 5,
       items: [{ message: " ", id: 0 }],
-     
     };
   },
   methods: {
-    next1() {
+    sendRequest() {
       let _this = this;
       axios
         .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
@@ -82,12 +83,13 @@ export default defineComponent({
             page_num: this.fz,
           },
         })
+        //请求成功
         .then(function (response: any) {
-          console.log(_this.fz);
-          // console.log(response);             
-          _this.items = response.data.item;   //给存储数组的数组赋值
+          // console.log(_this.fz);  console.log(response);
+          _this.items = response.data.item; //给存储数组的数组赋值
           console.log(_this.items);
         })
+        //请求失败
         .catch(function (error: any) {
           console.log(error);
         });
@@ -95,21 +97,16 @@ export default defineComponent({
     //上一页
     changebefore() {
       if (this.fz > 1) this.fz--;
-      console.log(this.fz); 
-      this.next1();
     },
     //下一页
     changelast() {
       if (this.fz < this.fm) this.fz++;
-      console.log(this.fz); 
-      this.next1();
     },
   },
   mounted: function () {
-    this.next1();
+    this.sendRequest();
   },
 });
-
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -182,7 +179,7 @@ export default defineComponent({
 }
 .text1 {
   padding-left: 10px;
-  margin:10px;
+  margin: 10px;
   width: 275px;
   height: 69px;
   color: rgba(16, 16, 16, 1);
