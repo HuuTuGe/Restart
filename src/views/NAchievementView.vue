@@ -25,7 +25,7 @@
       <NAlist
         class="cont1"
         :msg="item.message"
-        :c="item.id"
+        :colorId="item.id"
         v-for="(item, index) in items"
         :value="item.message"
         :key="index"
@@ -57,23 +57,23 @@ export default defineComponent({
     NAlist,
     return_box,
   },
-  watch:{
-        fz:'next1'
-      },
+  watch: {
+    fz: "sendRequest", //绑定函数
+  },
   data() {
     return {
       msg: "普通成就",
       achievement_num: 15,
-      cj: "<<",
+      cj: "<<", //直接用<<会报错
       fz: 1,
       fm: 4,
       // arr:[{ items:[{ message:" ",  id: 0 }] }],
       items: [{ message: " ", id: 0 }],
-    };    
+    };
   },
 
   methods: {
-    next1() {
+    sendRequest() {
       let _this = this;
       axios
         .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
@@ -81,28 +81,29 @@ export default defineComponent({
             page_num: this.fz,
           },
         })
-        .then(function (response: any) { //请求成功
+        //请求成功
+        .then(function (response: any) {
           // console.log(_this.fz);  console.log(response);
           _this.items = response.data.item; //给存储数组的数组赋值
           console.log(_this.items);
         })
-        .catch(function (error: any) {  //请求失败
+        //请求失败
+        .catch(function (error: any) {
           console.log(error);
         });
     },
     //上一页
     changebefore() {
-      if (this.fz > 1)
-       this.fz--;
+      if (this.fz > 1) this.fz--;
     },
     //下一页
     changelast() {
-      if (this.fz < this.fm) 
-      this.fz++;
+      if (this.fz < this.fm) this.fz++;
     },
   },
-  mounted: function () {  //页面加载时自动调用
-    this.next1();
+  //页面加载时自动调用
+  mounted: function () {
+    this.sendRequest();
   },
 });
 </script>
