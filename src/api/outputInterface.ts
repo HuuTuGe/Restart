@@ -30,3 +30,8 @@ export interface LifeData{
     achievement: AchievementData,
     lifeEvent: EventData
 }
+
+export interface ChoiceData{
+    propertyChange: Array<number>,
+    content: string
+}
