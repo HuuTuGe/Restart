@@ -276,8 +276,8 @@ margin-top: 25px;
 
 }
 #special{
-  height:150px;
-  width:150px;
+  height:140px;
+  width:140px;
   background:url(../assets/奖杯.png) no-repeat 0px 0px;
   background-size:150px 150px ;
   float:left; 
@@ -291,8 +291,8 @@ height:150px;
   margin-top: 20px;
 }
 #commom{
-height:150px;
-  width:150px;
+height:140px;
+  width:140px;
   float:left; 
   display:inline;
   background:url(../assets/奖杯.png) no-repeat 0px 0px;
@@ -343,6 +343,7 @@ height:150px;
   margin-left: 80px;
   margin-top: 40px;
   color:#F5222D;
+  font-size: 22px;
 }
 
 
