@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia'
+import {defineStore, mapActions} from 'pinia'
 import {Prop, Major, User, Life} from '@/state/stateInterface'
 
 export const usePropStore = defineStore('prop', {
@@ -36,8 +36,8 @@ export const usePropStore = defineStore('prop', {
             if(this.getPropsSum() >= 25){
                 return
             }
-            let temp = ++this.props[index]
-            if(temp <= 25){
+            let temp = this.props[index]
+            if(++temp <= 25){
                 this.props.splice(index,1,temp)
             }
             
@@ -51,8 +51,8 @@ export const usePropStore = defineStore('prop', {
             if(this.getPropsSum() <= 0) {
                 return
             }
-            let temp = --this.props[index]
-            if(temp >= 0){
+            let temp = this.props[index]
+            if(--temp >= 0){
                 this.props.splice(index,1,temp)
             }
         },
@@ -152,5 +152,15 @@ export const useLifeStore = defineStore('life', {
 })
 
 export const useAchievement = defineStore('achievement', {
+    state: () => {
+        return {
 
+        }
+    },
+    getters: {
+
+    },
+    actions: {
+
+    }
 })
