@@ -5,7 +5,7 @@
       <div class="medium">
           <div class="ml" v-for="i in (names.length-1)" :index="(i-1)">
               <div class="shuxing">{{ names[i-1] }}</div>
-              <add_reduce :count="props[i-1]" :id="(i-1)" :update="!isRandom"></add_reduce>
+              <add_reduce  :count="props[i-1]" :id="(i-1)" :update="!isRandom"></add_reduce>
           </div>
       </div>
       <div class="Randombutton" @click='randomProps'>随机分配属性</div>
@@ -123,6 +123,7 @@ background-color: #efefef;
 margin: 0 auto;
 }
 
+
 .result {
   float: left;
   margin-top: 5px;
@@ -140,6 +141,8 @@ height: 18px;
 width: 128px;
 background-color: rgba(255, 255, 255, 0);
 text-align: center;
+vertical-align: top;
+line-height: 15px;
 }
 
 #blue {
