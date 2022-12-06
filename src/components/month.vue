@@ -16,12 +16,6 @@
 
 export default {
     name: "app",
-    data() {
-        return
-        {
-
-        }
-    },
     props: {
         months: String,
     },

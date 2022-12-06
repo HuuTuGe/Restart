@@ -1,17 +1,35 @@
 <template>
-    <router-link to="/SelectTalent">
-        <button class="profession_box">
+        <button class="profession_box"  @click="getMarjor">
             <div class="test_center">{{ msg }}</div>
         </button>
-    </router-link>
 </template>
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+import {api} from '@/api/api'
+import { MajorParam } from '@/api/inputInterface'
+import {useMajorStore} from '@/state/store'
+
+export default defineComponent({
     name: 'app',
-    props: {
-        msg: String,
+    setup() {
+        const majorStore = useMajorStore()
+        return{majorStore}
     },
-}
+    props: {
+        msg : String,
+    },
+    methods: {
+        getMarjor() {
+            let params: MajorParam = {
+                majorType: this.msg as string
+            }
+            api.getMajorData(params).then(
+                data => this.majorStore.setMajor(data.majorName,data.academyId) 
+            )
+            this.$router.push('/SelectTalent')
+        }
+    }
+})
 </script>
   
 <style scoped lang="scss">

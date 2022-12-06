@@ -1,31 +1,41 @@
 <template>
     <div class="bigc">
-    <button class="reduce" @click="reducedata" >-</button>
+    <button class="reduce" @click="reduce" >-</button>
     <div class="number">{{count}}</div>
-    <button class="add" @click="adddata" >+</button>
+    <button class="add" @click="add" >+</button>
     </div>
     
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-export default {
+import { defineComponent } from 'vue'
+import {usePropStore} from '@/state/store'
+export default defineComponent({
 name: 'add_reduce',
 props:{
       count:Number,
-     
+      id:Number,
+      update:{type:Boolean, default:true}
+},
+setup() {
+    const propStore = usePropStore()
+    return{propStore}
 },
 methods:{
-     reducedata(){
-        this.$emit("reducechangedata")
+     reduce(){
+        if(this.update){
+            this.propStore.decrement(this.id as number,1)
+        }
      },
-     adddata(){
-        this.$emit("addchangedata")
+     add(){
+        if(this.update){
+            this.propStore.increment(this.id as number,1)
+        }
      },
 }
 
   
-}
+})
 
 
 </script  >

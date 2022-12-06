@@ -2,11 +2,11 @@
     <div>
         <Return_box from="/"></Return_box>
         <div class="major_choice">选择专业方向：</div>
-        <Profession msg="文" onclick="choice1()"></Profession>
+        <Profession msg="文" ></Profession>
         <div class="major_margin"></div>
-        <Profession msg="理" onclick="choice2()"></Profession>
+        <Profession msg="理" ></Profession>
         <div class="major_margin"></div>
-        <Profession msg="工" onclick="choice3()"></Profession>
+        <Profession msg="工" ></Profession>
     </div>
 </template>
 <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
@@ -14,7 +14,9 @@
 import Profession from '../components/profession.vue';
 import Return_box from '../components/return_box.vue';
 import { defineComponent } from 'vue'
+import { api } from "@/api/api";
 import axios from 'axios'
+
 
 export default defineComponent({
     name: "app",
@@ -27,48 +29,7 @@ export default defineComponent({
         Return_box
     },
     method: {
-        choice1() {
-            axios
-                .get('/academychoice', {
-                    params: {
-                       type:'文'
-                    }
-                })
-                .then(function (response:any) {
-                    console.log(response);
-                })
-                .catch(function (error:any) {
-                    console.log(error);
-                })
-        },
-        choice2() {
-            axios
-                .get('/academychoice', {
-                    params: {
-                       type:'理'
-                    }
-                })
-                .then(function (response: any) {
-                    console.log(response);
-                })
-                .catch(function (error: any) {
-                    console.log(error);
-                })
-        },
-        choice3() {
-            axios
-                .get('/academychoice', {
-                    params: {
-                       type:'工'
-                    }
-                })
-                .then(function (response: any) {
-                    console.log(response);
-                })
-                .catch(function (error: any) {
-                    console.log(error);
-                })
-        }
+        
     }
 })
 </script>

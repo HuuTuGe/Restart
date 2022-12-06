@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
