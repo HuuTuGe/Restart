@@ -16,17 +16,17 @@ import Return_box from '../components/return_box.vue';
 import { defineComponent } from 'vue'
 import { api } from "@/api/api";
 import axios from 'axios'
-
+import {useMajorStore} from '@/state/store'
 
 export default defineComponent({
     name: "app",
-    data() {
-        return {
-        };
-    },
     components: {
         Profession,
         Return_box
+    },
+    data() {
+        return {
+        };
     },
     method: {
         

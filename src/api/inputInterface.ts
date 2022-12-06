@@ -25,3 +25,7 @@ export interface PictureParam{
     eventId?: number,
     achievementId?: number
 }
+
+export interface UserParam{
+    usrId: number 
+}
