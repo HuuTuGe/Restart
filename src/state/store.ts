@@ -107,7 +107,7 @@ export const useUserStore = defineStore('user',{
     }
 })
 
-export const useLifeStore = defineStore('', {
+export const useLifeStore = defineStore('life', {
     state: () => {
         return {
             lifeId: -1,
@@ -149,4 +149,8 @@ export const useLifeStore = defineStore('', {
             this.achievementList.push(academyId)
         }
     }
+})
+
+export const useAchievement = defineStore('achievement', {
+
 })

@@ -8,13 +8,12 @@ export interface MajorData{
 }
 
 export interface TalentData{
-    // data? : {
-    //     name: string,
-    //     rarity: string
-    //     propChanges: Array<number>   
-    // }
     name: string,
     rarity: string
     propChanges: Array<number>   
 }
 
+export interface EventData{
+    name: string,
+    propChanges: Array<number> 
+}

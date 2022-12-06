@@ -5,18 +5,18 @@
       <div class="medium">
           <div class="ml" v-for="i in (names.length-1)" :index="(i-1)">
               <div class="shuxing">{{ names[i-1] }}</div>
-              <add_reduce :count="props[i-1]" :id="(i-1)"></add_reduce>
+              <add_reduce :count="props[i-1]" :id="(i-1)" :update="!isRandom"></add_reduce>
           </div>
       </div>
-      <div class="Randombutton" @click='propStore.randomProps()'>随机分配属性</div>
+      <div class="Randombutton" @click='randomProps'>随机分配属性</div>
       <div class="talentchoose">请选择两个天赋</div>
 
       <ol v-for= "item  in talentData">
         <li :id="item.rarity" class="talent" :style='(applyStyle(item.rarity))' @click="choose(item)">{{item.name}}</li>
       </ol>
-      <router-link to="/Play">
-        <button class="sure">确认</button>
-      </router-link>
+      <!-- <router-link to="/Play"> -->
+        <button class="sure" @click="toPlay">确认</button>
+      <!-- </router-link> -->
     </div>
 </template>
 
@@ -31,7 +31,9 @@ import { TalentData } from '@/api/outputInterface';
 import { StyleValue } from 'vue/types/jsx';
 
 interface Data {
-  talentData: Array<TalentData>
+  talentData: Array<TalentData>,
+  isRandom: boolean,
+  propChangesList: Array<Array<number>>
 } 
 
 export default defineComponent({
@@ -49,6 +51,8 @@ export default defineComponent({
     data() {
       return {
         talentData:[],
+        isRandom: false,
+        propChangesList: []
       } as Data
     },
     async created() {
@@ -86,7 +90,23 @@ export default defineComponent({
       choose(item: TalentData) {
         if(this.talentData.length > 1){
           this.talentData.splice(this.talentData.indexOf(item),1)
-          this.propStore.apdateProps(item.propChanges)
+          // this.propStore.apdateProps(item.propChanges)
+          this.propChangesList.push(item.propChanges)
+        }
+        
+      },
+      randomProps() {
+        if(!this.isRandom){
+          this.propStore.randomProps()
+          this.isRandom = true
+        }
+      },
+      toPlay() {
+        if(this.propChangesList.length > 1 && this.propStore.getPropsSum() == 25){
+          for(let i=0; i<this.propChangesList.length; i++){
+            this.propStore.apdateProps(this.propChangesList[i])
+          }
+          this.$router.push('/Play')
         }
         
       }

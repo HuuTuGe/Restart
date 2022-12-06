@@ -6,7 +6,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import {api} from '@/api/api'
-import { MajorIpunt } from '@/api/inputInterface'
+import { MajorParam } from '@/api/inputInterface'
 import {useMajorStore} from '@/state/store'
 
 export default defineComponent({
@@ -20,13 +20,12 @@ export default defineComponent({
     },
     methods: {
         getMarjor() {
-            let params: MajorIpunt = {
+            let params: MajorParam = {
                 majorType: this.msg as string
             }
             api.getMajorData(params).then(
                 data => this.majorStore.setMajor(data.majorName,data.academyId) 
             )
-            // console.log(this.msg)
             this.$router.push('/SelectTalent')
         }
     }
