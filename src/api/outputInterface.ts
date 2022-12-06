@@ -14,6 +14,19 @@ export interface TalentData{
 }
 
 export interface EventData{
-    name: string,
-    propChanges: Array<number> 
+    id: number,
+    content: string,
+    propertyChange: Array<number> 
+}
+
+export interface AchievementData{
+    id: number,
+    content: string,
+    rarity: string
+}
+
+export interface LifeData{
+    haveAchievement: boolean,
+    achievement: AchievementData,
+    lifeEvent: EventData
 }

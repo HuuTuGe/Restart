@@ -1,98 +1,123 @@
 <template>
   <div class="ach_box" :style="Dstyle">
-    <div class="get_ach" :style="{ color: aColor }">达成成就</div>
-    <hr class="d_line">
-    <div class="ach_con">{{ x }}</div>
+      <div class="get_ach" :style="aColor">达成成就</div>
+      <hr class="d_line">
+      <div class="ach_con" :style="aColor">{{x}}</div>
   </div>
 </template>
-
-<script>
-export default {
+<script lang="ts">
+import axios from 'axios';
+import Vue from 'vue';
+export default Vue.extend( {
   name: 'ach_box',
-  data() {
-    return {
+  data(){
+    return{
       // Dstyle:{},
-      Dstyle: {
-        background: 'red'
+      Dstyle:{
+        background:'',
       },
-      x: '初始化'
+      aColor:{
+        color:''
+      },
+      x:'',
+      color_id:'普通'
     }
   },
-  methods: {
-    activeColor() {
-      this.id = 2;
-      if (this.id == 1) {
-        // this.Dstyle=this.R_one;
-        this.Dstyle.background = "blue";
-      } else if (this.id == 2) {
-        // this.Dstyle=this.B_one;
-        this.Dstyle.background = "black";
+  methods:{
+    // activeColor(){
+    //   this.id=2;
+    //   if(this.id==1){
+    //     // this.Dstyle=this.R_one;
+    //     this.Dstyle.background = "blue";
+    //   }else if(this.id==2){
+    //     // this.Dstyle=this.B_one;
+    //     this.Dstyle.background = "black";
+    //   }
+    // },
+    // printX(){
+    //   this.con_flag=1;
+    //   this.con='123456';
+    //   if(this.con_flag==1){
+    //     this.x=this.con;
+    //   }
+    // },
+  activeColor(){
+    axios.get('https://mock.apifox.cn/m1/1984536-0-default/event')//url
+    .then(response => {
+      this.color_id=response.data.achievementrarity;
+      if(this.color_id=='普通'){
+         this.Dstyle.background = "gray";
+         this.aColor.color="black"
+      }else if(this.color_id=='稀有'){
+         this.Dstyle.background = "#0050B3";
+      }else if(this.color_id=='史诗'){
+         this.Dstyle.background = "#591BB7";
+      }else if(this.color_id=='传说'){
+         this.Dstyle.background = "#E99D42";
       }
-    },
-    printX() {
-      this.con_flag = 1;
-      this.con = '123456';
-      if (this.con_flag == 1) {
-        this.x = this.con;
-      }
-    }
+     })
+   },
+   printX(){
+    axios.get('https://mock.apifox.cn/m1/1984536-0-default/event').then(response => {
+      this.x=response.data.achievement.content//需要修改
+    })
+   }
+// 
+// 
+// 
+// 
 
-  },
-  mounted: function() {
+    },
+  mounted:function(){
     this.activeColor();
     this.printX();
   }
-
-}
+  
+})
 </script>
 
 <style scoped>
-.ach_box {
-  width: 363px;
+.ach_box{
+  width: 365px;
   height: 80px;
   background-color: #0050B3;
   position: relative;
-  left: 15px;
+  left: 10px;
   margin-top: 15px;
 }
-
-.get_ach {
+.get_ach{
   position: relative;
   display: inline-block;
   width: 45px;
   height: 45px;
   font-size: 20px;
-  background-color: rgba(0, 0, 0, 0);
-  /*可修改为rgba(0,0,0,0) */
+  background-color: rgba(0,0,0,0);/*可修改为rgba(0,0,0,0) */
   float: left;
-  left: 15px;
-  top: 13px;
+  left:15px ;
+  top:13px;
   font-size: 20px;
   color: white;
 }
-
-.ach_con {
+.ach_con{
   position: relative;
   display: inline-block;
   float: left;
   width: 284px;
   height: 75px;
-  background-color: rgba(0, 0, 0, 0);
-  /*可修改为rgba(0,0,0,0) */
+  background-color:rgba(0,0,0,0);/*可修改为rgba(0,0,0,0) */
   top: 20px;
   left: 28px;
   color: white;
   font-size: 28px;
 }
-
-.d_line {
+.d_line{
   position: relative;
   display: inline-block;
   float: left;
   height: 75px;
   border: none;
   border-left: 4px dotted white;
-  top: -5px;
+  top:-5px;
   left: 28px;
 }
 </style>

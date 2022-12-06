@@ -1,6 +1,6 @@
 import axios from "axios";
-import {UserData, MajorData, TalentData, EventData} from "@/api/outputInterface"
-import {MajorParam,EventParam,PicturesParam,PictureParam,AchievementsParam} from "@/api/inputInterface"
+import {UserData, MajorData, TalentData, EventData,AchievementData, LifeData} from "@/api/outputInterface"
+import {MajorParam,EventParam,PicturesParam,PictureParam,AchievementsParam,UserParam} from "@/api/inputInterface"
 import type {AxiosRequestConfig} from 'axios'
 
 export function catchError(error:any) {
@@ -25,9 +25,9 @@ export const api = {
         let url: string = this.baseUrl + '/picture'
         return await axios.get(url, data as AxiosRequestConfig<PictureParam>).then(res=> res.data)
     },
-    async getTalentData(): Promise<Array<TalentData>>{
+    async getTalentsData(): Promise<Array<TalentData>>{
         /**
-         * 请求天赋信息
+         * 请求天赋列表（3个天赋）
          * @return 符合TalentData接口的对象列表
          */
         let url: string = this.baseUrl + '/talents'
@@ -36,31 +36,37 @@ export const api = {
     async getMajorData(data:MajorParam): Promise<MajorData> {
         /**
          * 请求专业信息
-         * @param url - 请求api
          * @param data - 请求负载参数
          * @return  符合MajorData接口的对象
          */
         let url: string = this.baseUrl + '/major'
         return await axios.get(url, data as AxiosRequestConfig<MajorParam>).then(res=> res.data)
     },
-    async getEventData(data:EventParam): Promise<EventData> {
+    async getEventData(data:EventParam): Promise<LifeData> {
         /**
          * 请求事件信息
-         * @param url - 请求api
          * @param data - 请求负载参数
          * @return 符合EventData接口的对象
          */
         let url: string = this.baseUrl + '/event'
         return await axios.get(url, data as AxiosRequestConfig<EventParam>).then(res=> res.data)
     },
-    async postUserData(data: object): Promise<UserData> {
+    async postUserData(data: UserParam): Promise<UserData> {
         /**
          * 请求用户信息
-         * @param url - 请求api
          * @param data - 请求负载参数
          * @return 
          */
-         let url: string = this.baseUrl + '/user'
-         return await axios.get(url, data as AxiosRequestConfig<any>).then(res=> res.data)
+        let url: string = this.baseUrl + '/user'
+        return await axios.get(url, data as AxiosRequestConfig<UserParam>).then(res=> res.data)
+    },
+    async getAchievementsData(data: AchievementsParam): Promise<Array<AchievementData>> {
+        /**
+         * 请求天赋数据列表
+         * @param data -  请求负载参数
+         * @return 符合
+         */
+        let url: string = this.baseUrl + '/achievements'
+        return await axios.get(url, data as AxiosRequestConfig<AchievementsParam>).then(res=> res.data)
     }
 }

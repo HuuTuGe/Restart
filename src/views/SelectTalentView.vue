@@ -45,6 +45,7 @@ export default defineComponent({
     setup() {
       const majorStore = useMajorStore()
       const propStore = usePropStore()
+      propStore.$reset
       const {props,names} = storeToRefs(propStore)
       return{majorStore,propStore,props,names}
     },
@@ -56,7 +57,7 @@ export default defineComponent({
       } as Data
     },
     async created() {
-      await api.getTalentData().then( (res) => {
+      await api.getTalentsData().then( (res) => {
         this.talentData = res
       }).catch( (error) => catchError(error))
     },
