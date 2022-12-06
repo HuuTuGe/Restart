@@ -1,6 +1,6 @@
 import axios from "axios";
-import {UserData, MajorData, TalentData, EventData,AchievementData, LifeData} from "@/api/outputInterface"
-import {MajorParam,EventParam,PicturesParam,PictureParam,AchievementsParam,UserParam} from "@/api/inputInterface"
+import {UserData, MajorData, TalentData, EventData,AchievementData,LifeData,ChoiceData} from "@/api/outputInterface"
+import {MajorParam,EventParam,PicturesParam,PictureParam,AchievementsParam,UserParam,ChoicesParam} from "@/api/inputInterface"
 import type {AxiosRequestConfig} from 'axios'
 
 export function catchError(error:any) {
@@ -8,7 +8,8 @@ export function catchError(error:any) {
 }
 
 export const api = {
-    baseUrl: 'https://mock.apifox.cn/m1/1984536-0-default',
+    baseUrl: 'https://mock.apifox.cn/m1/1984536-0-default' ,// mock连接
+    remoteUrl: '' ,// 服务器地址
     async getPictures(data:PicturesParam): Promise<Array<any>> {
         /**
          * 请求图片列表
@@ -68,5 +69,14 @@ export const api = {
          */
         let url: string = this.baseUrl + '/achievements'
         return await axios.get(url, data as AxiosRequestConfig<AchievementsParam>).then(res=> res.data)
+    },
+    async getChoicesData(data?: ChoicesParam): Promise<Array<ChoiceData>> {
+        /**
+         * 请求假期选项
+         * @param data -  请求负载参数
+         * @return 符合choiceData接口的列表数据
+         */
+         let url: string = this.baseUrl + '/achievements'
+         return await axios.get(url, data as AxiosRequestConfig<ChoicesParam>).then(res=> res.data)
     }
 }
