@@ -20,15 +20,16 @@
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
+    <!-- :colorId="item.id" -->
 
     <div class="box4">
       <NAlist
         class="cont1"
         :msg="item.message"
-        :colorId="item.id"
         v-for="(item, index) in items"
         :value="item.message"
-        :key="index"
+        :key="(index)"
+        :style="(applyStyle(item.id))"
       ></NAlist>
     </div>
 
@@ -50,6 +51,7 @@ import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import return_box from "../components/return_box.vue";
 import axios from "axios";
+import { StyleValue } from 'vue/types/jsx';
 
 export default defineComponent({
   name: "app",
@@ -73,6 +75,32 @@ export default defineComponent({
   },
 
   methods: {
+    applyStyle(id: Number): StyleValue{
+        if (id == 1) {
+          return {
+            background: "white",
+            color:'black',
+          }
+        } 
+        else if(id == 2) {
+          return {
+            background: "#0050B3",
+            color:'white',
+          }
+        }
+        else if(id == 3) {
+          return {
+            background: "#591BB7",
+            color:'white',
+          }
+        }
+        else {
+          return {
+            background: "#E99D42",
+            color:'black',
+          }
+        }
+      },
     sendRequest() {
       let _this = this;
       axios
@@ -83,9 +111,11 @@ export default defineComponent({
         })
         //请求成功
         .then(function (response: any) {
-          // console.log(_this.fz);  console.log(response);
+          // console.log(_this.fz); 
+           console.log(response);
           _this.items = response.data.item; //给存储数组的数组赋值
-          console.log(_this.items);
+          // console.log(_this.items);
+          // for(let i=0;i<response.data.item.length;i++)
         })
         //请求失败
         .catch(function (error: any) {
@@ -106,7 +136,7 @@ export default defineComponent({
     this.sendRequest();
   },
 });
-</script>
+</script scoped>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >
