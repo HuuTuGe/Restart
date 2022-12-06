@@ -11,7 +11,7 @@ export interface EventParam{
 }
 
 export interface ChoicesParam{
-    
+
 }
 
 export interface PicturesParam{
@@ -22,7 +22,6 @@ export interface PicturesParam{
 export interface AchievementsParam{
     page: number,
     limit:number,
-
 }
 
 export interface PictureParam{

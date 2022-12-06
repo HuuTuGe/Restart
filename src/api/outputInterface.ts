@@ -10,18 +10,19 @@ export interface MajorData{
 export interface TalentData{
     name: string,
     rarity: string
-    propChanges: Array<number>   
+    propertyChanges: Array<number>   
 }
 
 export interface EventData{
     id: number,
     content: string,
-    propertyChange: Array<number> 
+    propertyChange: Array<number>,
+    gameOver: number
 }
 
 export interface AchievementData{
     id: number,
-    content: string,
+    name: string,
     rarity: string
 }
 
