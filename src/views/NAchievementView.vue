@@ -10,7 +10,7 @@
       <p class="text3">成就</p>
       <p class="text4">收集进度</p>
 
-      <span class="num1">{{ fz1 }}</span>
+      <span class="num1">{{ achievement_num }}</span>
       <span class="num2">/</span>
       <span class="num3">60</span>
     </div>
@@ -46,7 +46,6 @@
 
 <script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
-
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import return_box from "../components/return_box.vue";
@@ -58,17 +57,21 @@ export default defineComponent({
     NAlist,
     return_box,
   },
+  watch:{
+        fz:'next1'
+      },
   data() {
     return {
       msg: "普通成就",
-      fz1: 15,
+      achievement_num: 15,
       cj: "<<",
       fz: 1,
       fm: 4,
       // arr:[{ items:[{ message:" ",  id: 0 }] }],
       items: [{ message: " ", id: 0 }],
-    };
+    };    
   },
+
   methods: {
     next1() {
       let _this = this;
@@ -78,30 +81,27 @@ export default defineComponent({
             page_num: this.fz,
           },
         })
-        .then(function (response: any) {
-          console.log(_this.fz);
-          // console.log(response);             
-          _this.items = response.data.item;   //给存储数组的数组赋值
+        .then(function (response: any) { //请求成功
+          // console.log(_this.fz);  console.log(response);
+          _this.items = response.data.item; //给存储数组的数组赋值
           console.log(_this.items);
         })
-        .catch(function (error: any) {
+        .catch(function (error: any) {  //请求失败
           console.log(error);
         });
     },
     //上一页
     changebefore() {
-      if (this.fz > 1) this.fz--;
-      console.log(this.fz); 
-      this.next1();
+      if (this.fz > 1)
+       this.fz--;
     },
     //下一页
     changelast() {
-      if (this.fz < this.fm) this.fz++;
-      console.log(this.fz); 
-      this.next1();
+      if (this.fz < this.fm) 
+      this.fz++;
     },
   },
-  mounted: function () {
+  mounted: function () {  //页面加载时自动调用
     this.next1();
   },
 });
