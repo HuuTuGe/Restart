@@ -1,244 +1,106 @@
 <template>
-  <div id="largestborder">
-    <return_box  from="/"></return_box>
-    <div class="result">
-
-
-      <!-- 您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{$store.state.talent.intelligence}} -->
-      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{1}}
-
-
-    </div>
-    <div class="medium">
-      <!-- <div class="ml"   @click.capture="getindex" index="0"><div class="shuxing">智力</div><add_reduce  v-if="countamout[0]" :count="countamout[0]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
-
-         <div class="ml" @click.capture="getindex" index="1"><div class="shuxing">体质</div><add_reduce  v-if="countamout[1]" :count="countamout[1]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
-         
-         <div class="ml" @click.capture="getindex" index="2"><div class="shuxing">魅力</div><add_reduce  v-if="countamout[2]" :count="countamout[3]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
-
-         
-         <div class="ml" @click.capture="getindex" index="3"><div class="shuxing">运气</div><add_reduce  v-if="countamout[3]" :count="countamout[3]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
-
-
-         <div class="ml" @click.capture="getindex" index="4"><div class="shuxing">家境</div><add_reduce v-if="countamout[4]" :count="countamout[4]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
-         -->
-      <div class="ml" v-for="(item, index) in countamout" :index="index">
-        <div class="shuxing">{{ item.shuxing }}</div>
-        <add_reduce :count="item.count" @reducechangedata="reducechild(index)" @addchangedata="addchild(index)">
-        </add_reduce>
+    <div class="largestborder">
+      <return_box  from="/"></return_box>
+      <div class="result">您被分配到<span id="blue">{{ majorStore.majorName }}</span>，请自行分配属性(共25点)</div>
+      <div class="medium">
+          <div class="ml" v-for="i in (names.length-1)" :index="(i-1)">
+              <div class="shuxing">{{ names[i-1] }}</div>
+              <add_reduce :count="props[i-1]" :id="(i-1)"></add_reduce>
+          </div>
       </div>
+      <div class="Randombutton" @click='propStore.randomProps()'>随机分配属性</div>
+      <div class="talentchoose">请选择两个天赋</div>
 
+      <ol v-for= "item  in talentData">
+        <li :id="item.rarity" class="talent" :style='(applyStyle(item.rarity))' @click="choose(item)">{{item.name}}</li>
+      </ol>
+      <router-link to="/Play">
+        <button class="sure">确认</button>
+      </router-link>
     </div>
-    <div class="Randombutton" @click="randomassign">随机分配属性</div>
-    <div class="talentchoose">请选择两个天赋</div>
-
-    <div class="talentone" v-if="flag1" @click="chooseone" :style="Dstyleone">{{ m1 }}</div>
-    <div class="talenttwo" v-if="flag2" @click="choosetwo" :style="Dstyletwo">{{ m2 }}</div>
-    <div class="talentthree" v-if="flag3" @click="choosethree" :style="Dstylethree">{{ m3 }}</div>
-    <router-link to="/Play">
-      <button class="sure" @click="givenext">确认</button>
-    
-    </router-link>
-
-
-  </div>
 </template>
 
-<script lang="ts" >
-import Vue, { defineComponent } from 'vue';
+<script lang="ts">
+import {defineComponent} from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
-import axios from 'axios';
 import return_box from '@/components/return_box.vue';
+import {api, catchError} from '@/api/api'
+import {storeToRefs} from 'pinia'
+import {useMajorStore, usePropStore} from '@/state/store'
+import { TalentData } from '@/api/outputInterface';
+import { StyleValue } from 'vue/types/jsx';
+
+interface Data {
+  talentData: Array<TalentData>
+} 
 
 export default defineComponent({
-  name: 'selecttalent',
-  components: {
-    add_reduce,
-    return_box
-
-  },
-  // computed: {
-  //   getindex(ev) {
-
-  //     this.indexvalue = ev.target.index;
-
-  //   }
-  // },
-
-  methods: {
-
-    givenext(){
-      
+    name: 'select-talent',
+    components: {
+        add_reduce,
+        return_box
     },
-    Change_Colorone() {
-      
-        switch(this.Dstyleone.rarity){
-          case 1:this.Dstyleone.background = 'white';this.Dstyleone.color = 'black';break;
-          case 2:this.Dstyleone.background = 'blue';this.Dstyleone.color = 'white';break;
-          case 3:this.Dstyleone.background = 'purple';this.Dstyleone.color = 'white';break;
-          case 4:this.Dstyleone.background = 'orange';this.Dstyleone.color = 'white';break;
-          default:console.log('none');}
+    setup() {
+      const majorStore = useMajorStore()
+      const propStore = usePropStore()
+      const {props,names} = storeToRefs(propStore)
+      return{majorStore,propStore,props,names}
+    },
+    data() {
+      return {
+        talentData:[],
+      } as Data
+    },
+    async created() {
+      await api.getTalentData().then( (res) => {
+        this.talentData = res
+      }).catch( (error) => catchError(error))
+    },
+    methods: {
+      applyStyle(rarity: string): StyleValue{
+        if (rarity == "传说") {
+          return {
+            background: "orange",
+            color:'white',
+          }
+        } 
+        else if(rarity == "史诗") {
+          return {
+            background: "purple",
+            color:'white',
+          }
+        }
+        else if(rarity == "稀有") {
+          return {
+            background: "blue",
+            color:'white',
+          }
+        }
+        else {
+          return {
+            background: "black",
+            color:'white',
+          }
+        }
+      },
+      choose(item: TalentData) {
+        if(this.talentData.length > 1){
+          this.talentData.splice(this.talentData.indexOf(item),1)
+          this.propStore.apdateProps(item.propChanges)
+        }
         
-      } ,
-      Change_Colortwo() {
-      
-      switch(this.Dstyletwo.rarity){
-        case 1:this.Dstyletwo.background = 'white';this.Dstyletwo.color = 'black';break;
-        case 2:this.Dstyletwo.background = 'blue';this.Dstyletwo.color = 'white';break;
-        case 3:this.Dstyletwo.background = 'purple';this.Dstyletwo.color = 'white';break;
-        case 4:this.Dstyletwo.background = 'orange';this.Dstyletwo.color = 'white';break;
-        default:console.log('none');}
-      
-    } ,
-    Change_Colorthree() {
-      
-      switch(this.Dstylethree.rarity){
-        case 1:this.Dstylethree.background = 'white';this.Dstylethree.color = 'black';;break;
-        case 2:this.Dstylethree.background = 'blue';this.Dstylethree.color = 'white';break;
-        case 3:this.Dstylethree.background = 'purple';this.Dstylethree.color = 'white';break;
-        case 4:this.Dstylethree.background = 'orange';this.Dstylethree.color = 'white';break;
-        default:console.log('none');}
-      
-    } ,
-   
-   
-
-    reducechild(index: number) {
-
-      if (this.countamout[index].count > 0)
-        this.countamout[index].count -= 1;
-       
-
-    },
-    addchild(index: number) {
-      let acount = this.countamout[0].count + this.countamout[1].count + this.countamout[2].count + this.countamout[3].count + this.countamout[4].count;
-
-      if (acount < 20) {
-        this.countamout[index].count += 1;
-        // this.$store.commit('addstate_intel',1);
       }
-    },
-      
-
-
-    
-    randomassign() {
-      let a1 = Math.floor(Math.random() * (25 - 0));
-      let a2 = Math.floor(Math.random() * (25 - a1));
-      let a3 = Math.floor(Math.random() * (25 - a1 - a2));
-      let a4 = Math.floor(Math.random() * (25 - a1 - a2 - a3));
-      let a5 = 25 - a1 - a2 - a3 - a4;
-      this.countamout[0].count = a1;
-      this.countamout[1].count = a2;
-      this.countamout[2].count = a3;
-      this.countamout[3].count = a4;
-      this.countamout[4].count = a5;
-
-    },
-    chooseone() {
-      if(!(this.flag2===false&&this.flag3==false))
-      this.flag1 = false;
-    },
-    choosetwo() {
-      if(!(this.flag1===false&&this.flag3==false))
-      this.flag2 = false;
-    },
-    choosethree() {
-      if(!(this.flag2===false&&this.flag1==false))
-      this.flag3 = false;
     }
-
-  },
-  data() {
-    return {
-      msg1: '计算机科学与技术学院',
-      countamout: [{ shuxing: '智力', count: 1 }, { shuxing: '体质', count: 1 },
-      { shuxing: '魅力', count: 1 }, { shuxing: '运气', count: 1 }, { shuxing: '家境', count: 1 }],
-
-      resultamout: [{ shuxing: '智力', count: 0 }, { shuxing: '体质', count: 0 },
-      { shuxing: '魅力', count: 0 }, { shuxing: '运气', count: 0 }, { shuxing: '家境', count: 0 }],
-
-      flag1: true,
-      flag2: true,
-      flag3: true,
-      m1: '',
-      m2: '',
-      m3: '',
-      Dstyleone: {
-        background: "white",
-        rarity:4,
-        property_change:[0,0,0,0,0,0],
-        color:'white',
-      },
-      Dstyletwo: {
-        background: "white",
-        rarity:2,
-        property_change:[0,0,0,0,0,0],
-        color:'white',
-      },
-      Dstylethree: {
-        background: "white",
-        rarity:3,
-        property_change:[0,0,0,0,0,0],
-        color:'white',
-      },
-      
-      
-
-    }
-  },
- 
-  created(){
-  let _this=this;
-  Promise.all([
-      new Promise((resolve) =>{
-        axios.get("https://mock.apifox.cn/m1/1984536-0-default/talentchoice",{
-         
-        }).then((res)=>{
-          _this.Dstyleone.rarity=res.data.array[0].rarity
-          _this.Dstyletwo.rarity=res.data.array[1].rarity
-          _this.Dstylethree.rarity=res.data.array[2].rarity
-          _this.m1=res.data.array[0].name
-          _this.m2=res.data.array[1].name
-          _this.m3=res.data.array[2].name
-          
-          _this.Dstyleone.property_change=res.data.array[0].prop_change
-          _this.Dstyletwo.property_change=res.data.array[1].prop_change
-          _this.Dstylethree.property_change=res.data.array[2].prop_change
-         
-          _this.Change_Colorone();
-          _this.Change_Colortwo();
-          _this.Change_Colorthree();
-         
-        })
-
-      }),
-
-
-  ]);
-  
-
-
-}
-
-      
- 
-
-});
-
-</script >
+})
+</script>
 
 <style scoped>
-#largestborder {
-  height: 722px;
-  width: 390px;
-  background-color: #efefef;
-  margin: 0 auto;
-
-
+.largestborder {
+height: 722px;
+width: 390px;
+background-color: #efefef;
+margin: 0 auto;
 }
-
-
 
 .result {
   float: left;
@@ -252,70 +114,19 @@ export default defineComponent({
 
 }
 
+.shuxing {
+height: 18px;
+width: 128px;
+background-color: rgba(255, 255, 255, 0);
+text-align: center;
+}
+
 #blue {
   color: #0f40f5;
-
 }
 
-.medium {
-  height: 249px;
-
-}
-
-.ml {
-  float: right;
-  margin-right: 62px;
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-
-}
-
-.shuxing {
-
-
-
-  height: 18px;
-  width: 128px;
-  background-color: rgba(255, 255, 255, 0);
-  text-align: center;
-
-
-}
-
-.Randombutton {
-
-  width: 157px;
-  height: 47px;
-  line-height: 29px;
-  border-radius: 10px 10px 15px 10px;
-  background-color: rgba(255, 255, 255, 1);
-  color: rgba(16, 16, 16, 1);
-  font-size: 20px;
-  margin-left: 118px;
-  margin-top: 0px;
-  line-height: 47px;
-  text-align: center;
-  font-family: Arial;
-  border: 1px solid rgba(187, 187, 187, 1);
-}
-
-.talentchoose {
-  margin-top: 15px;
-  margin-left: 21px;
-  width: 325px;
-  height: 67px;
-  color: rgba(16, 16, 16, 1);
-  font-size: 28px;
-  text-align: left;
-  font-family: PingFangSC-regular;
-
-}
-
-.talentone {
-  margin-left: 21px;
+.talent {
+  margin-right: 100px;
   margin-top: 0px;
   width: 348px;
   height: 44px;
@@ -337,85 +148,6 @@ export default defineComponent({
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
-}
-
-.talentone:hover,
-.talentone:focus,
-.talentone:active {
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.talenttwo {
-  margin-left: 21px;
-  margin-top: 20px;
-  width: 348px;
-  height: 44px;
-  line-height: 29px;
-  border-radius: 15px 15px 15px 15px;
-
-  background-color: rgba(255, 255, 255, 255);
-  color: black;
-
-  background-color: rgba(89, 27, 183, 1);
-  color: rgba(255, 255, 255, 1);
-
-  font-size: 20px;
-  line-height: 44px;
-  text-align: center;
-  font-family: Arial;
-  border: 1px solid rgba(187, 187, 187, 1);
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-}
-
-.talenttwo:hover,
-.talenttwo:focus,
-.talenttwo:active {
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.talentthree {
-  margin-left: 21px;
-  margin-top: 20px;
-  width: 348px;
-  height: 44px;
-  line-height: 29px;
-  border-radius: 15px 15px 15px 15px;
-  background-color: rgba(147, 210, 243, 1);
-  color: rgba(16, 16, 16, 1);
-  font-size: 20px;
-  line-height: 44px;
-  text-align: center;
-  font-family: Arial;
-  border: 1px solid rgba(187, 187, 187, 1);
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow, transform;
-  transition-property: box-shadow, transform;
-}
-
-.talentthree:hover,
-.talentthree:focus,
-.talentthree:active {
-  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 
 .sure {
@@ -432,5 +164,44 @@ export default defineComponent({
   font-family: Arial;
   border: 1px solid rgba(187, 187, 187, 1);
 }
-</style>
 
+.Randombutton {
+width: 157px;
+height: 47px;
+line-height: 29px;
+border-radius: 10px 10px 15px 10px;
+background-color: rgba(255, 255, 255, 1);
+color: rgba(16, 16, 16, 1);
+font-size: 20px;
+margin-left: 118px;
+margin-top: 0px;
+line-height: 47px;
+text-align: center;
+font-family: Arial;
+border: 1px solid rgba(187, 187, 187, 1);
+}
+
+.medium {
+  height: 249px;
+}
+
+.talentchoose {
+  margin-top: 15px;
+  margin-left: 21px;
+  width: 325px;
+  height: 67px;
+  color: rgba(16, 16, 16, 1);
+  font-size: 28px;
+  text-align: left;
+  font-family: PingFangSC-regular;
+
+}
+.ml {
+  float: right;
+  margin-right: 62px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>

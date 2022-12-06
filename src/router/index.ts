@@ -10,7 +10,6 @@ import summary from '../views/SummaryView.vue'
 import play from '../views/PlayView.vue'
 import anniversary from '../views/AnniversaryView.vue'
 import choice from '../views/ChoiceView.vue'
-
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -72,7 +71,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '*', redirect: '/',
     name: 'redirected'
-  },
+  }
 ]
 
 const router = new VueRouter({

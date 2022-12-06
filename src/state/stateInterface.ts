@@ -1,4 +1,5 @@
 export interface Prop {
+    names: Array<string>,
     props: Array<number>
 }
 

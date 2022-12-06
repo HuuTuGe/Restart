@@ -9,18 +9,23 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import {usePropStore} from '@/state/store'
 export default defineComponent({
 name: 'add_reduce',
 props:{
       count:Number,
-     
+      id:Number
+},
+setup() {
+    const propStore = usePropStore()
+    return{propStore}
 },
 methods:{
      reducedata(){
-        this.$emit("reducechangedata")
+        this.propStore.decrement(this.id as number,1)
      },
      adddata(){
-        this.$emit("addchangedata")
+        this.propStore.increment(this.id as number,1)
      },
 }
 
