@@ -10,6 +10,10 @@ export interface EventParam{
     props: Array<number>
 }
 
+export interface ChoicesParam{
+    
+}
+
 export interface PicturesParam{
     eventsId?: Array<number>,
     achievementsId?: Array<number>

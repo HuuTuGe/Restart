@@ -66,7 +66,6 @@ export const usePropStore = defineStore('prop', {
              let a4 = Math.floor(Math.random() * (25 - a1 - a2 - a3));
              let a5 = 25 - a1 - a2 - a3 - a4;
              this.props = [a1,a2,a3,a4,a5,0]
-             console.log("radom")
         }
     }
 })
