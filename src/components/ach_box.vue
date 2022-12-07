@@ -13,7 +13,6 @@ export default Vue.extend( {
   props:['lifeData'],
   data(){
     return{
-      // Dstyle:{},
       Dstyle:{
         background:'',
       },

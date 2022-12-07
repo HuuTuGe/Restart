@@ -53,7 +53,7 @@
       </div>
       <button @click="(day(),iem(),p())" class="bu">点击播放</button>
       <div class="end_game" v-show="IsShow">
-        <router-link to="/Smmary">
+        <router-link to="/Summary">
           <button class="life_con">人生报告</button>
         </router-link>
       </div>
@@ -382,7 +382,7 @@ td {
 }
 
 h1 {
-  /* display: inline-block; */
+  display: inline-block;
   font-size: 48px;
   float: left;
   margin: 0;

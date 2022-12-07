@@ -53,42 +53,6 @@ export default Vue.extend({
         this.propStore.apdateProps(props),
         (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
       },
-      // Get_sec(){
-      //   (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      //   axios.get('https://mock.apifox.cn/m1/1984536-0-default/choices').then(response =>{
-      //     this.propStore.apdateProps(response.data[1].propertyChange)
-      //     })
-      // },
-      // Get_thi(){
-      //   (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      //   axios.get('https://mock.apifox.cn/m1/1984536-0-default/choices').then(response =>{
-      //     this.propStore.apdateProps(response.data[2].propertyChange)
-      //   })
-      // },
-      // Get_fur(){
-      //   (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      //   axios.get('https://mock.apifox.cn/m1/1984536-0-default/choices').then(response =>{
-      //     this.propStore.apdateProps(response.data[3].propertyChange)
-      //   })
-      // },
-      // Get_fiv(){
-      //   (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      //   axios.get('https://mock.apifox.cn/m1/1984536-0-default/choices').then(response =>{
-      //     this.propStore.apdateProps(response.data[4].propertyChange)  
-      //   })
-      // },
-      // Get_six(){
-      //   (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      //   axios.get('https://mock.apifox.cn/m1/1984536-0-default/choices').then(response =>{
-      //     this.propStore.apdateProps(response.data[5].propertyChange)
-      //   })
-      // },
-      // Get_sev(){
-      //   (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      //   axios.get('https://mock.apifox.cn/m1/1984536-0-default/choices').then(response =>{
-      //     this.propStore.apdateProps(response.data[6].propertyChange)
-      //   })
-      // }
   }
 })
 </script>
