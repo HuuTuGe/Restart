@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {Major, User, Life} from '@/state/stateInterface'
+import {Major, User, Life, GameSource} from '@/state/stateInterface'
 
 export const useMajorStore = defineStore('major',{
     state: () => {
@@ -22,17 +22,28 @@ export const useMajorStore = defineStore('major',{
 export const useUserStore = defineStore('user',{
     state: () => {
         return {
-            userId: -1,
-            academyList: []
+            userId: undefined,
+            commonAcademyList: [], // 用户已经获得的普通成就id的列表
+            specialAcademyList: [], // 用户已经获得的特殊成就id的列表
+            reStartNum: 0 // 用户重开次数
         } as User
     },
     getters: {
-
+        userCommonAchievementsNum(state): number {
+            let sum:number = 0
+            state.commonAcademyList.some(item => {sum+=item})
+            return sum
+        },
+        userSpecialAchievementsNum(state): number{
+            let sum:number = 0
+            state.specialAcademyList.some(item => {sum+=item})
+            return sum
+        },
     },
     actions: {
         setUser(id:number, academyList: Array<number>){
             this.userId = id;
-            this.academyList = academyList;
+            // TODO
         }
     }
 })
@@ -44,11 +55,15 @@ export const useLifeStore = defineStore('life', {
             props:[0,0,0,0,0,0],
             eventList: [], // 事件id的list
             achievementList: [], // 成就id的list
-            getAchievments: 0
+            getAchievments: 0 // 本回合已获得的成就的计数
         } as Life
     },
     getters: {
-
+        propsSum(): number {
+            let sum:number = 0
+            this.props.some(item => {sum+=item})
+            return sum
+        }
     },
     actions: {
         addEvent(eventId:number) {
@@ -59,28 +74,25 @@ export const useLifeStore = defineStore('life', {
             this.eventList.push(eventId)
             
         },
-        addAchievement(academyId:number) {
+        addAchievement(achievementId:number) {
             /**
              * 添加触发的成就
              * @param academyId - 成就id
              */
-                this.achievementList.push(academyId)
+                this.achievementList.push(achievementId)
                 this.getAchievments++
         },
-        getPropsSum(): number {
-            let sum:number = 0
-            this.props.some(item => {sum+=item})
-            return sum
-        },
+        
         apdateProps(props: Array<number>):void {
             /**
              * 控制整体属性的增加或减少
              * @param props - 属性的改变
              */
-             for(let i:number=0; i<6; i++){
-                props[i] += this.props[i]
+            let temp=props
+             for(let i=0; i<6; i++){
+                temp[i] += this.props[i]
              }
-             this.props = props
+             this.props = temp
         },
         increment(index:number, num:number):void {
             /**
@@ -88,7 +100,7 @@ export const useLifeStore = defineStore('life', {
              * @param index - 更改props的第几位属性
              * @param num - 更改的幅度
              */
-            if(this.getPropsSum() >= 25){
+            if(this.propsSum >= 25){
                 return
             }
             let temp = this.props[index]
@@ -103,7 +115,7 @@ export const useLifeStore = defineStore('life', {
              * @prama index - 更改props的第几位属性
              * @prama num - 更改的幅度
              */
-            if(this.getPropsSum() <= 0) {
+            if(this.propsSum <= 0) {
                 return
             }
             let temp = this.props[index]
@@ -125,16 +137,26 @@ export const useLifeStore = defineStore('life', {
     }
 })
 
-export const useAchievement = defineStore('achievement', {
+export const useSourceStore = defineStore("gameSource",{
     state: () => {
         return {
-
-        }
+            commonAchievementsNum: undefined,
+            specialAchievementsNum: undefined
+        } as GameSource
     },
     getters: {
-
+        achievementsNum():number {
+            let sum:number = 0
+            if(this.commonAchievementsNum && this.specialAchievementsNum){
+                sum = this.commonAchievementsNum + this.specialAchievementsNum
+            }
+            return sum
+        }
     },
     actions: {
-
+        init(gameSource: GameSource): void{
+            this.commonAchievementsNum = gameSource.commonAchievementsNum,
+            this.specialAchievementsNum = gameSource.specialAchievementsNum
+        }
     }
 })

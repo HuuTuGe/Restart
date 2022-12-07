@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>
+      <return_box from="'/success'"></return_box>
       <p class="text1">普通成就</p>
       <img src="../assets/普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -10,9 +10,9 @@
       <p class="text3">成就</p>
       <p class="text4">收集进度</p>
 
-      <span class="num1">{{ achievement_num }}</span>
+      <span class="num1">{{  commonAchievementsNum }}</span>
       <span class="num2">/</span>
-      <span class="num3">60</span>
+      <span class="num3">{{ achievement_num }}</span>
     </div>
 
     <div class="box3">
@@ -52,6 +52,8 @@ import return_box from "../components/return_box.vue";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam } from "@/api/inputInterface";
 import { StyleValue } from "vue/types/jsx";
+import { storeToRefs } from "pinia";
+import { useSourceStore } from '@/state/store';
 
 export default defineComponent({
   name: "app",
@@ -59,20 +61,27 @@ export default defineComponent({
     NAlist,
     return_box,
   },
-  watch: {
-    nowPage: "sendRequest", //绑定函数
+  setup() {
+    const sourceStore = useSourceStore()
+    const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
+    return {sourceStore,commonAchievementsNum,specialAchievementsNum}
   },
   data() {
     return {
-      achievement_num: 15,
+      achievement_num: 60,
       cj: "<<",
       nowPage: 1,
       pageNum: 5,
       items: [{ name: " ", id: 0, rarity: "" }],
     };
   },
-
+  watch: {
+    nowPage: "sendRequest", //绑定函数
+  },
   methods: {
+    setPageNum(){
+        this.pageNum = (this.sourceStore.commonAchievementsNum as number / 10)+1;
+    },
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
         return {
@@ -118,7 +127,8 @@ export default defineComponent({
   },
   //页面加载时自动调用
   mounted: function () {
-    this.sendRequest();
+    this.sendRequest();  
+    this.setPageNum();
   },
 });
 </script scoped>

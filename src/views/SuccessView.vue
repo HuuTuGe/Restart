@@ -1,74 +1,74 @@
 <template>
-  <div id="largestborder">
-    <!--<div id="success_fix">
-       <div id="bluebg">
-         <div id="SuccessCount"><div id="count1">{{count1}}</div></div>
-        </div>
-        
-       
-      </div>-->
-    <div class="box1">
-      <return_box class="ret"></return_box>
-      <div class="justplace"></div>
-      <div class="box2">
-        <p class="text3">成就</p>
-        <p class="text4">收集进度</p>
+    <div id="largestborder">
+      <div class="box1">
+        <return_box class="ret" from="/summary"></return_box>
+        <div class="justplace"></div>
+        <div class="box2">
+          <p class="text3">成就</p>
+          <p class="text4">收集进度</p>
 
-        <span class="num1">15</span>
-        <span class="num2">/</span>
-        <span class="num3">60</span>
-      </div>
+          <span class="num1">15</span>
+          <span class="num2">/</span>
+          <span class="num3">{{sourceStore.achievementsNum}}</span>
+        </div>
     </div>
 
     <div class="box3">你已重开 {{ count4 }} 次</div>
 
-    <div id="details">
-      <p class="cjtitle">&nbsp;&nbsp;&nbsp;成就详情</p>
-      <router-link to="/SAchievement">
-        <div id="specialtotal">
-          <div id="special"></div>
-          <div id="specialdt">
-            <div class="stype">特殊成就</div>
-            <div class="sreason">专业特色剧情触发</div>
-            <div class="COUNT">{{ count2 }}/{{ total2 }}</div>
-            <div class="check"></div>
-          </div>
-        </div>
-      </router-link>
-      <router-link to="/NAchievement">
-        <div id="commomtotal">
-          <div id="commom"></div>
-          <div id="commomdt">
+       <div id="details" >
+          <p>成就详情</p>
+          <router-link to="/SAchievement">
+            <div id="specialtotal">
+            <div id="special"></div>
+            <div id="specialdt"><div class="stype">特殊成就</div>
+            <div class="sreason">专业、特色剧情触发</div>
+            <div class="COUNT">{{count2}}/{{specialAchievementsNum}}</div> 
+            <div class="check"></div></div>
+            </div>
+          </router-link>
+          <router-link to="/NAchievement">
+            <div id="commomtotal">
+            <div id="commom"></div>
+            <div id="commomdt">
             <div class="stype">普通成就</div>
             <div class="sreason">常规剧情触发</div>
-            <div class="COUNT">{{ count3 }}/{{ total3 }}</div>
-            <div class="check"></div>
-          </div>
-        </div>
-      </router-link>
+            <div class="COUNT">{{count3}}/{{commonAchievementsNum}}</div> 
+            <div class="check"></div></div>
+            </div>
+          </router-link>
+          
+       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import return_box from "@/components/return_box.vue";
+import return_box from '@/components/return_box.vue';
+import { useSourceStore } from '@/state/store';
+import { storeToRefs } from 'pinia';
 export default {
-  name: "success",
-  components: {
-    return_box,
-  },
-  data() {
-    return {
-      msg: "成就榜",
-      count1: 0,
-      count2: 2,
-      count3: 5,
-      count4: 0,
-      total2: 10,
-      total3: 15,
-    };
-  },
-};
+name: 'success',
+components:{
+  return_box
+},
+setup() {
+  const sourceStore = useSourceStore()
+  const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
+  return {sourceStore,commonAchievementsNum,specialAchievementsNum}
+},
+data () {
+  return {
+    msg: '成就榜',
+    count1:0,
+    count2:2,
+    count3:15,
+    count4:0,
+    total2:10,
+    total3:15
+
+  }
+
+}
+}
 </script  >
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

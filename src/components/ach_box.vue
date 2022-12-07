@@ -2,7 +2,7 @@
   <div class="ach_box" :style="Dstyle">
       <div class="get_ach" :style="aColor">达成成就</div>
       <hr class="d_line">
-      <div class="ach_con" :style="aColor">{{x}}</div>
+      <div class="achCon" :style="aColor">{{x}}</div>
   </div>
 </template>
 <script lang="ts">
@@ -24,27 +24,10 @@ export default Vue.extend( {
     }
   },
   methods:{
-    // activeColor(){
-    //   this.id=2;
-    //   if(this.id==1){
-    //     // this.Dstyle=this.R_one;
-    //     this.Dstyle.background = "blue";
-    //   }else if(this.id==2){
-    //     // this.Dstyle=this.B_one;
-    //     this.Dstyle.background = "black";
-    //   }
-    // },
-    // printX(){
-    //   this.con_flag=1;
-    //   this.con='123456';
-    //   if(this.con_flag==1){
-    //     this.x=this.con;
-    //   }
-    // },
   activeColor(){
     axios.get('https://mock.apifox.cn/m1/1984536-0-default/event')//url
     .then(response => {
-      this.color_id=response.data.achievementrarity;
+      this.color_id=response.data.achievement.rarity;
       if(this.color_id=='普通'){
          this.Dstyle.background = "gray";
          this.aColor.color="black"
@@ -59,15 +42,11 @@ export default Vue.extend( {
    },
    printX(){
     axios.get('https://mock.apifox.cn/m1/1984536-0-default/event').then(response => {
-      this.x=response.data.achievement.content//需要修改
+      this.x=response.data.achievement.name//需要修改
     })
    }
-// 
-// 
-// 
-// 
 
-    },
+  },
   mounted:function(){
     this.activeColor();
     this.printX();
@@ -87,7 +66,6 @@ export default Vue.extend( {
 }
 .get_ach{
   position: relative;
-  display: inline-block;
   width: 45px;
   height: 45px;
   font-size: 20px;
@@ -98,9 +76,8 @@ export default Vue.extend( {
   font-size: 20px;
   color: white;
 }
-.ach_con{
+.achCon{
   position: relative;
-  display: inline-block;
   float: left;
   width: 284px;
   height: 75px;
@@ -112,7 +89,6 @@ export default Vue.extend( {
 }
 .d_line{
   position: relative;
-  display: inline-block;
   float: left;
   height: 75px;
   border: none;

@@ -17,21 +17,29 @@
         <router-link to="/Choice">
             <img src="@/assets/play.png" class="play">
         </router-link>
-
-
     </div>
 </template>
+
+
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+import { useSourceStore } from "@/state/store";
+import {api} from '@/api/api'
+export default defineComponent({
     name: 'app',
     data() {
         return {
-            English_name: 'RESTART',
-            Chinese_name: '福大人生',
         }
+    },
+    setup() {
+        const gameSource = useSourceStore()
+        api.getGameSourceData()
+        .then(data => {
+            gameSource.init(data)
+        })
     }
 
-}
+})
 </script>
   
 <style scoped lang="scss">

@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box from="/"></return_box>
+      <return_box from="/summary"></return_box>
       <p class="text1">{{ '成就一览' }}</p>
       <img src="../assets/特殊成就.png"  class="p1" />
       <p class="text2">Achievement list</p>
@@ -11,7 +11,7 @@
       <p class="text4">成就个数</p>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <img src="../assets/成就一览.png" alt="" class="p3" />
-      <span class="num1">{{ achievement_num }}</span>
+      <span class="num1">{{ getAchievments }}</span>
     </div>
 
     <div class="box3">
@@ -55,6 +55,8 @@ import return_box from "../components/return_box.vue";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam } from "@/api/inputInterface";
+import { useLifeStore } from '@/state/store';
+import { storeToRefs } from "pinia";
 
 export default defineComponent({
   name: "app",
@@ -62,12 +64,17 @@ export default defineComponent({
     NAlist,
     return_box,
   },
+  setup() {
+    const lifeStore = useLifeStore()
+    const {getAchievments} = storeToRefs(lifeStore)
+    return {lifeStore,getAchievments}
+  },
   watch: {
     nowPage: "sendRequest", //绑定函数
   },
   data() {
     return {
-      achievement_num: 17,
+
       cj: "<<",
       nowPage: 1,
       pageNum: 5,
@@ -75,6 +82,9 @@ export default defineComponent({
     };
   },
   methods: {
+    setPageNum(){
+        this.pageNum = (this.getAchievments / 10)+1;
+    },
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
         return {
@@ -120,6 +130,7 @@ export default defineComponent({
   },
   mounted: function () {
     this.sendRequest();
+    this.setPageNum()
   },
 });
 </script>

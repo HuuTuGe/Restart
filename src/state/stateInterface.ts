@@ -4,8 +4,10 @@ export interface Major {
 }
 
 export interface User {
-    userId: number,
-    academyList: Array<number>
+    userId: number|undefined,
+    commonAcademyList: Array<number>,
+    specialAcademyList: Array<number>,
+    reStartNum: number
 }
 
 export interface Life {
@@ -14,4 +16,9 @@ export interface Life {
     eventList: Array<number>,
     achievementList: Array<number>,
     getAchievments: number
+}
+
+export interface GameSource{
+    commonAchievementsNum: number|undefined,
+    specialAchievementsNum: number|undefined
 }

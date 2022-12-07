@@ -5,7 +5,7 @@
       <hr class="d_line">
       <div class="con"><span class="con_in">{{Con_In}}</span></div>
     </div>
-    <div id="ach" v-if="(ach_id == true)">
+    <div id="ach" v-show="ach_id">
       <ach_box></ach_box>
     </div>
   </div>
@@ -41,12 +41,10 @@ export default Vue.extend({
   },
   methods:{
       print_In(){
-      let _this=this
       axios.get('https://mock.apifox.cn/m1/1984536-0-default/event')//url
       .then(response =>{
-        _this.Con_In = response.data.lifeEvent.content;//事件id
-        _this.ach_id = response.data.haveAchievement;
-        
+        this.Con_In = response.data.lifeEvent.content;//事件id
+        this.ach_id = response.data.haveAchievement;
       })
     },
     print_MON(){

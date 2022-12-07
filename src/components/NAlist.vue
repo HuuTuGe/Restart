@@ -34,7 +34,7 @@ export default defineComponent({
       }
     },
   },
-  mounted() {
+  created() {
     this.Change_Color();
   },
 });

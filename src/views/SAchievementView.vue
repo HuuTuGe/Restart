@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>
-      <p class="text1">特殊成就</p>
+      <return_box from="/success"></return_box>
+      <p class="text1">{{achievementTpye}}</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -12,7 +12,7 @@
 
       <span class="num1">{{ achievement_num }}</span>
       <span class="num2">/</span>
-      <span class="num3">10</span>
+      <span class="num3">{{specialAchievementsNum}}</span>
     </div>
 
     <div class="box3">
@@ -50,7 +50,9 @@ import { defineComponent } from "vue";
 import Return_box from "../components/return_box.vue";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
-import { AchievementsParam } from "@/api/inputInterface";
+import { AchievementsParam, AchievementType } from "@/api/inputInterface";
+import { useSourceStore } from "@/state/store";
+import { storeToRefs } from "pinia";
 
 
 export default defineComponent({
@@ -59,11 +61,14 @@ export default defineComponent({
     NAlist,
     Return_box,
   },
-  watch: {
-    nowPage: "sendRequest", //绑定函数
+  setup() {
+    const sourceStore = useSourceStore()
+    const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
+  return {sourceStore,commonAchievementsNum,specialAchievementsNum}
   },
   data() {
     return {
+      achievementTpye: AchievementType.special,
       achievement_num: 2,
       cj:"<<",
       nowPage: 1,
@@ -71,7 +76,13 @@ export default defineComponent({
       items: [{ name: " ", id: 0, rarity: "" }],
     };
   },
+  watch: {
+    nowPage: "sendRequest", //绑定函数
+  },
   methods: {
+    setPageNum(){
+        this.pageNum = (this.sourceStore.specialAchievementsNum as number / 10)+1;
+    },
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
         return {
@@ -80,12 +91,12 @@ export default defineComponent({
         };
       } else if (rarity == "史诗") {
         return {
-          background: "#0050B3",
+          background: "#591BB7",
           color: "white",
         };
       } else if (rarity == "稀有") {
         return {
-          background: "#591BB7",
+          background: "#0050B3",
           color: "white",
         };
       } else {
@@ -117,6 +128,7 @@ export default defineComponent({
   },
   mounted: function () {
     this.sendRequest();
+    this.setPageNum();
   },
 });
 </script>
