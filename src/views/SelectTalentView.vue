@@ -5,13 +5,13 @@
       <div class="medium">
           <div class="ml" v-for="i in (names.length-1)" :index="(i-1)">
               <div class="shuxing">{{ names[i-1] }}</div>
-              <add_reduce :count="props[i-1]" :id="(i-1)" :update="!isRandom"></add_reduce>
+              <add_reduce  :count="props[i-1]" :id="(i-1)" :update="!isRandom"></add_reduce>
           </div>
       </div>
       <div class="Randombutton" @click='randomProps'>随机分配属性</div>
       <div class="talentchoose">请选择两个天赋</div>
 
-      <ol v-for= "item  in talentData">
+      <ol  class="talentfather" v-for= "item  in talentData">
         <li :id="item.rarity" class="talent" :style='(applyStyle(item.rarity))' @click="choose(item)">{{item.name}}</li>
       </ol>
       <!-- <router-link to="/Play"> -->
@@ -26,7 +26,7 @@ import add_reduce from '@/components/add_reduce.vue';
 import return_box from '@/components/return_box.vue';
 import {api, catchError} from '@/api/api'
 import {storeToRefs} from 'pinia'
-import {useMajorStore, usePropStore} from '@/state/store'
+import {useMajorStore, useLifeStore} from '@/state/store'
 import { TalentData } from '@/api/outputInterface';
 import { StyleValue } from 'vue/types/jsx';
 
@@ -44,10 +44,10 @@ export default defineComponent({
     },
     setup() {
       const majorStore = useMajorStore()
-      const propStore = usePropStore()
-      propStore.$reset
-      const {props,names} = storeToRefs(propStore)
-      return{majorStore,propStore,props,names}
+      const lifeStore = useLifeStore()
+      lifeStore.$reset
+      const {props,names} = storeToRefs(lifeStore)
+      return{majorStore,lifeStore,props,names}
     },
     data() {
       return {
@@ -91,21 +91,20 @@ export default defineComponent({
       choose(item: TalentData) {
         if(this.talentData.length > 1){
           this.talentData.splice(this.talentData.indexOf(item),1)
-          // this.propStore.apdateProps(item.propChanges)
           this.propChangesList.push(item.propChanges)
         }
         
       },
       randomProps() {
         if(!this.isRandom){
-          this.propStore.randomProps()
+          this.lifeStore.randomProps()
           this.isRandom = true
         }
       },
       toPlay() {
-        if(this.propChangesList.length > 1 && this.propStore.getPropsSum() == 25){
+        if(this.propChangesList.length > 1 && this.lifeStore.getPropsSum() == 25){
           for(let i=0; i<this.propChangesList.length; i++){
-            this.propStore.apdateProps(this.propChangesList[i])
+            this.lifeStore.apdateProps(this.propChangesList[i])
           }
           this.$router.push('/Play')
         }
@@ -122,6 +121,7 @@ width: 390px;
 background-color: #efefef;
 margin: 0 auto;
 }
+
 
 .result {
   float: left;
@@ -140,6 +140,8 @@ height: 18px;
 width: 128px;
 background-color: rgba(255, 255, 255, 0);
 text-align: center;
+vertical-align: top;
+line-height: 15px;
 }
 
 #blue {
@@ -210,12 +212,49 @@ border: 1px solid rgba(187, 187, 187, 1);
   margin-top: 15px;
   margin-left: 21px;
   width: 325px;
-  height: 67px;
+  height: 55px;
   color: rgba(16, 16, 16, 1);
   font-size: 28px;
   text-align: left;
   font-family: PingFangSC-regular;
 
+}
+.talentfather{
+  padding-left: 20px;
+  margin-top: 0px;
+  height:50px;
+}
+.talent:hover,
+.talent:focus,
+.talent:active {
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.talent {
+  display:inline;
+  margin-left: 0px;
+  margin-top: 20px;
+  width: 348px;
+  height: 44px;
+  line-height: 29px;
+  border-radius: 15px 15px 15px 15px;
+  background-color: rgba(147, 210, 243, 1);
+  color: rgba(16, 16, 16, 1);
+  font-size: 20px;
+  line-height: 44px;
+  text-align: center;
+  font-family: Arial;
+  border: 1px solid rgba(187, 187, 187, 1);
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
 }
 .ml {
   float: right;

@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>
-      <p class="text1">{{ msg }}</p>
+      <return_box from="/success"></return_box>
+      <p class="text1">{{achievementTpye}}</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -10,33 +10,33 @@
       <p class="text3">成就</p>
       <p class="text4">收集进度</p>
 
-      <span class="num1">{{ fz1 }}</span>
+      <span class="num1">{{ achievement_num }}</span>
       <span class="num2">/</span>
       <span class="num3">10</span>
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ cj }} </span>
+      <span class="gr"> {{ "<<" }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
     <div class="box4">
       <NAlist
         class="cont1"
-        :msg="item.message"
-        :c="item.id"
+        :msg="item.name"
         v-for="(item, index) in items"
-        :value="item.message"
+        :value="item.name"
         :key="index"
+        :style="applyStyle(item.rarity)"
       ></NAlist>
     </div>
 
     <div class="box5">
       <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="one">{{ fz }} </span>
+      <span class="one">{{ nowPage }} </span>
       <span class="one">/</span>
-      <span class="one"> {{ fm }}</span>
+      <span class="one"> {{ pageNum }}</span>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="下一页" class="r1" @click="changelast" />
     </div>
@@ -44,13 +44,14 @@
 </template>
 
 
-<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
-
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import Return_box from "../components/return_box.vue";
-import axios from "axios";
+import { StyleValue } from "vue/types/jsx";
+import { api, catchError } from "@/api/api";
+import { AchievementsParam, AchievementType } from "@/api/inputInterface";
+
 
 export default defineComponent({
   name: "app",
@@ -58,54 +59,71 @@ export default defineComponent({
     NAlist,
     Return_box,
   },
+  watch: {
+    nowPage: "sendRequest", //绑定函数
+  },
   data() {
     return {
-      msg: "特殊成就",
-      fz1: 2,
-      cj: "<<",
-      fz: 2,
-      fm: 5,
-      items: [{ message: " ", id: 0 }],
+      achievementTpye: AchievementType.special,
+      achievement_num: 2,
+      nowPage: 1,
+      pageNum: 5,
+      items: [{ name: " ", id: 0, rarity: "" }],
     };
   },
   methods: {
-    next1() {
-      let _this = this;
-      axios
-        .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
-          params: {
-            page_num: this.fz,
-          },
-        })
-        .then(function (response: any) {
-          console.log(_this.fz);
-          // console.log(response);
-          _this.items = response.data.item; //给存储数组的数组赋值
-          console.log(_this.items);
-        })
-        .catch(function (error: any) {
-          console.log(error);
-        });
+    applyStyle(rarity: string): StyleValue {
+      if (rarity == "传说") {
+        return {
+          background: "#E99D42",
+          color: "black",
+        };
+      } else if (rarity == "史诗") {
+        return {
+          // background: "#0050B3",
+          background: "#591BB7",
+          color: "white",
+        };
+      } else if (rarity == "稀有") {
+        return {
+          // background: "#591BB7",
+          background: "#0050B3",
+          color: "white",
+        };
+      } else {
+        return {
+          background: "white",
+          color: "black",
+        };
+      }
+    },
+    sendRequest() {
+      api.getAchievementsData(
+          {
+            page: this.nowPage,
+            limit: 10
+          } as AchievementsParam).
+      then((data) => {
+        this.items = data;
+      }).
+      catch(error => catchError(error));
     },
     //上一页
     changebefore() {
-      if (this.fz > 1) this.fz--;
-      console.log(this.fz);
-      this.next1();
+      if (this.nowPage > 1) this.nowPage--;
     },
     //下一页
     changelast() {
-      if (this.fz < this.fm) this.fz++;
-      console.log(this.fz);
-      this.next1();
+      if (this.nowPage < this.pageNum) this.nowPage++;
     },
   },
   mounted: function () {
-    this.next1();
+    this.sendRequest();
   },
 });
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
+
 <style scoped>
 .app {
   width: 390px;

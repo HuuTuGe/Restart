@@ -1,8 +1,3 @@
-export interface Prop {
-    names: Array<string>,
-    props: Array<number>
-}
-
 export interface Major {
     majorName: string,
     academyId: number
@@ -14,7 +9,14 @@ export interface User {
 }
 
 export interface Life {
-    lifeId: number,
+    names:Array<string>,
+    props:Array<number>,
     eventList: Array<number>,
-    achievementList: Array<number>
+    achievementList: Array<number>,
+    getAchievments: number
+}
+
+export interface GameSource{
+    commonAchievementsNum: number|undefined,
+    specialAchievementsNum: number|undefined
 }

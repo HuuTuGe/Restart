@@ -20,24 +20,25 @@
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
+    <!-- :colorId="item.id" -->
 
     <div class="box4">
       <NAlist
         class="cont1"
         :msg="item.message"
-        :c="item.id"
         v-for="(item, index) in items"
         :value="item.message"
-        :key="index"
+        :key="(index)"
+        :style="(applyStyle(item.id))"
       ></NAlist>
     </div>
 
     <div class="box5">
       <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="one">{{ fz }} </span>
+      <span class="one">{{ nowPage }} </span>
       <span class="one">/</span>
-      <span class="one"> {{ fm }}</span>
+      <span class="one"> {{ pageNum }}</span>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="下一页" class="r1" @click="changelast" />
     </div>
@@ -50,6 +51,7 @@ import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import return_box from "../components/return_box.vue";
 import axios from "axios";
+import { StyleValue } from 'vue/types/jsx';
 
 export default defineComponent({
   name: "app",
@@ -57,55 +59,84 @@ export default defineComponent({
     NAlist,
     return_box,
   },
-  watch:{
-        fz:'next1'
-      },
+  watch: {
+    nowPage: "sendRequest", //绑定函数
+  },
   data() {
     return {
       msg: "普通成就",
       achievement_num: 15,
-      cj: "<<",
-      fz: 1,
-      fm: 4,
+      cj: "<<", //直接用<<会报错
+      nowPage: 1,
+      pageNum: 4,
       // arr:[{ items:[{ message:" ",  id: 0 }] }],
       items: [{ message: " ", id: 0 }],
-    };    
+    };
   },
 
   methods: {
-    next1() {
+    applyStyle(id: Number): StyleValue{
+        if (id == 1) {
+          return {
+            background: "white",
+            color:'black',
+          }
+        } 
+        else if(id == 2) {
+          return {
+            background: "#0050B3",
+            color:'white',
+          }
+        }
+        else if(id == 3) {
+          return {
+            background: "#591BB7",
+            color:'white',
+          }
+        }
+        else {
+          return {
+            background: "#E99D42",
+            color:'black',
+          }
+        }
+      },
+    sendRequest() {
       let _this = this;
       axios
         .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
           params: {
-            page_num: this.fz,
+            page_num: this.nowPage,
           },
         })
-        .then(function (response: any) { //请求成功
-          // console.log(_this.fz);  console.log(response);
+        //请求成功
+        .then(function (response: any) {
+          // console.log(_this.nowPage); 
+           console.log(response);
           _this.items = response.data.item; //给存储数组的数组赋值
-          console.log(_this.items);
+          // console.log(_this.items);
+          // for(let i=0;i<response.data.item.length;i++)
         })
-        .catch(function (error: any) {  //请求失败
+        //请求失败
+        .catch(function (error: any) {
           console.log(error);
         });
     },
     //上一页
     changebefore() {
-      if (this.fz > 1)
-       this.fz--;
+      if (this.nowPage > 1) this.nowPage--;
     },
     //下一页
     changelast() {
-      if (this.fz < this.fm) 
-      this.fz++;
+      if (this.nowPage < this.pageNum) this.nowPage++;
     },
   },
-  mounted: function () {  //页面加载时自动调用
-    this.next1();
+  //页面加载时自动调用
+  mounted: function () {
+    this.sendRequest();
   },
 });
-</script>
+</script scoped>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style >

@@ -1,15 +1,7 @@
 <template>
     <div id="largestborder">
-      
-      <!--<div id="success_fix">
-       <div id="bluebg">
-         <div id="SuccessCount"><div id="count1">{{count1}}</div></div>
-        </div>
-        
-       
-      </div>-->
       <div class="box1">
-        <return_box class="ret" ></return_box>
+        <return_box class="ret" from="/"></return_box>
         <div class="justplace"></div>
         <div class="box2">
           <p class="text3">成就</p>
@@ -19,8 +11,6 @@
           <span class="num2">/</span>
           <span class="num3">60</span>
         </div>
-
-       
     </div>
 
     <div class="box3">
@@ -35,7 +25,7 @@
             <div id="specialtotal">
             <div id="special"></div>
             <div id="specialdt"><div class="stype">特殊成就</div>
-            <div class="sreason">学校特色剧情触发</div>
+            <div class="sreason">专业、特色剧情触发</div>
             <div class="COUNT">{{count2}}/{{total2}}</div> 
             <div class="check"></div></div>
             </div>
@@ -45,7 +35,7 @@
             <div id="commom"></div>
             <div id="commomdt">
             <div class="stype">普通成就</div>
-            <div class="sreason">学院/常规剧情触发</div>
+            <div class="sreason">常规剧情触发</div>
             <div class="COUNT">{{count3}}/{{total3}}</div> 
             <div class="check"></div></div>
             </div>
@@ -276,8 +266,8 @@ margin-top: 25px;
 
 }
 #special{
-  height:150px;
-  width:150px;
+  height:140px;
+  width:140px;
   background:url(../assets/奖杯.png) no-repeat 0px 0px;
   background-size:150px 150px ;
   float:left; 
@@ -291,8 +281,8 @@ height:150px;
   margin-top: 20px;
 }
 #commom{
-height:150px;
-  width:150px;
+height:140px;
+  width:140px;
   float:left; 
   display:inline;
   background:url(../assets/奖杯.png) no-repeat 0px 0px;
@@ -343,6 +333,7 @@ height:150px;
   margin-left: 80px;
   margin-top: 40px;
   color:#F5222D;
+  font-size: 22px;
 }
 
 

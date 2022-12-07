@@ -18,7 +18,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import {storeToRefs} from 'pinia'
-import {usePropStore, useMajorStore} from "@/state/store"
+import {useLifeStore, useMajorStore} from "@/state/store"
 
 export default Vue.extend({
   name:'choise_ho',
@@ -38,7 +38,7 @@ export default Vue.extend({
   },
   setup() {
     const majorStore = useMajorStore()
-    const propStore = usePropStore()
+    const propStore = useLifeStore()
     const {props,names} = storeToRefs(propStore)
     return{majorStore,propStore,props,names}
   },

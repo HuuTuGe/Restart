@@ -66,7 +66,6 @@ export default Vue.extend( {
 }
 .get_ach{
   position: relative;
-  display: inline-block;
   width: 45px;
   height: 45px;
   font-size: 20px;
@@ -79,7 +78,6 @@ export default Vue.extend( {
 }
 .achCon{
   position: relative;
-  display: inline-block;
   float: left;
   width: 284px;
   height: 75px;
@@ -91,7 +89,6 @@ export default Vue.extend( {
 }
 .d_line{
   position: relative;
-  display: inline-block;
   float: left;
   height: 75px;
   border: none;

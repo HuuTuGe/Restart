@@ -47,7 +47,7 @@
               <tr>
                 <td colspan="2">
                   <!-- <pro_item prop_name="已收集成就" ref="chengjiu"></pro_item> -->
-                  已收集成就：{{num7}}
+                  已收集成就：{{getAchievments}}
                 </td>
               </tr>
             </table>
@@ -84,18 +84,19 @@ import ach_box from './ach_box.vue'
 import choise_ho from './choise_ho.vue'
 import { defineComponent } from "vue";
 import axios from 'axios'
-import {usePropStore, useMajorStore} from "@/state/store"
 import {api, catchError} from '@/api/api'
-import {EventParam} from '@/api/inputInterface'
+import {LifeParam} from '@/api/inputInterface'
 import {storeToRefs} from 'pinia'
 // import { debounce } from 'lodash-es'
+
+import {useLifeStore, useMajorStore} from "@/state/store"
+
 interface Play {
   counter: Array<object>;
   s: Array<object>;
   IsShow: boolean,
   DayShow: boolean,
   cDay: number,
-  num7:number,
   f:number,
   ef:number,
   it:string,
@@ -120,10 +121,11 @@ export default defineComponent( {
     choise_ho
   },
   setup() {
-    const majorStore = useMajorStore()
-    const propStore = usePropStore()
-    const {props,names} = storeToRefs(propStore)
-    return{majorStore,propStore,props,names}
+
+    const majorStore = useMajorStore();
+    const lifeStore = useLifeStore();
+    const {names,props,getAchievments} = storeToRefs(lifeStore)
+    return {majorStore,lifeStore,names,props,getAchievments}
   },
   data() {
     return {
@@ -132,7 +134,6 @@ export default defineComponent( {
       IsShow: false,
       DayShow: false,
       cDay: 18,
-      num7:0,
       f:1,//判断是否需要初始化
       ef:1,//判断结束
       item:1,
@@ -188,8 +189,12 @@ export default defineComponent( {
       
     // },
     p(){
-      let param:EventParam = {
-        props: this.propStore.props
+      let param:LifeParam = {
+        props: this.lifeStore.props,
+        eventList: this.lifeStore.eventList,
+        achievementList: this.lifeStore.achievementList,
+        academyId: this.majorStore.academyId,
+
       }
       api.getEventData(param).then(data => console.log(data)).catch(error => catchError(error))
     },
@@ -212,11 +217,12 @@ export default defineComponent( {
         // console.log("a="+a[4])
         // console.log("a="+a[5])
         // this.num1+=response.data.vacation[0].property_change
+
         // console.log(response.data.vacation[0].property_change[2]
-        this.propStore.apdateProps(response.data.lifeEvent.propertyChange)
+        this.lifeStore.apdateProps(response.data.lifeEvent.propertyChange)
       
         if(response.data.haveAchievement){
-          this.num7+=1
+          
         }
       });
     },
@@ -435,7 +441,7 @@ td {
 }
 
 h1 {
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 48px;
   float: left;
   margin: 0;
