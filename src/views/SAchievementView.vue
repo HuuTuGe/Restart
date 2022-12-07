@@ -2,7 +2,7 @@
   <div class="app">
     <div class="box1">
       <return_box></return_box>
-      <p class="text1">{{achievementTpye}}</p>
+      <p class="text1">特殊成就</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -48,7 +48,6 @@
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import Return_box from "../components/return_box.vue";
-import { AchievementsParam, AchievementType } from "@/api/inputInterface";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam } from "@/api/inputInterface";
@@ -65,7 +64,6 @@ export default defineComponent({
   },
   data() {
     return {
-      achievementTpye: AchievementType.special,
       achievement_num: 2,
       nowPage: 1,
       pageNum: 5,
@@ -99,7 +97,7 @@ export default defineComponent({
     sendRequest() {
       api.getAchievementsData(
           {
-            page: this.fz,
+            page: this.nowPage,
             limit: 10
           } as AchievementsParam).
       then((data) => {
