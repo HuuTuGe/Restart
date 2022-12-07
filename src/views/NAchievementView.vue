@@ -67,8 +67,8 @@ export default defineComponent({
       msg: "普通成就",
       achievement_num: 15,
       cj: "<<", //直接用<<会报错
-      fz: 1,
-      fm: 4,
+      nowPage: 1,
+      pageNum: 4,
       // arr:[{ items:[{ message:" ",  id: 0 }] }],
       items: [{ message: " ", id: 0 }],
     };
