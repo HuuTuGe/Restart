@@ -36,3 +36,8 @@ export interface ChoiceData{
     propertyChange: Array<number>,
     content: string
 }
+
+export interface SourceData{
+    commonAchievementsNum: number|undefined,
+    specialAchievementsNum: number|undefined
+}

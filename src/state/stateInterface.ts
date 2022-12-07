@@ -4,8 +4,10 @@ export interface Major {
 }
 
 export interface User {
-    userId: number,
-    academyList: Array<number>
+    userId: number|undefined,
+    commonAcademyList: Array<number>,
+    specialAcademyList: Array<number>,
+    reStartNum: number
 }
 
 export interface Life {

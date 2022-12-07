@@ -80,7 +80,7 @@ export const api = {
          let url: string = this.baseUrl + '/choices'
          return await axios.get(url, data as AxiosRequestConfig<ChoicesParam>).then(res=> res.data)
     },
-    async getGameSource(): Promise<GameSource> {
+    async getGameSourceData(): Promise<GameSource> {
         /**
          * 请求游戏资源
          * @return 符合GameSource接口的数据
