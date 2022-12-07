@@ -151,8 +151,8 @@ export default defineComponent({
 .accomplishment_linking:focus,
 .accomplishment_linking:active {
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
 }
 
 .accomplishment_text {
@@ -190,6 +190,24 @@ export default defineComponent({
     height: 88px;
 }
 
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+@keyframes shining {
+    from {
+        text-shadow: 0 0 6px rgba(182, 211, 207, 0.9),
+            0 0 30px rgba(182, 211, 207, 0.3), 0 0 12px rgba(15, 115, 223, 0.5),
+            0 0 21px rgba(15, 115, 223, 0.9), 0 0 34px rgba(15, 115, 223, 0.8),
+            0 0 54px rgba(15, 115, 223, 0.9);
+    }
+
+    to {
+        text-shadow: 0 0 6px rgba(182, 211, 207, 1),
+            0 0 30px rgba(182, 211, 207, 0.4), 0 0 12px rgba(15, 115, 223, 0.6),
+            0 0 22px rgba(15, 115, 223, 0.8), 0 0 38px rgba(15, 115, 223, 0.9),
+            0 0 60px rgba(15, 115, 223, 1);
+    }
+}
+
 .summary_circle {
     border-radius: 150px/50px;
     border: 1px white solid;
@@ -202,7 +220,7 @@ export default defineComponent({
     text-align: center;
     font-family: Arial;
     line-height: 68px;
-    color: #FFFFFF;
+    color: #cce7f8;
     float: left;
     vertical-align: middle;
     -webkit-transform: perspective(1px) translateZ(0);
@@ -212,6 +230,8 @@ export default defineComponent({
     transition-duration: 0.3s;
     -webkit-transition-property: transform;
     transition-property: transform;
+    text-transform: uppercase;
+    animation: shining 0.1s alternate infinite;
 }
 
 .summary_circle:hover,
