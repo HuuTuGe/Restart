@@ -35,7 +35,7 @@
             <div id="specialtotal">
             <div id="special"></div>
             <div id="specialdt"><div class="stype">特殊成就</div>
-            <div class="sreason">学校特色剧情触发</div>
+            <div class="sreason">专业特色剧情触发</div>
             <div class="COUNT">{{count2}}/{{total2}}</div> 
             <div class="check"></div></div>
             </div>
@@ -45,7 +45,7 @@
             <div id="commom"></div>
             <div id="commomdt">
             <div class="stype">普通成就</div>
-            <div class="sreason">学院/常规剧情触发</div>
+            <div class="sreason">常规剧情触发</div>
             <div class="COUNT">{{count3}}/{{total3}}</div> 
             <div class="check"></div></div>
             </div>
