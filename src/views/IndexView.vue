@@ -3,6 +3,7 @@
         <div class="upper_list">
             <img src="@/assets/sound.png" class="sound">
             <img src="@/assets/change.png" class="sound">
+            <div class="prizeblank"></div>
             <router-link to="/Success">
                 <img src="@/assets/prize.jpg" class="prize">
             </router-link>
@@ -24,7 +25,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useSourceStore } from "@/state/store";
-import {api} from '@/api/api'
+import { api } from '@/api/api'
 export default defineComponent({
     name: 'app',
     data() {
@@ -34,9 +35,9 @@ export default defineComponent({
     setup() {
         const gameSource = useSourceStore()
         api.getGameSourceData()
-        .then(data => {
-            gameSource.init(data)
-        })
+            .then(data => {
+                gameSource.init(data)
+            })
     }
 
 })
@@ -74,8 +75,13 @@ body {
     font-family: ”Microsoft YaHei”, Arial, Helvetica, sans-serif, ”宋体”;
 }
 
+.prizeblank {
+    width: 150px;
+    float: left;
+    height: 85px;
+}
+
 .prize {
-    padding-left: 150px;
     padding-top: 15px;
     width: 108px;
     height: 85px;
