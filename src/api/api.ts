@@ -1,6 +1,6 @@
 import axios from "axios";
 import {UserData, MajorData, TalentData, EventData,AchievementData,LifeData,ChoiceData} from "@/api/outputInterface"
-import {MajorParam,EventParam,PicturesParam,PictureParam,AchievementsParam,UserParam,ChoicesParam} from "@/api/inputInterface"
+import {MajorParam,LifeParam,PicturesParam,PictureParam,AchievementsParam,UserParam,ChoicesParam} from "@/api/inputInterface"
 import type {AxiosRequestConfig} from 'axios'
 
 export function catchError(error:any) {
@@ -43,14 +43,14 @@ export const api = {
         let url: string = this.baseUrl + '/major'
         return await axios.get(url, data as AxiosRequestConfig<MajorParam>).then(res=> res.data)
     },
-    async getEventData(data:EventParam): Promise<LifeData> {
+    async getEventData(data:LifeParam): Promise<LifeData> {
         /**
          * 请求事件信息
          * @param data - 请求负载参数
          * @return 符合EventData接口的对象
          */
         let url: string = this.baseUrl + '/event'
-        return await axios.get(url, data as AxiosRequestConfig<EventParam>).then(res=> res.data)
+        return await axios.get(url, data as AxiosRequestConfig<LifeParam>).then(res=> res.data)
     },
     async postUserData(data: UserParam): Promise<UserData> {
         /**
@@ -76,7 +76,7 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合choiceData接口的列表数据
          */
-         let url: string = this.baseUrl + '/achievements'
+         let url: string = this.baseUrl + '/choices'
          return await axios.get(url, data as AxiosRequestConfig<ChoicesParam>).then(res=> res.data)
     }
 }

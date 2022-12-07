@@ -3,10 +3,10 @@ export interface MajorParam{
     majorType: string // 学院类型
 }
 
-export interface EventParam{
-    lifeId?: number,
-    eventList?: Array<number>,
-    achievementList?: Array<number>,
+export interface LifeParam{
+    eventList: Array<number>,
+    achievementList: Array<number>,
+    academyId: number,
     props: Array<number>
 }
 
@@ -22,7 +22,6 @@ export interface PicturesParam{
 export interface AchievementsParam{
     page: number,
     limit:number,
-
 }
 
 export interface PictureParam{

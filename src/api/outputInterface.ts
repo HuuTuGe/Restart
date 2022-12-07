@@ -16,18 +16,19 @@ export interface TalentData{
 export interface EventData{
     id: number,
     content: string,
-    propertyChange: Array<number> 
+    propertyChange: Array<number>,
+    gameOver: boolean
 }
 
 export interface AchievementData{
     id: number,
-    content: string,
+    name: string,
     rarity: string
 }
 
 export interface LifeData{
     haveAchievement: boolean,
-    achievement: AchievementData,
+    achievement?: AchievementData,
     lifeEvent: EventData
 }
 
