@@ -80,12 +80,14 @@ export default defineComponent({
         };
       } else if (rarity == "史诗") {
         return {
-          background: "#0050B3",
+          // background: "#0050B3",
+          background: "#591BB7",
           color: "white",
         };
       } else if (rarity == "稀有") {
         return {
-          background: "#591BB7",
+          // background: "#591BB7",
+          background: "#0050B3",
           color: "white",
         };
       } else {
