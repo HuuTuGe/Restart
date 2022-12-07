@@ -14,7 +14,9 @@ export interface User {
 }
 
 export interface Life {
-    eventList: Array<number>|undefined,
-    achievementList: Array<number>|undefined,
+    names:Array<string>,
+    props:Array<number>,
+    eventList: Array<number>,
+    achievementList: Array<number>,
     getAchievments: number
 }

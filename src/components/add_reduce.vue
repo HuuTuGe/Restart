@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import {usePropStore} from '@/state/store'
+import {useLifeStore} from '@/state/store'
 export default defineComponent({
 name: 'add_reduce',
 props:{
@@ -18,18 +18,18 @@ props:{
       update:{type:Boolean, default:true}
 },
 setup() {
-    const propStore = usePropStore()
-    return{propStore}
+    const lifeStore = useLifeStore()
+    return{lifeStore}
 },
 methods:{
      reduce(){
         if(this.update){
-            this.propStore.decrement(this.id as number,1)
+            this.lifeStore.decrement(this.id as number,1)
         }
      },
      add(){
         if(this.update){
-            this.propStore.increment(this.id as number,1)
+            this.lifeStore.increment(this.id as number,1)
         }
      },
 }

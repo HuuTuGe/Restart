@@ -26,7 +26,7 @@ import add_reduce from '@/components/add_reduce.vue';
 import return_box from '@/components/return_box.vue';
 import {api, catchError} from '@/api/api'
 import {storeToRefs} from 'pinia'
-import {useMajorStore, usePropStore} from '@/state/store'
+import {useMajorStore, useLifeStore} from '@/state/store'
 import { TalentData } from '@/api/outputInterface';
 import { StyleValue } from 'vue/types/jsx';
 
@@ -44,10 +44,10 @@ export default defineComponent({
     },
     setup() {
       const majorStore = useMajorStore()
-      const propStore = usePropStore()
-      propStore.$reset
-      const {props,names} = storeToRefs(propStore)
-      return{majorStore,propStore,props,names}
+      const lifeStore = useLifeStore()
+      lifeStore.$reset
+      const {props,names} = storeToRefs(lifeStore)
+      return{majorStore,lifeStore,props,names}
     },
     data() {
       return {
@@ -91,21 +91,20 @@ export default defineComponent({
       choose(item: TalentData) {
         if(this.talentData.length > 1){
           this.talentData.splice(this.talentData.indexOf(item),1)
-          // this.propStore.apdateProps(item.propChanges)
           this.propChangesList.push(item.propChanges)
         }
         
       },
       randomProps() {
         if(!this.isRandom){
-          this.propStore.randomProps()
+          this.lifeStore.randomProps()
           this.isRandom = true
         }
       },
       toPlay() {
-        if(this.propChangesList.length > 1 && this.propStore.getPropsSum() == 25){
+        if(this.propChangesList.length > 1 && this.lifeStore.getPropsSum() == 25){
           for(let i=0; i<this.propChangesList.length; i++){
-            this.propStore.apdateProps(this.propChangesList[i])
+            this.lifeStore.apdateProps(this.propChangesList[i])
           }
           this.$router.push('/Play')
         }

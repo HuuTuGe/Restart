@@ -84,7 +84,7 @@ import ach_box from './ach_box.vue'
 import choise_ho from './choise_ho.vue'
 import { defineComponent } from "vue";
 import axios from 'axios'
-import {usePropStore, useMajorStore} from "@/state/store"
+import {useLifeStore, useMajorStore} from "@/state/store"
 interface Play {
   counter: Array<object>;
   s: Array<object>;
@@ -123,8 +123,8 @@ export default defineComponent( {
   },
   setup() {
     const majorStore = useMajorStore();
-    const propStore = usePropStore();
-    return {majorStore,propStore}
+    const lifeStore = useLifeStore();
+    return {majorStore,lifeStore}
   },
   data() {
     return {
@@ -229,7 +229,7 @@ export default defineComponent( {
         // console.log("a="+a[5])
         // this.num1+=response.data.vacation[0].property_change
         // console.log(response.data.vacation[0].property_change[2])
-        this.propStore.increment(0,this.num1)
+        this.lifeStore.increment(0,this.num1)
         if(response.data.ach_id!=0){
           this.num7+=1
         }
@@ -447,7 +447,7 @@ td {
 }
 
 h1 {
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 48px;
   float: left;
   margin: 0;

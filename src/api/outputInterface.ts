@@ -17,7 +17,7 @@ export interface EventData{
     id: number,
     content: string,
     propertyChange: Array<number>,
-    gameOver: number
+    gameOver: boolean
 }
 
 export interface AchievementData{
