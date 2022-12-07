@@ -102,7 +102,7 @@ export default defineComponent({
         }
       },
       toPlay() {
-        if(this.propChangesList.length > 1 && this.lifeStore.getPropsSum() == 25){
+        if(this.propChangesList.length > 1 && this.lifeStore.propsSum == 25){
           for(let i=0; i<this.propChangesList.length; i++){
             this.lifeStore.apdateProps(this.propChangesList[i])
           }
