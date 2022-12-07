@@ -17,21 +17,20 @@
         <router-link to="/Choice">
             <img src="@/assets/play.png" class="play">
         </router-link>
-
-        
     </div>
 </template>
+
+
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
     name: 'app',
     data() {
         return {
-            English_name: 'RESTART',
-            Chinese_name: '福大人生',
         }
     }
 
-}
+})
 </script>
   
 <style scoped lang="scss">

@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>
+      <return_box from="/success"></return_box>
       <p class="text1">{{achievementTpye}}</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>

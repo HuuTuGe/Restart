@@ -2,6 +2,7 @@ import axios from "axios";
 import {UserData, MajorData, TalentData, EventData,AchievementData,LifeData,ChoiceData} from "@/api/outputInterface"
 import {MajorParam,LifeParam,PicturesParam,PictureParam,AchievementsParam,UserParam,ChoicesParam} from "@/api/inputInterface"
 import type {AxiosRequestConfig} from 'axios'
+import { GameSource } from "@/state/stateInterface";
 
 export function catchError(error:any) {
     console.log(error)
@@ -78,5 +79,13 @@ export const api = {
          */
          let url: string = this.baseUrl + '/choices'
          return await axios.get(url, data as AxiosRequestConfig<ChoicesParam>).then(res=> res.data)
+    },
+    async getGameSource(): Promise<GameSource> {
+        /**
+         * 请求游戏资源
+         * @return 符合GameSource接口的数据
+         */
+         let url: string = this.baseUrl + '/source'
+         return await axios.get(url).then(res=> res.data)
     }
 }

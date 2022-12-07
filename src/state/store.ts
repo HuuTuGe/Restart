@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {Major, User, Life} from '@/state/stateInterface'
+import {Major, User, Life, GameSource} from '@/state/stateInterface'
 
 export const useMajorStore = defineStore('major',{
     state: () => {
@@ -125,7 +125,31 @@ export const useLifeStore = defineStore('life', {
     }
 })
 
-export const useAchievement = defineStore('achievement', {
+export const useSourceStore = defineStore("gameSource",{
+    state: () => {
+        return {
+            commonAchievementsNum: undefined,
+            specialAchievementsNum: undefined
+        } as GameSource
+    },
+    getters: {
+        achievementsNum():number {
+            let sum:number = 0
+            if(this.commonAchievementsNum && this.specialAchievementsNum){
+                sum = this.commonAchievementsNum + this.specialAchievementsNum
+            }
+            return sum
+        }
+    },
+    actions: {
+        init(gameSource: GameSource): void{
+            this.commonAchievementsNum = gameSource.commonAchievementsNum,
+            this.specialAchievementsNum = gameSource.specialAchievementsNum
+        }
+    }
+})
+
+export const useAchievementStore = defineStore('achievement', {
     state: () => {
         return {
 

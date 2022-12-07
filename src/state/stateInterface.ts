@@ -15,3 +15,8 @@ export interface Life {
     achievementList: Array<number>,
     getAchievments: number
 }
+
+export interface GameSource{
+    commonAchievementsNum: number|undefined,
+    specialAchievementsNum: number|undefined
+}
