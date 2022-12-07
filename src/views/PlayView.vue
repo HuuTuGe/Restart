@@ -2,88 +2,196 @@
   <div class="app">
     <div class="header">
       <div class="head">
-        <!-- <div class="back"></div> -->
         <return_box from="/"></return_box>
         <div class="light"><img src="../assets/light.jpg" alt=""></div>
-        <h1 class="term">学期</h1>
+        <h1 class="term">{{it}}</h1>
         <div class="shu">
           <p class="head_p" style="color:white">属性值</p>
-          <hr noshade="true" style="color: white;">
+          <hr noshade="true" style="color:white;">
           <div class="tab">
             <table>
               <tr>
-                <!-- <td>智力：<span>6</span></td> -->
-                <td>
-                  <pro_item prop_name="智力" num=2></pro_item>
+                <td ref="zhili">
+                  智力：{{props[0]}}
                 </td>
-                <!-- <td>体质：<span>6</span></td> -->
-                <td>
-                  <pro_item prop_name="体质" num="6"></pro_item>
+                <td ref="tizhi">
+                  体质：{{props[1]}}
                 </td>
               </tr>
               <tr>
-                <!-- <td>魅力：<span>6</span></td>
-                  <td>财富：<span>6</span></td> -->
-                <td>
-                  <pro_item prop_name="魅力" num="2"></pro_item>
+                <td ref="meili">
+                  魅力：{{props[2]}}
                 </td>
-                <td>
-                  <pro_item prop_name="财富" num="6"></pro_item>
+                <td ref="caifu">
+                  财富：{{props[3]}}
                 </td>
               </tr>
               <tr>
-                <!-- <td>运气：<span>6</span></td>
-                  <td>心情：<span>6</span></td> -->
-                <td>
-                  <pro_item prop_name="运气" num="1"></pro_item>
+                <td ref="yunqi">
+                  运气：{{props[4]}}
                 </td>
-                <td>
-                  <pro_item prop_name="心情" num="6"></pro_item>
+                <td ref="xinqing">
+                  心情：{{props[5]}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
-                  <pro_item prop_name="已收集成就" num="6"></pro_item>
+                  已收集成就：{{getAchievments}}
                 </td>
               </tr>
             </table>
-            <!-- <span class="ach_p">已收集成就:</span>
-              <span class="ach_p">6</span> -->
           </div>
 
         </div>
       </div>
     </div>
-    <div class="con" @click="print_div">
-      <event_box></event_box>
-      <ach_box></ach_box>
-      <event_box></event_box>
-      <event_box></event_box>
-    </div>
-
+      <div class="con" id="CON">
+        <div id="con_in" v-for="lifeData in lifeDatas">
+          <event_box :cDay="cDay" :lifeData="lifeData"></event_box>
+          <ach_box :lifeData="lifeData" v-if="lifeData.haveAchievement"></ach_box>
+        </div>
+      </div>
+      <button @click="(day(),iem(),p())" class="bu">点击播放</button>
+      <div class="end_game" v-show="IsShow">
+        <router-link to="/Summary">
+          <button class="life_con">人生报告</button>
+        </router-link>
+      </div>
+      <div class="choise" v-show="DayShow">
+        <choise_ho></choise_ho>
+      </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { provide } from 'vue';
 import return_box from '../components/return_box.vue'
-import pro_item from '../components/pro_item.vue'
 import event_box from '../components/event_box.vue'
 import ach_box from '../components/ach_box.vue'
+import choise_ho from '../components/choise_ho.vue'
+import { defineComponent } from "vue";
+import {api, catchError} from '@/api/api'
+import {LifeParam} from '@/api/inputInterface'
+import {storeToRefs} from 'pinia'
 
-export default {
+import {useLifeStore, useMajorStore} from "@/state/store"
+import { LifeData } from '@/api/outputInterface';
+
+interface Play {
+  counter: Array<object>;
+  s: Array<object>;
+  IsShow: boolean,
+  DayShow: boolean,
+  cDay: number,
+  f:number,
+  ef:number,
+  it:string,
+  item:number,
+  stage:number,
+  timeout: any,
+  lifeDatas: Array<LifeData>
+  // ach_is:Array<boolean>
+}
+
+
+
+export default defineComponent( {
+  propr:['cDay','lifeDatas'],
   name: 'play',
   components: {
-    provide,
     return_box,
-    pro_item,
     event_box,
-    ach_box
+    ach_box,
+    choise_ho,
+  },
+  setup() {
+    const majorStore = useMajorStore();
+    const lifeStore = useLifeStore();
+    const {names,props,getAchievments} = storeToRefs(lifeStore)
+    return {majorStore,lifeStore,names,props,getAchievments}
+  },
+  data() {
+    return {
+      counter:[],
+      s:[],
+      IsShow: false,
+      DayShow: false,
+      cDay: 18,
+      f:1,//判断是否需要初始化
+      ef:1,//判断结束
+      item:1,
+      it:'大一上',
+      timeout: null,
+      stage:1,
+      lifeDatas:[]
+    } as Play
+  },
+  methods: {
+    iem(){
+      if(this.item==1){
+        this.it="大一上"
+      }else if(this.item==2){
+        this.it="大一下"
+      }else if(this.item==3){
+        this.it="大二上"
+      }else if(this.item==4){
+        this.it="大二下"
+      }else if(this.item==5){
+        this.it="大三上"
+      }else if(this.item==6){
+        this.it="大三下"
+      }else if(this.item==7){
+        this.it="大四上"
+      }else if(this.item==8){
+        this.it="大四下"
+      }
+    },
+    day(){
+      if(this.cDay%9==1){
+        this.DayShow = true
+        this.item++
+        this.stage++
+      }
+      this.cDay-=1
+      if(this.cDay==0){
+        this.DayShow = true
+        this.cDay=18
+        this.stage=this.stage+3
+      }
+     },
+    p(){
+      let param:LifeParam = {
+        props: this.lifeStore.props,
+        eventList: this.lifeStore.eventList,
+        achievementList: this.lifeStore.achievementList,
+        academyId: this.majorStore.academyId,
+      }
+      api.getEventData(param).then(data => {
+        this.lifeDatas.push(data)
+        this.lifeStore.apdateProps(data.lifeEvent.propertyChange)
+        if(data.haveAchievement){
+          this.lifeStore.addAchievement(data.achievement?.id as number)
+        }
+        if(this.ef==1){
+          this.IsShow=data.lifeEvent.gameOver;//需要修改
+          if(this.IsShow==true){
+            this.ef=0
+          }
+        }
+
+      }).catch(error => catchError(error))
+      if(this.timeout){
+        clearTimeout(this.timeout)
+      }
+      this.timeout = setTimeout(() => {
+        console.log('0000')
+      },500)
+    },
   }
-}
+})
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 /* 注意scoped*/
 .app {
   width: 390px;
@@ -92,6 +200,26 @@ export default {
   text-align: center;
   margin: 0 auto;
   background-color: #f7f7f7;
+}
+.bu{
+  position: relative;
+  width: 100px;
+  height: 20px;
+  top:-30px;
+  display: inline-block;
+}
+.choise{
+  width: 390px;
+  height: 533px;
+  background-color: white;
+  position: relative;
+  top:-563px;
+}
+
+#outer {
+  position: relative;
+  width: 380px;
+  height: 400px;
 }
 
 div {
@@ -113,14 +241,24 @@ div {
   width: 390px;
   position: relative;
 }
+.life_con{
+  width: 250px;
+  height: 80px;
+  font-size: 52px;
+  background-color: #BAE7FF;
+  position: relative;
+  top:100px;
+  left: px;
+}
 
 .con {
-  position: absolute;
+  position: relative;
   background-color: white;
-  top: 330px;
+  top: -10px;
   width: 390px;
-  height: 400px;
-  overflow-y: scroll;
+  height: 420px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .con::-webkit-scrollbar {
@@ -141,11 +279,17 @@ div {
 }
 
 .con::-webkit-scrollbar {
-  width: 20px;
+  width: 10px;
   transition: all 2s;
 }
 
-
+.end_game{
+  position: absolute;
+  background-color:rgba(0,0,0,0); /*rgba(0,0,0,0)*/
+  top: 330px;
+  width: 390px;
+  height: 402px;
+}
 .back {
   display: inline-block;
   background-color: #000;
@@ -234,7 +378,7 @@ td {
 }
 
 h1 {
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 48px;
   float: left;
   margin: 0;

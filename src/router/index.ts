@@ -7,10 +7,9 @@ import NAchievement from '../views/NAchievementView.vue'
 import SAchievement from '../views/SAchievementView.vue' 
 import AchievementList from '../views/AchievementListView.vue'
 import summary from '../views/SummaryView.vue'
-import play from '../views/PlayView.vue'
 import anniversary from '../views/AnniversaryView.vue'
 import choice from '../views/ChoiceView.vue'
-import Play from '../components/play.vue'
+import Play from '../views/PlayView.vue'
 import chi from '../components/choise_ho.vue'
 Vue.use(VueRouter)
 
@@ -58,7 +57,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/Play',
     name: 'play',
-    component: play
+    component: Play
   },
   {
     path: '/Anniversary',

@@ -10,6 +10,7 @@ import axios from 'axios';
 import Vue from 'vue';
 export default Vue.extend( {
   name: 'ach_box',
+  props:['lifeData'],
   data(){
     return{
       // Dstyle:{},
@@ -20,17 +21,17 @@ export default Vue.extend( {
         color:''
       },
       x:'',
-      color_id:'普通'
+      color_id:'普通',
+      lifedatas:this.lifeData
     }
   },
   methods:{
-  activeColor(){
-    axios.get('https://mock.apifox.cn/m1/1984536-0-default/event')//url
-    .then(response => {
-      this.color_id=response.data.achievement.rarity;
+   print(){
+      this.x=this.lifedatas.achievement.name//需要修改
+      this.color_id=this.lifedatas.achievement.rarity
       if(this.color_id=='普通'){
-         this.Dstyle.background = "gray";
-         this.aColor.color="black"
+        this.Dstyle.background = "gray";
+        this.aColor.color="black"
       }else if(this.color_id=='稀有'){
          this.Dstyle.background = "#0050B3";
       }else if(this.color_id=='史诗'){
@@ -38,18 +39,11 @@ export default Vue.extend( {
       }else if(this.color_id=='传说'){
          this.Dstyle.background = "#E99D42";
       }
-     })
-   },
-   printX(){
-    axios.get('https://mock.apifox.cn/m1/1984536-0-default/event').then(response => {
-      this.x=response.data.achievement.name//需要修改
-    })
    }
 
   },
   mounted:function(){
-    this.activeColor();
-    this.printX();
+    this.print();
   }
   
 })
