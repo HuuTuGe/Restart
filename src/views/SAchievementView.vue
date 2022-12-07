@@ -2,7 +2,7 @@
   <div class="app">
     <div class="box1">
       <return_box></return_box>
-      <p class="text1">{{ msg }}</p>
+      <p class="text1">特殊成就</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -16,17 +16,17 @@
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ cj }} </span>
+      <span class="gr"> {{ "<<" }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
     <div class="box4">
       <NAlist
         class="cont1"
-        :msg="item.message"
-        :colorId="item.id"
+        :msg="item.name"
+        :colorId="item.rarity"
         v-for="(item, index) in items"
-        :value="item.message"
+        :value="item.name"
         :key="index"
       ></NAlist>
     </div>
@@ -44,12 +44,12 @@
 </template>
 
 
-<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import Return_box from "../components/return_box.vue";
-import axios from "axios";
+import {api, catchError} from '@/api/api'
+import {AchievementsParam } from '@/api/inputInterface'
 
 export default defineComponent({
   name: "app",
@@ -62,33 +62,23 @@ export default defineComponent({
   },
   data() {
     return {
-      msg: "特殊成就",
       achievement_num: 2,
-      cj: "<<",
-      fz: 2,
+      fz: 1,
       fm: 5,
-      items: [{ message: " ", id: 0 }],
+      items: [{ name: " ", id: 0, rarity:"" }],
     };
   },
   methods: {
     sendRequest() {
-      let _this = this;
-      axios
-        .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
-          params: {
-            page_num: this.fz,
-          },
-        })
-        .then(function (response: any) {
-          //请求成功
-          // console.log(_this.fz);  console.log(response);
-          _this.items = response.data.item; //给存储数组的数组赋值
-          console.log(_this.items);
-        })
-        .catch(function (error: any) {
-          //请求失败
-          console.log(error);
-        });
+      api.getAchievementsData(
+          {
+            page: this.fz,
+            limit: 10
+          } as AchievementsParam).
+      then((data) => {
+        this.items = data;
+      }).
+      catch(error => catchError(error));
     },
 
     //上一页
@@ -106,7 +96,8 @@ export default defineComponent({
   },
 });
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
+
 <style scoped>
 .app {
   width: 390px;

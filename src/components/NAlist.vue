@@ -23,19 +23,13 @@ export default defineComponent({
   },
   methods: {
     Change_Color() {
-      // switch(this.id){
-      //   case 1:this.Dstyle.background = 'white';break;
-      //   case 2:this.Dstyle.background = 'blue';break;
-      //   case 3:this.Dstyle.background = 'green';break;
-      //   case 4:this.Dstyle.background = 'red';break;
-      //   default:console.log('none');}
-      if (this.colorId == "1") {
+      if (this.colorId == "普通") {
         this.Dstyle.background = "rgb(250, 251, 251)";//white
-      } else if (this.colorId == "2") {
+      } else if (this.colorId == "稀有") {
         this.Dstyle.background = "rgb(67,142,219)";  //blue
-      } else if (this.colorId == "3") {
+      } else if (this.colorId == "史诗") {
         this.Dstyle.background = "rgb(106,76,180)";  //purple
-      } else if (this.colorId == "4") {
+      } else if (this.colorId == "传说") {
         this.Dstyle.background = "red";  
       }
     },

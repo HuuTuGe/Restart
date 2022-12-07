@@ -76,7 +76,7 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合choiceData接口的列表数据
          */
-         let url: string = this.baseUrl + '/achievements'
+         let url: string = this.baseUrl + '/choices'
          return await axios.get(url, data as AxiosRequestConfig<ChoicesParam>).then(res=> res.data)
     }
 }

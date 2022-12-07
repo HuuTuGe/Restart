@@ -1,7 +1,5 @@
-import {defineStore, mapActions} from 'pinia'
-import {Prop, Major, User, Life} from '@/state/stateInterface'
-
-
+import {defineStore} from 'pinia'
+import {Major, User, Life} from '@/state/stateInterface'
 
 export const useMajorStore = defineStore('major',{
     state: () => {
@@ -44,8 +42,8 @@ export const useLifeStore = defineStore('life', {
         return {
             names: ["智力","体质","魅力","财富","运气","心情"],
             props:[0,0,0,0,0,0],
-            eventList: [],
-            achievementList: [],
+            eventList: [], // 事件id的list
+            achievementList: [], // 成就id的list
             getAchievments: 0
         } as Life
     },
@@ -76,7 +74,7 @@ export const useLifeStore = defineStore('life', {
         },
         apdateProps(props: Array<number>):void {
             /**
-             * 控制属性的增加或减少
+             * 控制整体属性的增加或减少
              * @param props - 属性的改变
              */
              for(let i:number=0; i<6; i++){

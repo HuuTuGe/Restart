@@ -1,8 +1,3 @@
-export interface Prop {
-    names: Array<string>,
-    props: Array<number>
-}
-
 export interface Major {
     majorName: string,
     academyId: number
