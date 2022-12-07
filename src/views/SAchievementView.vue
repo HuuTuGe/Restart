@@ -24,19 +24,19 @@
       <NAlist
         class="cont1"
         :msg="item.name"
-        :colorId="item.rarity"
         v-for="(item, index) in items"
         :value="item.name"
         :key="index"
+        :style="applyStyle(item.rarity)"
       ></NAlist>
     </div>
 
     <div class="box5">
       <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="one">{{ fz }} </span>
+      <span class="one">{{ nowPage }} </span>
       <span class="one">/</span>
-      <span class="one"> {{ fm }}</span>
+      <span class="one"> {{ pageNum }}</span>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="下一页" class="r1" @click="changelast" />
     </div>
@@ -48,8 +48,9 @@
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import Return_box from "../components/return_box.vue";
-import {api, catchError} from '@/api/api'
-import {AchievementsParam } from '@/api/inputInterface'
+import { api, catchError } from "@/api/api";
+import { AchievementsParam } from "@/api/inputInterface";
+import { StyleValue } from "vue/types/jsx";
 
 export default defineComponent({
   name: "app",
@@ -58,37 +59,59 @@ export default defineComponent({
     Return_box,
   },
   watch: {
-    fz: "sendRequest", //绑定函数
+    nowPage: "sendRequest", //绑定函数
   },
   data() {
     return {
       achievement_num: 2,
-      fz: 1,
-      fm: 5,
-      items: [{ name: " ", id: 0, rarity:"" }],
+      nowPage: 1,
+      pageNum: 5,
+      items: [{ name: " ", id: 0, rarity: "" }],
     };
   },
   methods: {
-    sendRequest() {
-      api.getAchievementsData(
-          {
-            page: this.fz,
-            limit: 10
-          } as AchievementsParam).
-      then((data) => {
-        this.items = data;
-      }).
-      catch(error => catchError(error));
+    applyStyle(rarity: string): StyleValue {
+      if (rarity == "传说") {
+        return {
+          background: "#E99D42",
+          color: "black",
+        };
+      } else if (rarity == "史诗") {
+        return {
+          background: "#0050B3",
+          color: "white",
+        };
+      } else if (rarity == "稀有") {
+        return {
+          background: "#591BB7",
+          color: "white",
+        };
+      } else {
+        return {
+          background: "white",
+          color: "black",
+        };
+      }
     },
-
+    sendRequest() {
+      api
+        .getAchievementsData({
+          page: this.nowPage,
+          limit: 10,
+        } as AchievementsParam)
+        .then((data) => {
+          this.items = data;
+          console.log(data);
+        })
+        .catch((error) => catchError(error));
+    },
     //上一页
     changebefore() {
-      if (this.fz > 1) this.fz--;
+      if (this.nowPage > 1) this.nowPage--;
     },
-
     //下一页
     changelast() {
-      if (this.fz < this.fm) this.fz++;
+      if (this.nowPage < this.pageNum) this.nowPage++;
     },
   },
   mounted: function () {
