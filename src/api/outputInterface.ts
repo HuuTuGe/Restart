@@ -10,7 +10,7 @@ export interface MajorData{
 export interface TalentData{
     name: string,
     rarity: string
-    propertyChanges: Array<number>   
+    propChanges: Array<number>   
 }
 
 export interface EventData{
@@ -28,7 +28,7 @@ export interface AchievementData{
 
 export interface LifeData{
     haveAchievement: boolean,
-    achievement: AchievementData,
+    achievement?: AchievementData,
     lifeEvent: EventData
 }
 

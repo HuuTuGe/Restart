@@ -14,7 +14,7 @@ export interface User {
 }
 
 export interface Life {
-    lifeId: number,
-    eventList: Array<number>,
-    achievementList: Array<number>
+    eventList: Array<number>|undefined,
+    achievementList: Array<number>|undefined,
+    getAchievments: number
 }

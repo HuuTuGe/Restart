@@ -109,28 +109,27 @@ export const useUserStore = defineStore('user',{
 export const useLifeStore = defineStore('life', {
     state: () => {
         return {
-            lifeId: -1,
-            eventList: [],
-            achievementList: []
+            eventList: undefined,
+            achievementList: undefined,
+            getAchievments: 0
         } as Life
     },
     getters: {
 
     },
     actions: {
-        initLife(id:number, eventList?:Array<number>, achievementList?:Array<number>){
+        initLife(eventList?:Array<number>, achievementList?:Array<number>){
             /**
              * 初始化游戏状态
              * @param id - 对局id
              * @param eventList - 本对局触发的事件
              * @param academyList - 本对局触发的成就
              */
-            this.lifeId = id;
             if(eventList){
-                this.eventList = eventList
+                this.eventList = []
             }
             if(achievementList){
-                this.achievementList = achievementList
+                this.achievementList = []
             }
         },
         addEvent(eventId:number) {
@@ -138,14 +137,20 @@ export const useLifeStore = defineStore('life', {
              * 添加触发的事件
              * @param eventId - 事件id
              */
-            this.eventList.push(eventId)
+            if(this.eventList){
+                this.eventList.push(eventId)
+            }
+            
         },
         addAchievement(academyId:number) {
             /**
              * 添加触发的成就
              * @param academyId - 成就id
              */
-            this.achievementList.push(academyId)
+            if(this.achievementList){
+                this.achievementList.push(academyId)
+            }
+            
         }
     }
 })
