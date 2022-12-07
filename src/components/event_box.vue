@@ -5,9 +5,6 @@
       <hr class="d_line">
       <div class="con"><span class="con_in">{{Con_In}}</span></div>
     </div>
-    <div id="ach" v-show="ach_id">
-      <ach_box></ach_box>
-    </div>
   </div>
   
 </template>
@@ -23,13 +20,14 @@ import {defineEmits} from 'vue'
 export default Vue.extend({
   
   name: 'event_box',
-  props:['cDay'],
+  props:['cDay','lifeData'],
   data(){
     return{
       mon:'',
       Con_In:'',
       ach_id:false,
-      cday:this.cDay
+      cday:this.cDay,
+      lifedatas:this.lifeData
     }
   },
   components:{
@@ -37,17 +35,10 @@ export default Vue.extend({
   },
   mounted:function(){
     this.print_MON();
-    this.print_In();
   },
   methods:{
-      print_In(){
-      axios.get('https://mock.apifox.cn/m1/1984536-0-default/event')//url
-      .then(response =>{
-        this.Con_In = response.data.lifeEvent.content;//事件id
-        this.ach_id = response.data.haveAchievement;
-      })
-    },
     print_MON(){
+      this.Con_In = this.lifedatas.lifeEvent.content;//事件id
       if(this.cday==17){
         this.mon="九月上"
         console.log(this.cday)
@@ -104,8 +95,6 @@ export default Vue.extend({
         this.mon="七月上"
         console.log(this.cday)
       }
-      // this.mon="八月上"
-      // console.log(this.cday)
     }
   },
   
@@ -131,7 +120,6 @@ div {
 }
 .term{
   position: relative;
-  display: inline-block;
   width: 45px;
   height: 45px;
   font-size: 20px;
@@ -145,7 +133,6 @@ div {
 }
 .d_line{
   position: relative;
-  display: inline-block;
   float: left;
   height: 75px;
   border: none;
@@ -155,7 +142,6 @@ div {
 }
 .con{
   position: relative;
-  display: inline-block;
   float: left;
   width: 285px;
   height: 75px;

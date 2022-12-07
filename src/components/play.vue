@@ -2,7 +2,6 @@
   <div class="app">
     <div class="header">
       <div class="head">
-        <!-- <div class="back"></div> -->
         <return_box from="/"></return_box>
         <div class="light"><img src="../assets/light.jpg" alt=""></div>
         <h1 class="term">{{it}}</h1>
@@ -12,58 +11,47 @@
           <div class="tab">
             <table>
               <tr>
-                <!-- <td>智力：<span>6</span></td> -->
                 <td ref="zhili">
                   智力：{{props[0]}}
                 </td>
-                <!-- <td>体质：<span>6</span></td> -->
                 <td ref="tizhi">
                   体质：{{props[1]}}
                 </td>
               </tr>
               <tr>
-                <!-- <td>魅力：<span>6</span></td>
-                  <td>财富：<span>6</span></td> -->
                 <td ref="meili">
                   魅力：{{props[2]}}
                 </td>
                 <td ref="caifu">
                   财富：{{props[3]}}
-                  <!-- <pro_item prop_name="财富" ref="caifu"></pro_item> -->
                 </td>
               </tr>
               <tr>
-                <!-- <td>运气：<span>6</span></td>
-                  <td>心情：<span>6</span></td> -->
                 <td ref="yunqi">
                   运气：{{props[4]}}
-                  <!-- <pro_item prop_name="运气" ref="yunqi"></pro_item> -->
                 </td>
                 <td ref="xinqing">
                   心情：{{props[5]}}
-                  <!-- <pro_item prop_name="心情" ref="xinqing"></pro_item> -->
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
-                  <!-- <pro_item prop_name="已收集成就" ref="chengjiu"></pro_item> -->
                   已收集成就：{{getAchievments}}
                 </td>
               </tr>
             </table>
-            <!-- <span class="ach_p">已收集成就:</span>
-              <span class="ach_p">6</span> -->
           </div>
 
         </div>
       </div>
     </div>
       <div class="con" id="CON">
-        <div id="con_in" v-for="(d,index) in counter" :key="index" >
-          <event_box :cDay="cDay"></event_box>
+        <div id="con_in" v-for="lifeData in lifeDatas">
+          <event_box :cDay="cDay" :lifeData="lifeData"></event_box>
+          <ach_box :lifeData="lifeData" v-if="lifeData.haveAchievement"></ach_box>
         </div>
       </div>
-      <button @click="(print_div(),end_game(),day(),change(),iem(),p())" class="bu">点击播放</button>
+      <button @click="(day(),iem(),p())" class="bu">点击播放</button>
       <div class="end_game" v-show="IsShow">
         <router-link to="/Smmary">
           <button class="life_con">人生报告</button>
@@ -87,9 +75,9 @@ import axios from 'axios'
 import {api, catchError} from '@/api/api'
 import {LifeParam} from '@/api/inputInterface'
 import {storeToRefs} from 'pinia'
-// import { debounce } from 'lodash-es'
 
 import {useLifeStore, useMajorStore} from "@/state/store"
+import { LifeData } from '@/api/outputInterface';
 
 interface Play {
   counter: Array<object>;
@@ -103,14 +91,14 @@ interface Play {
   item:number,
   stage:number,
   timeout: any,
+  lifeDatas: Array<LifeData>
+  // ach_is:Array<boolean>
 }
 
 
 
 export default defineComponent( {
-
-  
-  propr:['cDay'],
+  propr:['cDay','lifeDatas'],
   name: 'play',
   components: {
     provide,
@@ -118,10 +106,9 @@ export default defineComponent( {
     pro_item,
     event_box,
     ach_box,
-    choise_ho
+    choise_ho,
   },
   setup() {
-
     const majorStore = useMajorStore();
     const lifeStore = useLifeStore();
     const {names,props,getAchievments} = storeToRefs(lifeStore)
@@ -139,7 +126,8 @@ export default defineComponent( {
       item:1,
       it:'大一上',
       timeout: null,
-      stage:1
+      stage:1,
+      lifeDatas:[]
     } as Play
   },
   methods: {
@@ -175,80 +163,33 @@ export default defineComponent( {
         this.stage=this.stage+3
       }
      },
-    // pro(){
-    //   if(this.f==1){
-    //     this.num1=5
-    //     this.num2=5
-    //     this.num3=5
-    //     this.num4=5
-    //     this.num5=5
-    //     this.num6=5
-    //     this.f=0
-    //     // usePropStore(this.num1,)
-    //   }
-      
-    // },
     p(){
       let param:LifeParam = {
         props: this.lifeStore.props,
         eventList: this.lifeStore.eventList,
         achievementList: this.lifeStore.achievementList,
         academyId: this.majorStore.academyId,
-
       }
-      api.getEventData(param).then(data => console.log(data)).catch(error => catchError(error))
-    },
-    change(){
-      // let _this=this;
-      axios
-      .get('https://mock.apifox.cn/m1/1984536-0-default/event')
-      .then(response =>{
-        // // let a=response.data.vacation[0].property_change.split(" ")
-        // this.num1+=response.data.lifeEvent.propertyChange[0]
-        // this.num2+=response.data.lifeEvent.propertyChange[1]
-        // this.num3+=response.data.lifeEvent.propertyChange[2]
-        // this.num4+=response.data.lifeEvent.propertyChange[3]
-        // this.num5+=response.data.lifeEvent.propertyChange[4]
-        // this.num6+=response.data.lifeEvent.propertyChange[5]
-        // console.log("a="+a[0])
-        // console.log("a="+a[1])
-        // console.log("a="+a[2])
-        // console.log("a="+a[3])
-        // console.log("a="+a[4])
-        // console.log("a="+a[5])
-        // this.num1+=response.data.vacation[0].property_change
-
-        // console.log(response.data.vacation[0].property_change[2]
-        this.lifeStore.apdateProps(response.data.lifeEvent.propertyChange)
-      
-        if(response.data.haveAchievement){
-          
+      api.getEventData(param).then(data => {
+        this.lifeDatas.push(data)
+        this.lifeStore.apdateProps(data.lifeEvent.propertyChange)
+        if(data.haveAchievement){
+          this.lifeStore.addAchievement(data.achievement?.id as number)
         }
-      });
-    },
-    print_div(){
-      this.counter.push({});
+        if(this.ef==1){
+          this.IsShow=data.lifeEvent.gameOver;//需要修改
+          if(this.IsShow==true){
+            this.ef=0
+          }
+        }
+
+      }).catch(error => catchError(error))
       if(this.timeout){
         clearTimeout(this.timeout)
       }
       this.timeout = setTimeout(() => {
         console.log('0000')
       },500)
-    },
-    end_game(){
-      
-      let _this=this;
-      axios.
-      get('https://mock.apifox.cn/m1/1984536-0-default/event')
-      .then(response => {
-        if(this.ef==1){
-          _this.IsShow=response.data.lifeEvent.gameOver;//需要修改
-          if(_this.IsShow==true){
-            this.ef=0
-          }
-        }
-       
-      });
     },
   }
 })

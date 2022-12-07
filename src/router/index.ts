@@ -58,7 +58,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/Play',
     name: 'play',
-    component: play
+    component: Play
   },
   {
     path: '/Anniversary',
