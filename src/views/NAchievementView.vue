@@ -36,9 +36,9 @@
     <div class="box5">
       <input type="button" value="上一页" class="r" @click="changebefore" />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <span class="one">{{ fz }} </span>
+      <span class="one">{{ nowPage }} </span>
       <span class="one">/</span>
-      <span class="one"> {{ fm }}</span>
+      <span class="one"> {{ pageNum }}</span>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="button" value="下一页" class="r1" @click="changelast" />
     </div>
@@ -60,15 +60,15 @@ export default defineComponent({
     return_box,
   },
   watch: {
-    fz: "sendRequest", //绑定函数
+    nowPage: "sendRequest", //绑定函数
   },
   data() {
     return {
       msg: "普通成就",
       achievement_num: 15,
       cj: "<<", //直接用<<会报错
-      fz: 1,
-      fm: 4,
+      nowPage: 1,
+      pageNum: 4,
       // arr:[{ items:[{ message:" ",  id: 0 }] }],
       items: [{ message: " ", id: 0 }],
     };
@@ -106,12 +106,12 @@ export default defineComponent({
       axios
         .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
           params: {
-            page_num: this.fz,
+            page_num: this.nowPage,
           },
         })
         //请求成功
         .then(function (response: any) {
-          // console.log(_this.fz); 
+          // console.log(_this.nowPage); 
            console.log(response);
           _this.items = response.data.item; //给存储数组的数组赋值
           // console.log(_this.items);
@@ -124,11 +124,11 @@ export default defineComponent({
     },
     //上一页
     changebefore() {
-      if (this.fz > 1) this.fz--;
+      if (this.nowPage > 1) this.nowPage--;
     },
     //下一页
     changelast() {
-      if (this.fz < this.fm) this.fz++;
+      if (this.nowPage < this.pageNum) this.nowPage++;
     },
   },
   //页面加载时自动调用
