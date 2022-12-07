@@ -9,7 +9,7 @@
 
           <span class="num1">15</span>
           <span class="num2">/</span>
-          <span class="num3">60</span>
+          <span class="num3">{{sourceStore.achievementsNum}}</span>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
             <div id="special"></div>
             <div id="specialdt"><div class="stype">特殊成就</div>
             <div class="sreason">专业、特色剧情触发</div>
-            <div class="COUNT">{{count2}}/{{total2}}</div> 
+            <div class="COUNT">{{count2}}/{{specialAchievementsNum}}</div> 
             <div class="check"></div></div>
             </div>
           </router-link>
@@ -36,7 +36,7 @@
             <div id="commomdt">
             <div class="stype">普通成就</div>
             <div class="sreason">常规剧情触发</div>
-            <div class="COUNT">{{count3}}/{{total3}}</div> 
+            <div class="COUNT">{{count3}}/{{commonAchievementsNum}}</div> 
             <div class="check"></div></div>
             </div>
           </router-link>
@@ -48,10 +48,17 @@
 
 <script lang="ts">
 import return_box from '@/components/return_box.vue';
+import { useSourceStore } from '@/state/store';
+import { storeToRefs } from 'pinia';
 export default {
 name: 'success',
 components:{
   return_box
+},
+setup() {
+  const sourceStore = useSourceStore()
+  const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
+  return {sourceStore,commonAchievementsNum,specialAchievementsNum}
 },
 data () {
   return {

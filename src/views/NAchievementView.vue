@@ -12,7 +12,7 @@
 
       <span class="num1">{{ achievement_num }}</span>
       <span class="num2">/</span>
-      <span class="num3">60</span>
+      <span class="num3">{{commonAchievementsNum}}</span>
     </div>
 
     <div class="box3">
@@ -52,6 +52,8 @@ import { defineComponent } from "vue";
 import return_box from "../components/return_box.vue";
 import axios from "axios";
 import { StyleValue } from 'vue/types/jsx';
+import { storeToRefs } from "pinia";
+import { useSourceStore } from '@/state/store';
 
 export default defineComponent({
   name: "app",
@@ -59,8 +61,10 @@ export default defineComponent({
     NAlist,
     return_box,
   },
-  watch: {
-    nowPage: "sendRequest", //绑定函数
+  setup() {
+    const sourceStore = useSourceStore()
+    const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
+    return {sourceStore,commonAchievementsNum,specialAchievementsNum}
   },
   data() {
     return {
@@ -73,7 +77,9 @@ export default defineComponent({
       items: [{ message: " ", id: 0 }],
     };
   },
-
+  watch: {
+    nowPage: "sendRequest", //绑定函数
+  },
   methods: {
     applyStyle(id: Number): StyleValue{
         if (id == 1) {

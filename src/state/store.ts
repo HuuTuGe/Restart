@@ -59,12 +59,12 @@ export const useLifeStore = defineStore('life', {
             this.eventList.push(eventId)
             
         },
-        addAchievement(academyId:number) {
+        addAchievement(achievementId:number) {
             /**
              * 添加触发的成就
              * @param academyId - 成就id
              */
-                this.achievementList.push(academyId)
+                this.achievementList.push(achievementId)
                 this.getAchievments++
         },
         getPropsSum(): number {

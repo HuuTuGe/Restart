@@ -12,8 +12,8 @@ export interface MajorParam{
 }
 
 export interface LifeParam{
-    eventList: Array<number>,
-    achievementList: Array<number>,
+    eventList: Array<number>, // // 本回合已达成的事件的id
+    achievementList: Array<number>, // 本回合已达成的成就的id
     academyId: number,
     props: Array<number>
 }

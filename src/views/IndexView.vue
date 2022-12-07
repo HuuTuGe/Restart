@@ -23,11 +23,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useSourceStore } from "@/state/store";
+import {api} from '@/api/api'
 export default defineComponent({
     name: 'app',
     data() {
         return {
         }
+    },
+    setup() {
+        const gameSource = useSourceStore()
+        api.getGameSourceData()
+        .then(data => {
+            gameSource.init(data)
+        })
     }
 
 })

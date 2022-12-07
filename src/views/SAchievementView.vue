@@ -12,7 +12,7 @@
 
       <span class="num1">{{ achievement_num }}</span>
       <span class="num2">/</span>
-      <span class="num3">10</span>
+      <span class="num3">{{specialAchievementsNum}}</span>
     </div>
 
     <div class="box3">
@@ -51,6 +51,8 @@ import Return_box from "../components/return_box.vue";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam, AchievementType } from "@/api/inputInterface";
+import { useSourceStore } from "@/state/store";
+import { storeToRefs } from "pinia";
 
 
 export default defineComponent({
@@ -59,8 +61,10 @@ export default defineComponent({
     NAlist,
     Return_box,
   },
-  watch: {
-    nowPage: "sendRequest", //绑定函数
+  setup() {
+    const sourceStore = useSourceStore()
+    const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
+  return {sourceStore,commonAchievementsNum,specialAchievementsNum}
   },
   data() {
     return {
@@ -71,6 +75,9 @@ export default defineComponent({
       items: [{ name: " ", id: 0, rarity: "" }],
     };
   },
+  watch: {
+    nowPage: "sendRequest", //绑定函数
+  },
   methods: {
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
@@ -80,13 +87,11 @@ export default defineComponent({
         };
       } else if (rarity == "史诗") {
         return {
-          // background: "#0050B3",
           background: "#591BB7",
           color: "white",
         };
       } else if (rarity == "稀有") {
         return {
-          // background: "#591BB7",
           background: "#0050B3",
           color: "white",
         };
