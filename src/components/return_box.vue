@@ -1,5 +1,5 @@
 <template>
-    <div class="return_box" >
+    <div class="return_box">
         <router-link :to="from">
             <img src="../assets/antFill-home.svg" class="return_icon" v-if="home">
             <img src="../assets/return_icon.png" class="return_icon" v-if="back">

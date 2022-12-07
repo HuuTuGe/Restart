@@ -14,21 +14,21 @@
               <tr>
                 <!-- <td>智力：<span>6</span></td> -->
                 <td ref="zhili">
-                  智力：{{num1}}
+                  智力：{{props[0]}}
                 </td>
                 <!-- <td>体质：<span>6</span></td> -->
                 <td ref="tizhi">
-                  体质：{{num2}}
+                  体质：{{props[1]}}
                 </td>
               </tr>
               <tr>
                 <!-- <td>魅力：<span>6</span></td>
                   <td>财富：<span>6</span></td> -->
                 <td ref="meili">
-                  魅力：{{num3}}
+                  魅力：{{props[2]}}
                 </td>
                 <td ref="caifu">
-                  财富：{{num4}}
+                  财富：{{props[3]}}
                   <!-- <pro_item prop_name="财富" ref="caifu"></pro_item> -->
                 </td>
               </tr>
@@ -36,11 +36,11 @@
                 <!-- <td>运气：<span>6</span></td>
                   <td>心情：<span>6</span></td> -->
                 <td ref="yunqi">
-                  运气：{{num5}}
+                  运气：{{props[4]}}
                   <!-- <pro_item prop_name="运气" ref="yunqi"></pro_item> -->
                 </td>
                 <td ref="xinqing">
-                  心情：{{num6}}
+                  心情：{{props[5]}}
                   <!-- <pro_item prop_name="心情" ref="xinqing"></pro_item> -->
                 </td>
               </tr>
@@ -85,18 +85,16 @@ import choise_ho from './choise_ho.vue'
 import { defineComponent } from "vue";
 import axios from 'axios'
 import {usePropStore, useMajorStore} from "@/state/store"
+import {api, catchError} from '@/api/api'
+import {EventParam} from '@/api/inputInterface'
+import {storeToRefs} from 'pinia'
+// import { debounce } from 'lodash-es'
 interface Play {
   counter: Array<object>;
   s: Array<object>;
   IsShow: boolean,
   DayShow: boolean,
   cDay: number,
-  num1:number,
-  num2:number,
-  num3:number,
-  num4:number,
-  num5:number,
-  num6:number,
   num7:number,
   f:number,
   ef:number,
@@ -122,9 +120,10 @@ export default defineComponent( {
     choise_ho
   },
   setup() {
-    const majorStore = useMajorStore();
-    const propStore = usePropStore();
-    return {majorStore,propStore}
+    const majorStore = useMajorStore()
+    const propStore = usePropStore()
+    const {props,names} = storeToRefs(propStore)
+    return{majorStore,propStore,props,names}
   },
   data() {
     return {
@@ -133,12 +132,6 @@ export default defineComponent( {
       IsShow: false,
       DayShow: false,
       cDay: 18,
-      num1:0,
-      num2:0,
-      num3:0,
-      num4:0,
-      num5:0,
-      num6:0,
       num7:0,
       f:1,//判断是否需要初始化
       ef:1,//判断结束
@@ -180,47 +173,38 @@ export default defineComponent( {
         this.cDay=18
         this.stage=this.stage+3
       }
-    },
-    pro(){
-      if(this.f==1){
-        this.num1=5
-        this.num2=5
-        this.num3=5
-        this.num4=5
-        this.num5=5
-        this.num6=5
-        this.f=0
-        // usePropStore(this.num1,)
-      }
+     },
+    // pro(){
+    //   if(this.f==1){
+    //     this.num1=5
+    //     this.num2=5
+    //     this.num3=5
+    //     this.num4=5
+    //     this.num5=5
+    //     this.num6=5
+    //     this.f=0
+    //     // usePropStore(this.num1,)
+    //   }
       
-    },
+    // },
     p(){
-      this.s[this.num1,this.num2,this.num3,this.num4,this.num5,this.num6]
-      axios.get("https://mock.apifox.cn/m1/1984536-0-default/event",{
-        params:{
-          s:[this.num1,this.num2,this.num3,this.num4,this.num5,this.num6],
-          stage:this.stage,
-          // item:
-        }
-        // num1:this.num1,num2:this.num2,num3:this.num3,num4:this.num4,num5:this.num5,num6:this.num6,
-        
-        // stage:
-      }).then(response =>{
-        console.log(response)
-      })
+      let param:EventParam = {
+        props: this.propStore.props
+      }
+      api.getEventData(param).then(data => console.log(data)).catch(error => catchError(error))
     },
     change(){
       // let _this=this;
       axios
       .get('https://mock.apifox.cn/m1/1984536-0-default/event')
       .then(response =>{
-        // let a=response.data.vacation[0].property_change.split(" ")
-        this.num1+=response.data.lifeEvent.propertyChange[0]
-        this.num2+=response.data.lifeEvent.propertyChange[1]
-        this.num3+=response.data.lifeEvent.propertyChange[2]
-        this.num4+=response.data.lifeEvent.propertyChange[3]
-        this.num5+=response.data.lifeEvent.propertyChange[4]
-        this.num6+=response.data.lifeEvent.propertyChange[5]
+        // // let a=response.data.vacation[0].property_change.split(" ")
+        // this.num1+=response.data.lifeEvent.propertyChange[0]
+        // this.num2+=response.data.lifeEvent.propertyChange[1]
+        // this.num3+=response.data.lifeEvent.propertyChange[2]
+        // this.num4+=response.data.lifeEvent.propertyChange[3]
+        // this.num5+=response.data.lifeEvent.propertyChange[4]
+        // this.num6+=response.data.lifeEvent.propertyChange[5]
         // console.log("a="+a[0])
         // console.log("a="+a[1])
         // console.log("a="+a[2])
@@ -228,15 +212,22 @@ export default defineComponent( {
         // console.log("a="+a[4])
         // console.log("a="+a[5])
         // this.num1+=response.data.vacation[0].property_change
-        // console.log(response.data.vacation[0].property_change[2])
-        this.propStore.increment(0,this.num1)
-        if(response.data.ach_id!=0){
+        // console.log(response.data.vacation[0].property_change[2]
+        this.propStore.apdateProps(response.data.lifeEvent.propertyChange)
+      
+        if(response.data.haveAchievement){
           this.num7+=1
         }
       });
     },
     print_div(){
       this.counter.push({});
+      if(this.timeout){
+        clearTimeout(this.timeout)
+      }
+      this.timeout = setTimeout(() => {
+        console.log('0000')
+      },500)
     },
     end_game(){
       
@@ -245,7 +236,7 @@ export default defineComponent( {
       get('https://mock.apifox.cn/m1/1984536-0-default/event')
       .then(response => {
         if(this.ef==1){
-          _this.IsShow=response.data.gameover;//需要修改
+          _this.IsShow=response.data.lifeEvent.gameOver;//需要修改
           if(_this.IsShow==true){
             this.ef=0
           }
@@ -253,9 +244,6 @@ export default defineComponent( {
        
       });
     },
-  },
-  mounted:function(){
-    this.pro();
   }
 })
 </script>

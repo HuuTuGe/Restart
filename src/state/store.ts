@@ -22,10 +22,11 @@ export const usePropStore = defineStore('prop', {
              * 控制属性的增加或减少
              * @param props - 属性的改变
              */
+            let temp=props
              for(let i=0; i<6; i++){
-                props[i] += this.props[i]
+                temp[i] += this.props[i]
              }
-             this.props = props
+             this.props = temp
         },
         increment(index:number, num:number):void {
             /**
