@@ -16,7 +16,7 @@
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ "<<" }} </span>
+      <span class="gr"> {{ cj }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
@@ -65,6 +65,7 @@ export default defineComponent({
   data() {
     return {
       achievement_num: 2,
+      cj:"<<",
       nowPage: 1,
       pageNum: 5,
       items: [{ name: " ", id: 0, rarity: "" }],

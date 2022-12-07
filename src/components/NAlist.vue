@@ -30,7 +30,7 @@ export default defineComponent({
       } else if (this.colorId == "史诗") {
         this.Dstyle.background = "rgb(106,76,180)";  //purple
       } else if (this.colorId == "传说") {
-        this.Dstyle.background = "red";  
+        this.Dstyle.background = "orange";  
       }
     },
   },

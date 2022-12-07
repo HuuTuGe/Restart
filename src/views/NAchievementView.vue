@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box from="/"></return_box>
-      <p class="text1">{{ msg }}</p>
+      <return_box></return_box>
+      <p class="text1">普通成就</p>
       <img src="../assets/普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -25,11 +25,11 @@
     <div class="box4">
       <NAlist
         class="cont1"
-        :msg="item.message"
+        :msg="item.name"
         v-for="(item, index) in items"
-        :value="item.message"
-        :key="(index)"
-        :style="(applyStyle(item.id))"
+        :value="item.name"
+        :key="index"
+        :style="applyStyle(item.rarity)"
       ></NAlist>
     </div>
 
@@ -45,13 +45,13 @@
   </div>
 </template>
 
-<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script lang="ts">
 import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import return_box from "../components/return_box.vue";
-import axios from "axios";
-import { StyleValue } from 'vue/types/jsx';
+import { api, catchError } from "@/api/api";
+import { AchievementsParam } from "@/api/inputInterface";
+import { StyleValue } from "vue/types/jsx";
 
 export default defineComponent({
   name: "app",
@@ -64,63 +64,48 @@ export default defineComponent({
   },
   data() {
     return {
-      msg: "普通成就",
       achievement_num: 15,
-      cj: "<<", //直接用<<会报错
+      cj: "<<",
       nowPage: 1,
-      pageNum: 4,
-      // arr:[{ items:[{ message:" ",  id: 0 }] }],
-      items: [{ message: " ", id: 0 }],
+      pageNum: 5,
+      items: [{ name: " ", id: 0, rarity: "" }],
     };
   },
 
   methods: {
-    applyStyle(id: Number): StyleValue{
-        if (id == 1) {
-          return {
-            background: "white",
-            color:'black',
-          }
-        } 
-        else if(id == 2) {
-          return {
-            background: "#0050B3",
-            color:'white',
-          }
-        }
-        else if(id == 3) {
-          return {
-            background: "#591BB7",
-            color:'white',
-          }
-        }
-        else {
-          return {
-            background: "#E99D42",
-            color:'black',
-          }
-        }
-      },
+    applyStyle(rarity: string): StyleValue {
+      if (rarity == "传说") {
+        return {
+          background: "#E99D42",
+          color: "black",
+        };
+      } else if (rarity == "史诗") {
+        return {
+          background: "#0050B3",
+          color: "white",
+        };
+      } else if (rarity == "稀有") {
+        return {
+          background: "#591BB7",
+          color: "white",
+        };
+      } else {
+        return {
+          background: "white",
+          color: "black",
+        };
+      }
+    },
     sendRequest() {
-      let _this = this;
-      axios
-        .get("https://mock.apifox.cn/m1/1984536-0-default/achievement", {
-          params: {
-            page_num: this.nowPage,
-          },
+      api
+        .getAchievementsData({
+          page: this.nowPage,
+          limit: 10,
+        } as AchievementsParam)
+        .then((data) => {
+          this.items = data;
         })
-        //请求成功
-        .then(function (response: any) {
-          // console.log(_this.nowPage); 
-           console.log(response);
-          _this.items = response.data.item; //给存储数组的数组赋值
-          // console.log(_this.items);
-          // for(let i=0;i<response.data.item.length;i++)
-        })
-        //请求失败
-        .catch(function (error: any) {
-          console.log(error);
-        });
+        .catch((error) => catchError(error));
     },
     //上一页
     changebefore() {
