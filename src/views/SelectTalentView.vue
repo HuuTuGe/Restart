@@ -61,6 +61,10 @@ export default defineComponent({
         this.talentData = res
       }).catch( (error) => catchError(error))
     },
+    mounted() {
+      this.lifeStore.$reset
+      console.log("mounted")
+    },
     methods: {
       applyStyle(rarity: string): StyleValue{
         if (rarity == "传说") {

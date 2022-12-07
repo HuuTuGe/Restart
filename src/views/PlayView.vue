@@ -64,7 +64,6 @@
 </template>
 
 <script lang="ts">
-import { provide } from 'vue';
 import return_box from '../components/return_box.vue'
 import event_box from '../components/event_box.vue'
 import ach_box from '../components/ach_box.vue'

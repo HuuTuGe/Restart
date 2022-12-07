@@ -18,7 +18,7 @@ export default {
   
 <style scoped lang="scss">
 .app {
-  display: flex;
+  display: inline-block;
   width: 390px;
   height: 722px;
   text-align: center;
