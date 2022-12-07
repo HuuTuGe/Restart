@@ -183,6 +183,7 @@ export default defineComponent({
 .blue_background {
     background: url("@/assets/blue_background.png");
     height: 387px;
+    width: 390px;
 }
 
 .summary_end {

@@ -1,6 +1,10 @@
 <template>
-  <div class="app">
-    <router-view></router-view>
+  <div>
+    <div class="left">
+      <div class="app">
+        <router-view></router-view>
+      </div>
+    </div>>
   </div>
 </template>
 
@@ -13,13 +17,20 @@ export default {
 </script>
   
 <style scoped lang="scss">
-  .app {
-    width: 390px;
-    height: 722px;
-    border: 1px solid #000;
-    text-align: center;
-    margin: 0 auto;
-  }
+.app {
+  display: flex;
+  width: 390px;
+  height: 722px;
+  border: 1px solid #000;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.left {
+  display: flex;
+  height: 800px;
+  background: url(./assets/allbackground.PNG);
+}
 </style>
   
   
