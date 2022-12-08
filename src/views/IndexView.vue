@@ -1,16 +1,17 @@
 <template>
     <div id="background">
-        <div class="upper_list">
+        <div class="upper_list_left">
             <img src="@/assets/sound.png" class="sound">
             <img src="@/assets/change.png" class="change">
             <div class="prizeblank"></div>
+            <div class="voice_list"></div>
+        </div>
+        <div class="upper_list_right">
             <router-link to="/Success">
                 <img src="@/assets/prize.jpg" class="prize">
             </router-link>
+            <h1 class="word">成就</h1>
         </div>
-        <div class="voice_list"></div>
-        <h1 class="word">成就</h1>
-
         <img src="@/assets/RESTART@1x.png" class='restart' />
         <img src='@/assets/线条@1x.png' class='line' />
         <img src="@/assets/福大人生@1x.png" class='life' />
@@ -68,23 +69,33 @@ export default defineComponent({
     background-color: #f7f7f7;
 }
 
-.upper_list {
-    width: 390px;
-    height: 85px;
+.upper_list_left {
+    width: 282px;
+    height: 170px;
+    float: left;
+}
+
+.upper_list_right {
+    width: 108px;
+    height: 100px;
+    float: left;
 }
 
 .voice_list {
-    width: 270px;
+    width: 250px;
     height: 85px;
+    margin-left: 20px;
     float: left;
+    margin-top: 85px;
     position: fixed;
-}
-
-.test_list {
-    width: px;
-    height: 10px;
-    float: left;
-    background-color: #000;
+    background-color: white;
+    display: none;
+    border-radius: 10px;
+    box-shadow:
+        0.1px 0.3px 0px rgba(0, 0, 0, 0.06),
+        0.4px 0.8px 0px rgba(0, 0, 0, 0.08),
+        0.9px 1.8px 0px rgba(0, 0, 0, 0.094),
+        3px 6px 0px rgba(0, 0, 0, 0.12);
 }
 
 body {
@@ -157,6 +168,10 @@ body {
     float: left;
 }
 
+.sound:hover~.voice_list {
+    display: block;
+}
+
 .change {
     padding-left: 20px;
     padding-top: 15px;
@@ -192,13 +207,13 @@ body {
 
 .word {
     padding-top: 0px;
-    padding-left: 255px;
+    padding-left: 0px;
     font-size: 24px;
 }
 
 .restart {
     padding-left: 10px;
-    padding-top: 90px;
+    padding-top: 70px;
     padding-bottom: 5px;
     width: 297px;
     height: 77px;
