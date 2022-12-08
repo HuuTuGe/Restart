@@ -16,7 +16,7 @@
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ "<<" }} </span>
+      <span class="gr"> {{ cj }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
@@ -70,6 +70,7 @@ export default defineComponent({
     return {
       achievementTpye: AchievementType.special,
       achievement_num: 2,
+      cj:"<<",
       nowPage: 1,
       pageNum: 5,
       items: [{ name: " ", id: 0, rarity: "" }],
@@ -79,6 +80,9 @@ export default defineComponent({
     nowPage: "sendRequest", //绑定函数
   },
   methods: {
+    setPageNum(){
+        this.pageNum = Math.floor(this.sourceStore.specialAchievementsNum as number / 10)+1;
+    },
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
         return {
@@ -124,6 +128,7 @@ export default defineComponent({
   },
   mounted: function () {
     this.sendRequest();
+    this.setPageNum();
   },
 });
 </script>

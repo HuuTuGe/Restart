@@ -45,7 +45,6 @@ export default defineComponent({
     setup() {
       const majorStore = useMajorStore()
       const lifeStore = useLifeStore()
-      lifeStore.$reset
       const {props,names} = storeToRefs(lifeStore)
       return{majorStore,lifeStore,props,names}
     },
@@ -60,6 +59,9 @@ export default defineComponent({
       await api.getTalentsData().then( (res) => {
         this.talentData = res
       }).catch( (error) => catchError(error))
+    },
+    mounted() {
+      this.lifeStore.init()
     },
     methods: {
       applyStyle(rarity: string): StyleValue{

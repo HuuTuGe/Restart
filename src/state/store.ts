@@ -66,6 +66,12 @@ export const useLifeStore = defineStore('life', {
         }
     },
     actions: {
+        init() {
+            this.props = [0,0,0,0,0,0]
+            this.eventList = []
+            this.achievementList = []
+            this.getAchievments = 0
+        },
         addEvent(eventId:number) {
             /**
              * 添加触发的事件

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Return_box from="/"></Return_box>
+        <Return_box from="/success"></Return_box>
         <div class="wrapper">
             <div class="table"></div>
             <div class="content">

@@ -25,7 +25,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import add_reduce from '@/components/add_reduce.vue';
 export default {
 name: 'selecttalent',

@@ -1,7 +1,7 @@
 <template>
     <div id="largestborder">
       <div class="box1">
-        <return_box class="ret" from="/"></return_box>
+        <return_box class="ret" from="/summary"></return_box>
         <div class="justplace"></div>
         <div class="box2">
           <p class="text3">成就</p>
@@ -13,11 +13,7 @@
         </div>
     </div>
 
-    <div class="box3">
-           
-           你已重开 {{count4}} 次
-          
-       </div>
+    <div class="box3">你已重开 {{ count4 }} 次</div>
 
        <div id="details" >
           <p>成就详情</p>
@@ -43,7 +39,6 @@
           
        </div>
     </div>
-   
 </template>
 
 <script lang="ts">
@@ -74,31 +69,25 @@ data () {
 
 }
 }
-
-
 </script  >
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped >
-
 #largestborder {
-  height:722px;
- 
- background-color: #efefef;
- margin:0 auto;
- padding-top: 0px;
- margin-bottom: 0px;
- float:left;
+  height: 722px;
 
-
+  background-color: #efefef;
+  margin: 0 auto;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  float: left;
 }
-#success_fix{
-
-height:309px;
-width:390px;
- background-color: #efefef;
- border-top: 0px;
- margin-top:0 ;
+#success_fix {
+  height: 309px;
+  width: 390px;
+  background-color: #efefef;
+  border-top: 0px;
+  margin-top: 0;
 }
 
 /*<!--#gamerecord{
@@ -109,61 +98,53 @@ width:390px;
 
 
 }*/
-.box1{
-      
+.box1 {
   width: 390px;
   height: 242px;
   margin-top: 0px;
-  background:url(../assets/成就榜大字.png)  0px 0px;
-  background-color:#D4EBF7;
-  background-size:390px 253px;
+  background: url(../assets/成就榜大字.png) 0px 0px;
+  background-color: #d4ebf7;
+  background-size: 390px 253px;
   color: rgba(16, 16, 16, 1);
   font-size: 14px;
   font-family: Arial;
-  
-    
-    }
-     .justplace{
-      height:105px;
-      width:390px;
-      float:left;
-      opacity: 0.7;
-      
-     }
-     
-        .box2{
-          left: 10px;
-         top: 10px;
-      float:left;
-      margin-left: 16px;;
-      width: 344px;
-      height: 113px;
-      line-height: 20px;
-      border-radius: 10px;
-      background-color: rgba(0, 80, 179, 1);
-      text-align: center;
-      box-shadow: 0px 2px 6px 0px rgba(64, 169, 255, 100);
-      position: relative;
-    }
-    .box3{
+}
+.justplace {
+  height: 105px;
+  width: 390px;
+  float: left;
+  opacity: 0.7;
+}
 
-      left: 0px;
-      top: 10px;
-        width: 390px;
-        height: 64px;
-        line-height: 64px;
-        background-color: rgba(0, 80, 179, 1);
-        color: rgb(248, 244, 244);
-        font-size: 36px;
-        text-align: center;
-        font-family: Arial;
-        position: relative;
-       
-       
-        
-    }
-  .text1{
-  margin-left:21 px;
+.box2 {
+  left: 10px;
+  top: 10px;
+  float: left;
+  margin-left: 16px;
+  width: 344px;
+  height: 113px;
+  line-height: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 80, 179, 1);
+  text-align: center;
+  box-shadow: 0px 2px 6px 0px rgba(64, 169, 255, 100);
+  position: relative;
+}
+.box3 {
+  left: 0px;
+  top: 10px;
+  width: 390px;
+  height: 64px;
+  line-height: 64px;
+  background-color: rgba(0, 80, 179, 1);
+  color: rgb(248, 244, 244);
+  font-size: 36px;
+  text-align: center;
+  font-family: Arial;
+  position: relative;
+}
+.text1 {
+  margin-left: 21 px;
 
   margin-top: 34 px;
 
@@ -175,13 +156,13 @@ width:390px;
   /* font-display: 700px; */
   font-weight: 700px;
   font-family: ZKQingKeHuangYou-regular;
-      position: relative;
-  }
-  .text2{
+  position: relative;
+}
+.text2 {
   left: 20px;
   right: 5px;
   bottom: 130px;
-  top:px;
+  top: px;
   width: 158px;
   height: 28px;
   color: rgba(16, 16, 16, 1);
@@ -189,10 +170,10 @@ width:390px;
   text-align: left;
   font-family: PingFangSC-regular;
   position: relative;
-    }
-    .text3{
+}
+.text3 {
   left: 18px;
-  bottom:px;
+  bottom: px;
   top: px;
   width: 250px;
   height: 310px;
@@ -200,9 +181,9 @@ width:390px;
   font-size: 33px;
   text-align: left;
   /* font-family: PingFangSC-regular; */
-  position:absolute;
-  }
-  .text4{
+  position: absolute;
+}
+.text4 {
   left: 18px;
   top: 35px;
   width: 250px;
@@ -211,16 +192,16 @@ width:390px;
   font-size: 36px;
   text-align: left;
   font-family: PingFangSC-regular;
-  position:absolute;
-  }
-  .p1{
-  float:right;
-  margin:6px 29px 66px 182px;
+  position: absolute;
+}
+.p1 {
+  float: right;
+  margin: 6px 29px 66px 182px;
   width: 150px;
   height: 100px;
   position: relative;
-  }
-  .num1{
+}
+.num1 {
   left: 180px;
   top: 30px;
   width: 67px;
@@ -230,8 +211,8 @@ width:390px;
   text-align: right;
   font-family: ZKQingKeHuangYou-regular;
   position: absolute;
-  }
-  .num2{
+}
+.num2 {
   left: 205px;
   top: 47px;
   width: 105px;
@@ -240,8 +221,8 @@ width:390px;
   font-size: 100px;
   font-style: italic;
   position: absolute;
-  }
-  .num3{
+}
+.num3 {
   left: 130px;
   top: 70px;
   width: 67px;
@@ -251,98 +232,87 @@ width:390px;
   text-align: left;
   font-family: ZKQingKeHuangYou-regular;
   position: relative;
-      }
-#details{
+}
+#details {
   margin-bottom: 0px;
-height:380px;
-width:390px;
-
-
+  height: 380px;
+  width: 390px;
 }
-p{
-margin-left:0px;
-font-size: 20px;
-text-align: left;
-
-
+p {
+  margin-left: 0px;
+  font-size: 20px;
+  text-align: left;
 }
-#specialtotal{
-height:150px;
-width:390px;
-margin-top: 25px;
-
+#specialtotal {
+  height: 150px;
+  width: 390px;
+  margin-top: 25px;
 }
-#special{
-  height:140px;
-  width:140px;
-  background:url(../assets/奖杯.png) no-repeat 0px 0px;
-  background-size:150px 150px ;
-  float:left; 
-  display:inline;
-
-  
+#special {
+  height: 140px;
+  width: 160px;
+  background: url(../assets/奖杯.png) no-repeat 0px 0px;
+  background-size: 150px 150px;
+  float: left;
+  display: inline;
 }
-#commomtotal{
-height:150px;
-  width:390px;
+#commomtotal {
+  height: 150px;
+  width: 390px;
   margin-top: 20px;
 }
-#commom{
-height:140px;
-  width:140px;
-  float:left; 
-  display:inline;
-  background:url(../assets/奖杯.png) no-repeat 0px 0px;
-  background-size:150px 150px ;
+#commom {
+  height: 140px;
+  width: 160px;
+  float: left;
+  display: inline;
+  background: url(../assets/奖杯.png) no-repeat 0px 0px;
+  background-size: 150px 150px;
 }
-#specialdt{
- height:150px;
-  width:230px;
-  float:right; 
-  display:inline;
-  overflow:visible;
- 
-
+#specialdt {
+  height: 150px;
+  width: 230px;
+  float: right;
+  display: inline;
+  overflow: visible;
+  /* font-size: 200px; */
 }
-#commomdt{
-height:150px;
-  width:230px;
-  float:right; 
-  display:inline;
-  
-  
+#commomdt {
+  height: 150px;
+  width: 230px;
+  float: right;
+  display: inline;
 }
-.stype{
-  font-size: 16px;
-  color:#0F40F5;
-  
+.stype {
+  font-size: 20px;
+  color: #0f40f5;
 }
-.sreason{
+.sreason {
   margin-top: 5px;
-  font-size: 16px;
-
+  font-size: 20px;
 }
-.check{
-  height:50px;
-  width:50px;
-  float:right;
-  display:inline;
-  background:url(../assets/打钩.png) no-repeat 0px 0px;
-  background-size:50px 50px;
+.check {
+  height: 70px;
+  width: 70px;
+  float: right;
+  display: inline;
+  background: url(../assets/打钩.png) no-repeat 0px 0px;
+  background-size: 50px 50px;
   margin-right: 5px;
-  margin-top: 35px;
-  
-  
+  margin-top: 15px;
 }
-.COUNT{
-  float:left;
-  display:inline;
-  margin-left: 80px;
-  margin-top: 40px;
-  color:#F5222D;
+.COUNT {
+  float: left;
+  display: inline;
+  margin-left: 70px;
+  margin-top: 25px;
+  color: #f5222d;
   font-size: 22px;
 }
 
-
+.cjtitle {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+}
 </style>
 
