@@ -2,7 +2,6 @@ import axios from "axios";
 import * as Data from "@/api/outputInterface"
 import * as Param from '@/api/inputInterface' 
 import { GameSource } from "@/state/stateInterface";
-import { NotUndefined } from "vue";
 
 export function catchError(error:any) {
     console.log(error)
@@ -11,20 +10,20 @@ export function catchError(error:any) {
 export const api = {
     baseUrl: 'https://mock.apifox.cn/m1/1984536-0-default' ,// mock连接
     remoteUrl: 'http://43.139.155.223:9090' ,// 服务器地址
-    async getPictures(data:Param.PicturesParam): Promise<Array<any>> {
+    async getPictures(data:Param.PicturesParam): Promise<Array<Data.PictureData>> {
         /**
          * 请求图片列表
          * @return 图片列表
          */
-        let url: string = this.baseUrl + '/pictures'
+        let url: string = this.remoteUrl + '/pictures'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
-    async getPicture(data:Param.PictureParam): Promise<Array<any>> {
+    async getPicture(data:Param.PictureParam): Promise<Data.PictureData> {
         /**
          * 请求图片
          * @return 图片
          */
-        let url: string = this.baseUrl + '/picture'
+        let url: string = this.remoteUrl + '/picture'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getTalentsData(): Promise<Array<Data.TalentData>>{
@@ -62,8 +61,8 @@ export const api = {
          * @param data - 请求负载参数
          * @return 
          */
-        let url: string = this.baseUrl + '/user/data'
-        // let url: string = this.remoteUrl + '/user/data'
+        // let url: string = this.baseUrl + '/user/data'
+        let url: string = this.remoteUrl + '/user/data'
 
         // 从本地读取token
         let header: object
@@ -80,8 +79,8 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合
          */
-        // let url: string = this.remoteUrl + '/achievements'
-        let url: string = this.baseUrl + '/achievements'
+        let url: string = this.remoteUrl + '/achievements'
+        // let url: string = this.baseUrl + '/achievements'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getChoicesData(data?: Param.ChoicesParam): Promise<Array<Data.ChoiceData>> {
@@ -108,8 +107,8 @@ export const api = {
          * 请求token
          * @return 符合TokenParam接口的数据
          */
-        // let url: string = this.remoteUrl + '/token'
-        let url: string = this.baseUrl + '/token'
+        let url: string = this.remoteUrl + '/token'
+        // let url: string = this.baseUrl + '/token'
         axios.get(url).then(res=> {
             console.log('getToken ' + res.data.token as string)
             localStorage.setItem("lifestartToken",res.data.token as string) 

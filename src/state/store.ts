@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {Major, User, Life, GameSource} from '@/state/stateInterface'
+import {Major, User, Life, GameSource, Picture} from '@/state/stateInterface'
 
 export const useMajorStore = defineStore('major',{
     state: () => {
@@ -53,7 +53,8 @@ export const useLifeStore = defineStore('life', {
             props:[0,0,0,0,0,0],
             eventList: [], // 事件id的list
             achievementList: [], // 成就id的list
-            getAchievments: 0 // 本回合已获得的成就的计数
+            getAchievments: 0, // 本回合已获得的成就的计数
+            pictures: []
         } as Life
     },
     getters: {
@@ -137,6 +138,12 @@ export const useLifeStore = defineStore('life', {
              let a4 = Math.floor(Math.random() * (25 - a1 - a2 - a3));
              let a5 = 25 - a1 - a2 - a3 - a4;
              this.props = [a1,a2,a3,a4,a5,0]
+        },
+        addPicture(picture: Picture): void{
+            /**
+             * 添加新的图片
+             */
+            this.pictures.push(picture)
         }
     }
 })

@@ -14,7 +14,13 @@ export interface Life {
     props:Array<number>,
     eventList: Array<number>,
     achievementList: Array<number>,
-    getAchievments: number
+    getAchievments: number,
+    pictures: Array<Picture>
+}
+export interface Picture {
+    url: string,
+    content: string,
+    time: string,
 }
 
 export interface GameSource{

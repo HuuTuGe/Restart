@@ -2,15 +2,14 @@
     <div id="background">
         <div class="upper_list">
             <img src="@/assets/sound.png" class="sound">
-            <img src="@/assets/change.png" class="sound">
+            <img src="@/assets/change.png" class="change">
             <div class="prizeblank"></div>
             <router-link to="/Success">
                 <img src="@/assets/prize.jpg" class="prize">
             </router-link>
         </div>
-        <div class="test_list">
-            <h1 class="word">成就</h1>
-        </div>
+        <div class="voice_list"></div>
+        <h1 class="word">成就</h1>
 
         <img src="@/assets/RESTART@1x.png" class='restart' />
         <img src='@/assets/线条@1x.png' class='line' />
@@ -26,6 +25,7 @@
 import { defineComponent } from "vue";
 import { useSourceStore, useUserStore } from "@/state/store";
 import { api } from '@/api/api'
+import router from "@/router";
 export default defineComponent({
     name: 'app',
     data() {
@@ -48,6 +48,14 @@ export default defineComponent({
             }
             api.getUserData().then(data => userStore.setUser(data))
         },500)
+    },
+    watch: {
+        '$route': function () {
+            if (this.$route.name === 'choice') {
+                router.push('/Choice');
+            }
+        }
+
     }
 
 })
@@ -76,9 +84,18 @@ export default defineComponent({
     height: 85px;
 }
 
+.voice_list {
+    width: 270px;
+    height: 85px;
+    float: left;
+    position: fixed;
+}
+
 .test_list {
-    width: 390px;
+    width: px;
     height: 10px;
+    float: left;
+    background-color: #000;
 }
 
 body {
@@ -151,6 +168,14 @@ body {
     float: left;
 }
 
+.change {
+    padding-left: 20px;
+    padding-top: 15px;
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
 
 .play {
     text-align: center;
@@ -184,7 +209,7 @@ body {
 
 .restart {
     padding-left: 10px;
-    padding-top: 110px;
+    padding-top: 90px;
     padding-bottom: 5px;
     width: 297px;
     height: 77px;

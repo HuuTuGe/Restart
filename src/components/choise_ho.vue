@@ -32,10 +32,10 @@ export default Vue.extend({
   //   setInterval(this.stime, 10);
   // },
   mounted:function() {
-    this.$nextTick(() => {
-      setInterval(this.pro, 5000);
-    });
-
+    // this.$nextTick(() => {
+    //   setInterval(this.pro, 5000);
+    // });
+      this.pro();
   },
   setup() {
     const majorStore = useMajorStore()
@@ -44,8 +44,6 @@ export default Vue.extend({
     return{majorStore,propStore,props,names}
   },
   methods:{
-
-    
     pro(){
       api.getChoicesData().then(data => this.choices = data)
       console.log(123)
@@ -100,5 +98,21 @@ button{
 .in{
   position: relative;
   top:-40px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+.in:hover,
+.in:focus,
+.in:active {
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 </style>

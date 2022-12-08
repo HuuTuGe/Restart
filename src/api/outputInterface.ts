@@ -1,6 +1,6 @@
 export interface UserData{
-    commonAchievementList: Array<number>, // 用户已达成的普通事件
-    specialAchievementList: Array<number>, // 用户已达成的特殊事件
+    commonAchievementList: Array<number>, // 用户已达成的普通成就
+    specialAchievementList: Array<number>, // 用户已达成的特殊成就
     restartNum: number
 }
 
@@ -9,6 +9,10 @@ export interface MajorData{
     majorName: string
 }
 
+export interface PictureData{
+    content: string,
+    url: string
+}
 export interface TalentData{
     name: string,
     rarity: string
