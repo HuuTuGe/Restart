@@ -19,14 +19,16 @@ import { ChoicesParam } from '@/api/inputInterface';
 
 
 interface Data {
-  choices:Array<ChoiceData>
+  choices:Array<ChoiceData>,
+  stime:any
 }
 
 export default Vue.extend({
   name:'choise_ho',
   data(){
     return{
-      choices: []
+      choices: [],
+      stime:1000
     // con_1:'',
     // con_2:'',
     // con_3:'',
@@ -36,8 +38,14 @@ export default Vue.extend({
     // con_7:'',
   } as Data
   },
+  // created() {//这里是定时器
+  //   setInterval(this.stime, 10);
+  // },
   mounted:function() {
-      this.pro();
+    this.$nextTick(() => {
+      setInterval(this.pro, 5000);
+    });
+
   },
   setup() {
     const majorStore = useMajorStore()
@@ -46,13 +54,16 @@ export default Vue.extend({
     return{majorStore,propStore,props,names}
   },
   methods:{
-      pro(){
-        api.getChoicesData().then(data => this.choices = data)
-      },
-      change_pro(props:Array<number>){
-        this.propStore.apdateProps(props),
-        (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
-      },
+
+    
+    pro(){
+      api.getChoicesData().then(data => this.choices = data)
+      // console.log(123)
+    },
+    change_pro(props:Array<number>){
+      this.propStore.apdateProps(props),
+      (this.$parent as Vue & {DayShow: boolean}).DayShow=false;
+    },
   }
 })
 </script>

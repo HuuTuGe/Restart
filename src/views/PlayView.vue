@@ -156,13 +156,12 @@ export default defineComponent( {
           this.IsShow=true
         }
       }
-      this.cDay-=1
       if(this.cDay==0){
-        this.DayShow = true
         this.cDay=18
         this.stage=this.stage+3
-        
       }
+      
+      this.cDay-=1
      },
     p(){
       let param:LifeParam = {
