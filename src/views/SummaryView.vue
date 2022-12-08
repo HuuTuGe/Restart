@@ -114,6 +114,24 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+@keyframes shining {
+    from {
+        text-shadow: 0 0 6px rgba(182, 211, 207, 0.9),
+            0 0 30px rgba(182, 211, 207, 0.3), 0 0 12px rgba(15, 115, 223, 0.5),
+            0 0 21px rgba(15, 115, 223, 0.9), 0 0 34px rgba(15, 115, 223, 0.8),
+            0 0 54px rgba(15, 115, 223, 0.9);
+    }
+
+    to {
+        text-shadow: 0 0 6px rgba(182, 211, 207, 1),
+            0 0 30px rgba(182, 211, 207, 0.4), 0 0 12px rgba(15, 115, 223, 0.6),
+            0 0 22px rgba(15, 115, 223, 0.8), 0 0 38px rgba(15, 115, 223, 0.9),
+            0 0 60px rgba(15, 115, 223, 1);
+    }
+}
+
 .accomplishment_box {
     background: url("@/assets/summary_background.png");
     width: 390px;
@@ -191,23 +209,6 @@ export default defineComponent({
     height: 88px;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
-
-@keyframes shining {
-    from {
-        text-shadow: 0 0 6px rgba(182, 211, 207, 0.9),
-            0 0 30px rgba(182, 211, 207, 0.3), 0 0 12px rgba(15, 115, 223, 0.5),
-            0 0 21px rgba(15, 115, 223, 0.9), 0 0 34px rgba(15, 115, 223, 0.8),
-            0 0 54px rgba(15, 115, 223, 0.9);
-    }
-
-    to {
-        text-shadow: 0 0 6px rgba(182, 211, 207, 1),
-            0 0 30px rgba(182, 211, 207, 0.4), 0 0 12px rgba(15, 115, 223, 0.6),
-            0 0 22px rgba(15, 115, 223, 0.8), 0 0 38px rgba(15, 115, 223, 0.9),
-            0 0 60px rgba(15, 115, 223, 1);
-    }
-}
 
 .summary_circle {
     border-radius: 150px/50px;

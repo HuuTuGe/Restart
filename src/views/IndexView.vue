@@ -26,6 +26,7 @@
 import { defineComponent } from "vue";
 import { useSourceStore } from "@/state/store";
 import { api } from '@/api/api'
+import router from "@/router";
 export default defineComponent({
     name: 'app',
     data() {
@@ -38,6 +39,13 @@ export default defineComponent({
             .then(data => {
                 gameSource.init(data)
             })
+    },
+    watch: {
+        '$route': function () {
+            if (this.$route.name === 'choice') {
+                router.push('/Choice');
+            }
+        }
     }
 
 })
