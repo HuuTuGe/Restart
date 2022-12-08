@@ -4,11 +4,13 @@
     <div class="result">
 
 
-      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{$store.state.talent.intelligence}}
+      <!-- 您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{$store.state.talent.intelligence}} -->
+      您被分配到<span id="blue">{{ msg1 }}</span>，请自行分配属性(共25点){{1}}
+
 
     </div>
     <div class="medium">
-      <!--<div class="ml"   @click.capture="getindex" index="0"><div class="shuxing">智力</div><add_reduce  v-if="countamout[0]" :count="countamout[0]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
+      <!-- <div class="ml"   @click.capture="getindex" index="0"><div class="shuxing">智力</div><add_reduce  v-if="countamout[0]" :count="countamout[0]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
 
          <div class="ml" @click.capture="getindex" index="1"><div class="shuxing">体质</div><add_reduce  v-if="countamout[1]" :count="countamout[1]" @reducechangedata="reducechild" @addchangedata="addchild" ></add_reduce></div>
          
@@ -113,7 +115,7 @@ export default defineComponent({
 
       if (acount < 20) {
         this.countamout[index].count += 1;
-        this.$store.commit('addstate_intel',1);
+        // this.$store.commit('addstate_intel',1);
       }
     },
       

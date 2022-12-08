@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="box1">
-      <return_box></return_box>
+      <return_box from="/"></return_box>
       <p class="text1">{{ mg }}</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
@@ -48,7 +48,7 @@ interface isState {
   store: any,
   num: any
 }
-<script src="src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js""></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script lang="ts">
 
 import NAlist from "../components/NAlist.vue";

@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
 name: 'add_reduce',
 props:{
       count:Number,
@@ -25,7 +25,7 @@ methods:{
 }
 
   
-}
+})
 
 
 </script  >

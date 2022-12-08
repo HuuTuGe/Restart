@@ -11,12 +11,6 @@
 
 export default {
     name: "app",
-    data() {
-        return
-        {
-
-        }
-    },
     props: {
         comments: String,
     },

@@ -18,7 +18,7 @@
             <img src="@/assets/play.png" class="play">
         </router-link>
 
-        <index></index>
+        
     </div>
 </template>
 <script lang="ts">
