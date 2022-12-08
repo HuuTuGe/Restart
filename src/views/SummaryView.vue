@@ -24,9 +24,7 @@
                 <router-link to="/Anniversary">
                     <button class="summary_circle">进入纪念册</button>
                 </router-link>
-                <router-link to="/">
-                    <button class="summary_circle">立即重开</button>
-                </router-link>
+                <button class="summary_circle" @click="restart">立即重开</button>
             </div>
         </div>
 
@@ -35,14 +33,17 @@
 <script lang="ts">
 import Return_box from '../components/return_box.vue';
 import comment from '../components/comment.vue';
-import { useLifeStore } from '@/state/store'
+import { useLifeStore, useUserStore } from '@/state/store'
 import { defineComponent } from 'vue'
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
     name: "app",
     setup() {
         const propStore = useLifeStore()
-        return { propStore }
+        const userStore = useUserStore()
+        const {restartNum} = storeToRefs(userStore)
+        return { propStore,restartNum }
     },
     data() {
         return {
@@ -108,6 +109,13 @@ export default defineComponent({
         }
         else if (28 <= this.propStore.props[4]) {
             this.comment5 = '你的快乐阈值非常低，无论做什么你都会很开心。'
+        }
+    },
+    methods: {
+        restart() {
+            this.restartNum ++
+            this.$router.push('/')
+            //TODO 向后端保存用户状态
         }
     }
 })

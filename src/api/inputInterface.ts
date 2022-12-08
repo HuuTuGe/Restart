@@ -4,7 +4,8 @@ export enum AchievementType {
      * @usage - Achievement.common(返回普通成就)
      */
     common= "普通成就",
-    special= "特殊成就"
+    special= "特殊成就",
+    null = ""
 }
 
 export interface MajorParam{
@@ -32,10 +33,10 @@ export interface PicturesParam{
 }
 
 export interface AchievementsParam{
-    ids?: Array<number>, // 本局游戏获得的id
+    ids: Array<number>, // 本局游戏获得的id,可以为[]
     page: number,
     limit:number,
-    type?: AchievementType, // 普通成就或特殊成就
+    type: AchievementType, // 普通成就或特殊成就
 }
 
 export interface PictureParam{

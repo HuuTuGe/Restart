@@ -15,7 +15,7 @@
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ cj }} </span>
+      <span class="gr"> {{ "<<" }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
@@ -55,8 +55,15 @@ import return_box from "../components/return_box.vue";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam } from "@/api/inputInterface";
-import { useLifeStore } from '@/state/store';
+import { useLifeStore, useUserStore } from '@/state/store';
 import { storeToRefs } from "pinia";
+import { AchievementData } from "@/api/outputInterface";
+
+interface Data {
+  nowPage: number,
+  pageNum: number,
+  items: Array<AchievementData>,
+}
 
 export default defineComponent({
   name: "app",
@@ -66,20 +73,20 @@ export default defineComponent({
   },
   setup() {
     const lifeStore = useLifeStore()
+    const userStore = useUserStore()
     const {getAchievments} = storeToRefs(lifeStore)
-    return {lifeStore,getAchievments}
+    const {commonAchievementList,specialAchievementList} = storeToRefs(userStore)
+    return {lifeStore,getAchievments,commonAchievementList,specialAchievementList}
   },
   watch: {
     nowPage: "sendRequest", //绑定函数
   },
   data() {
     return {
-
-      cj: "<<",
       nowPage: 1,
-      pageNum: 5,
-      items: [{ name: " ", id: 0, rarity: "" }],
-    };
+      pageNum: 1,
+      items: [],
+    } as Data;
   },
   methods: {
     setPageNum(){
@@ -109,10 +116,15 @@ export default defineComponent({
       }
     },
     sendRequest() {
+      if (this.getAchievments == 0){
+        return;
+      }
       api
         .getAchievementsData({
           page: this.nowPage,
           limit: 10,
+          type: "",
+          ids: this.commonAchievementList.concat(this.specialAchievementList)
         } as AchievementsParam)
         .then((data) => {
           this.items = data;

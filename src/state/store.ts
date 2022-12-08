@@ -151,8 +151,8 @@ export const useLifeStore = defineStore('life', {
 export const useSourceStore = defineStore("gameSource",{
     state: () => {
         return {
-            commonAchievementsNum: undefined,
-            specialAchievementsNum: undefined
+            commonAchievementsNum: 0,
+            specialAchievementsNum: 0
         } as GameSource
     },
     getters: {

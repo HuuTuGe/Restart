@@ -2,7 +2,7 @@
   <div class="app">
     <div class="box1">
       <return_box from="/success"></return_box>
-      <p class="text1">{{achievementTpye}}</p>
+      <p class="text1">{{achievementType}}</p>
       <img src="../assets/特殊成就.png" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -10,13 +10,13 @@
       <p class="text3">成就</p>
       <p class="text4">收集进度</p>
 
-      <span class="num1">{{ achievement_num }}</span>
+      <span class="num1">{{ userSpecialAchievementsNum }}</span>
       <span class="num2">/</span>
       <span class="num3">{{specialAchievementsNum}}</span>
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ cj }} </span>
+      <span class="gr"> {{ "<<" }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
@@ -51,9 +51,16 @@ import Return_box from "../components/return_box.vue";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam, AchievementType } from "@/api/inputInterface";
-import { useSourceStore } from "@/state/store";
+import { useSourceStore,useUserStore } from "@/state/store";
 import { storeToRefs } from "pinia";
+import { AchievementData } from "@/api/outputInterface";
 
+interface Data {
+  achievementType: AchievementType,
+  nowPage: number,
+  pageNum: number,
+  items: Array<AchievementData>,
+}
 
 export default defineComponent({
   name: "app",
@@ -62,19 +69,19 @@ export default defineComponent({
     Return_box,
   },
   setup() {
+    const userStore = useUserStore()
     const sourceStore = useSourceStore()
-    const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
-  return {sourceStore,commonAchievementsNum,specialAchievementsNum}
+    const {userSpecialAchievementsNum} = storeToRefs(userStore)
+    const {specialAchievementsNum} = storeToRefs(sourceStore)
+  return {sourceStore,userSpecialAchievementsNum,specialAchievementsNum}
   },
   data() {
     return {
-      achievementTpye: AchievementType.special,
-      achievement_num: 2,
-      cj:"<<",
+      achievementType: AchievementType.special,
       nowPage: 1,
-      pageNum: 5,
-      items: [{ name: " ", id: 0, rarity: "" }],
-    };
+      pageNum: 1,
+      items: [],
+    } as Data;
   },
   watch: {
     nowPage: "sendRequest", //绑定函数
@@ -110,7 +117,9 @@ export default defineComponent({
       api.getAchievementsData(
           {
             page: this.nowPage,
-            limit: 10
+            limit: 10,
+            type: this.achievementType,
+            ids: []
           } as AchievementsParam).
       then((data) => {
         this.items = data;

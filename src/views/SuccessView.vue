@@ -7,13 +7,13 @@
           <p class="text3">成就</p>
           <p class="text4">收集进度</p>
 
-          <span class="num1">15</span>
+          <span class="num1">{{(userCommonAchievementsNum+userSpecialAchievementsNum)}}</span>
           <span class="num2">/</span>
           <span class="num3">{{sourceStore.achievementsNum}}</span>
         </div>
     </div>
 
-    <div class="box3">你已重开 {{ count4 }} 次</div>
+    <div class="box3">你已重开 {{ restartNum }} 次</div>
 
        <div id="details" >
           <p>成就详情</p>
@@ -22,7 +22,7 @@
             <div id="special"></div>
             <div id="specialdt"><div class="stype">特殊成就</div>
             <div class="sreason">专业、特色剧情触发</div>
-            <div class="COUNT">{{count2}}/{{specialAchievementsNum}}</div> 
+            <div class="COUNT">{{userSpecialAchievementsNum}}/{{specialAchievementsNum}}</div> 
             <div class="check"></div></div>
             </div>
           </router-link>
@@ -32,7 +32,7 @@
             <div id="commomdt">
             <div class="stype">普通成就</div>
             <div class="sreason">常规剧情触发</div>
-            <div class="COUNT">{{count3}}/{{commonAchievementsNum}}</div> 
+            <div class="COUNT">{{userCommonAchievementsNum}}/{{commonAchievementsNum}}</div> 
             <div class="check"></div></div>
             </div>
           </router-link>
@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import return_box from '@/components/return_box.vue';
-import { useSourceStore } from '@/state/store';
+import { useSourceStore, useUserStore } from '@/state/store';
 import { storeToRefs } from 'pinia';
 export default {
 name: 'success',
@@ -52,19 +52,13 @@ components:{
 },
 setup() {
   const sourceStore = useSourceStore()
+  const userStore = useUserStore()
   const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
-  return {sourceStore,commonAchievementsNum,specialAchievementsNum}
+  const {userCommonAchievementsNum, userSpecialAchievementsNum,restartNum} = storeToRefs(userStore)
+  return {sourceStore,commonAchievementsNum,specialAchievementsNum,userCommonAchievementsNum, userSpecialAchievementsNum,restartNum}
 },
 data () {
   return {
-    msg: '成就榜',
-    count1:0,
-    count2:2,
-    count3:15,
-    count4:0,
-    total2:10,
-    total3:15
-
   }
 
 }

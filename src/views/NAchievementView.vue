@@ -2,7 +2,7 @@
   <div class="app">
     <div class="box1">
       <return_box from="'/success'"></return_box>
-      <p class="text1">普通成就</p>
+      <p class="text1">{{achievementType}}</p>
       <img src="../assets/普通成就.jpg" alt="" class="p1" />
       <p class="text2">Achievement list</p>
     </div>
@@ -10,13 +10,13 @@
       <p class="text3">成就</p>
       <p class="text4">收集进度</p>
 
-      <span class="num1">{{  commonAchievementsNum }}</span>
+      <span class="num1">{{ userCommonAchievementsNum }}</span>
       <span class="num2">/</span>
-      <span class="num3">{{ achievement_num }}</span>
+      <span class="num3">{{ commonAchievementsNum }}</span>
     </div>
 
     <div class="box3">
-      <span class="gr"> {{ cj }} </span>
+      <span class="gr"> {{ "<<" }} </span>
       <span class="p2">成就详情</span>
       <span class="gr"> >> </span>
     </div>
@@ -50,10 +50,18 @@ import NAlist from "../components/NAlist.vue";
 import { defineComponent } from "vue";
 import return_box from "../components/return_box.vue";
 import { api, catchError } from "@/api/api";
-import { AchievementsParam } from "@/api/inputInterface";
+import { AchievementsParam, AchievementType } from "@/api/inputInterface";
 import { StyleValue } from "vue/types/jsx";
 import { storeToRefs } from "pinia";
-import { useSourceStore } from '@/state/store';
+import { useSourceStore, useUserStore } from '@/state/store';
+import { AchievementData } from "@/api/outputInterface";
+
+interface Data {
+  achievementType: AchievementType,
+  nowPage: number,
+  pageNum: number,
+  items: Array<AchievementData>,
+}
 
 export default defineComponent({
   name: "app",
@@ -63,17 +71,18 @@ export default defineComponent({
   },
   setup() {
     const sourceStore = useSourceStore()
-    const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
-    return {sourceStore,commonAchievementsNum,specialAchievementsNum}
+    const userStore = useUserStore()
+    const {userCommonAchievementsNum} = storeToRefs(userStore)
+    const {commonAchievementsNum} = storeToRefs(sourceStore)
+    return {sourceStore,commonAchievementsNum,userCommonAchievementsNum}
   },
   data() {
     return {
-      achievement_num: 60,
-      cj: "<<",
+      achievementType: AchievementType.common,
       nowPage: 1,
-      pageNum: 5,
-      items: [{ name: " ", id: 0, rarity: "" }],
-    };
+      pageNum: 1,
+      items: [],
+    } as Data;
   },
   watch: {
     nowPage: "sendRequest", //绑定函数
@@ -110,6 +119,8 @@ export default defineComponent({
         .getAchievementsData({
           page: this.nowPage,
           limit: 10,
+          type: this.achievementType,
+          ids: []
         } as AchievementsParam)
         .then((data) => {
           this.items = data;

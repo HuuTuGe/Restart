@@ -170,6 +170,7 @@ export default defineComponent( {
         achievementList: this.lifeStore.achievementList,
         academyId: this.majorStore.academyId,
       }
+      console.log(param)
       api.getEventData(param).then(data => {
         this.lifeDatas.push(data)
         this.lifeStore.apdateProps(data.lifeEvent.propertyChange)

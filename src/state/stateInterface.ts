@@ -24,6 +24,6 @@ export interface Picture {
 }
 
 export interface GameSource{
-    commonAchievementsNum: number|undefined,
-    specialAchievementsNum: number|undefined
+    commonAchievementsNum: number,
+    specialAchievementsNum: number
 }

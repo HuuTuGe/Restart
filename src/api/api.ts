@@ -51,9 +51,15 @@ export const api = {
          * @param data - 请求负载参数
          * @return 符合EventData接口的对象
          */
+        let param:object = {
+            props: data.props + '',
+            eventList: data.eventList + '',
+            achievementList: data.achievementList + '',
+            academyId: data.academyId,
+        }
         let url: string = this.remoteUrl + '/event'
         // let url: string = this.baseUrl + '/event'
-        return await axios.get(url, {params: data}).then(res=> res.data)
+        return await axios.get(url, {params: param}).then(res=> res.data)
     },
     async getUserData(): Promise<Data.UserData> {
         /**
@@ -79,9 +85,15 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合
          */
+        let param: object = {
+            ids: data.ids + '',
+            page: data.page,
+            limit: data.limit,
+            type: data.type,
+        }
         let url: string = this.remoteUrl + '/achievements'
         // let url: string = this.baseUrl + '/achievements'
-        return await axios.get(url, {params: data}).then(res=> res.data)
+        return await axios.get(url, {params: param}).then(res=> res.data)
     },
     async getChoicesData(data?: Param.ChoicesParam): Promise<Array<Data.ChoiceData>> {
         /**
