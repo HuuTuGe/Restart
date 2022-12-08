@@ -57,7 +57,7 @@
           <button class="life_con">人生报告</button>
         </router-link>
       </div>
-      <div class="choise" v-show="(DayShow&&!IsShow)">
+      <div class="choise" v-if="(DayShow&&!IsShow)">
         <choise_ho></choise_ho>
       </div>
   </div>
