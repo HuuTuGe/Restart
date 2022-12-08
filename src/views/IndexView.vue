@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useSourceStore } from "@/state/store";
+import { useSourceStore, useUserStore } from "@/state/store";
 import { api } from '@/api/api'
 export default defineComponent({
     name: 'app',
@@ -34,10 +34,20 @@ export default defineComponent({
     },
     setup() {
         const gameSource = useSourceStore()
+        const userStore =  useUserStore()
         api.getGameSourceData()
             .then(data => {
                 gameSource.init(data)
             })
+        if (localStorage.getItem("lifestartToken") == null) {
+            api.getToken()
+        }
+        setTimeout(()=> {
+            while(localStorage.getItem("lifestartToken") == null){
+
+            }
+            api.getUserData().then(data => userStore.setUser(data))
+        },500)
     }
 
 })

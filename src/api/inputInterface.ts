@@ -23,7 +23,7 @@ export interface ChoicesParam{
 }
 
 export interface Headers{
-    token: string
+    lifestartToken: string|null
 }
 
 export interface PicturesParam{
@@ -44,5 +44,4 @@ export interface PictureParam{
 }
 
 export interface UserParam{
-    usrId: number 
 }

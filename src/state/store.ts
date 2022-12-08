@@ -22,28 +22,26 @@ export const useMajorStore = defineStore('major',{
 export const useUserStore = defineStore('user',{
     state: () => {
         return {
-            userId: undefined,
-            commonAcademyList: [], // 用户已经获得的普通成就id的列表
-            specialAcademyList: [], // 用户已经获得的特殊成就id的列表
-            reStartNum: 0 // 用户重开次数
+            commonAchievementList: [],
+            specialAchievementList: [],
+            restartNum: 0 // 用户重开次数
         } as User
     },
     getters: {
         userCommonAchievementsNum(state): number {
             let sum:number = 0
-            state.commonAcademyList.some(item => {sum+=item})
+            state.commonAchievementList.some(item => {sum+=item})
             return sum
         },
         userSpecialAchievementsNum(state): number{
             let sum:number = 0
-            state.specialAcademyList.some(item => {sum+=item})
+            state.specialAchievementList.some(item => {sum+=item})
             return sum
         },
     },
     actions: {
-        setUser(id:number, academyList: Array<number>){
-            this.userId = id;
-            // TODO
+        setUser(data: User){
+            this.$state = data
         }
     }
 })

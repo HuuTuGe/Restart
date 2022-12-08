@@ -9,14 +9,11 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import Vue from 'vue';
 import {storeToRefs} from 'pinia'
 import {useLifeStore, useMajorStore} from "@/state/store"
 import {api, catchError} from '@/api/api'
 import {ChoiceData} from '@/api/outputInterface'
-import { ChoicesParam } from '@/api/inputInterface';
-
 
 interface Data {
   choices:Array<ChoiceData>,
@@ -29,13 +26,6 @@ export default Vue.extend({
     return{
       choices: [],
       stime:1000
-    // con_1:'',
-    // con_2:'',
-    // con_3:'',
-    // con_4:'',
-    // con_5:'',
-    // con_6:'',
-    // con_7:'',
   } as Data
   },
   // created() {//这里是定时器
@@ -58,7 +48,7 @@ export default Vue.extend({
     
     pro(){
       api.getChoicesData().then(data => this.choices = data)
-      // console.log(123)
+      console.log(123)
     },
     change_pro(props:Array<number>){
       this.propStore.apdateProps(props),

@@ -1,5 +1,7 @@
 export interface UserData{
-    
+    commonAchievementList: Array<number>, // 用户已达成的普通事件
+    specialAchievementList: Array<number>, // 用户已达成的特殊事件
+    restartNum: number
 }
 
 export interface MajorData{
@@ -30,6 +32,10 @@ export interface LifeData{
     haveAchievement: boolean,
     achievement?: AchievementData,
     lifeEvent: EventData
+}
+
+export interface TokenData{
+    token:string
 }
 
 export interface ChoiceData{
