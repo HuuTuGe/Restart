@@ -22,6 +22,10 @@ export interface ChoicesParam{
     
 }
 
+export interface Headers{
+    token: string
+}
+
 export interface PicturesParam{
     eventsId?: Array<number>,
     achievementsId?: Array<number>

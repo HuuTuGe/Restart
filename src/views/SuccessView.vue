@@ -1,7 +1,7 @@
 <template>
     <div id="largestborder">
       <div class="box1">
-        <return_box class="ret" from="/summary"></return_box>
+        <return_box class="ret" from="/"></return_box>
         <div class="justplace"></div>
         <div class="box2">
           <p class="text3">成就</p>
