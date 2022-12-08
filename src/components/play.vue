@@ -384,7 +384,6 @@ td {
 h1 {
   display: inline-block;
   font-size: 48px;
-  float: left;
   margin: 0;
   padding-left: 20px;
 }
