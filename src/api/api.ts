@@ -10,14 +10,14 @@ export function catchError(error:any) {
 
 export const api = {
     baseUrl: 'https://mock.apifox.cn/m1/1984536-0-default' ,// mock连接
-    remoteUrl: '' ,// 服务器地址
+    remoteUrl: 'http://43.139.155.223:9090' ,// 服务器地址
     async getPictures(data:PicturesParam): Promise<Array<any>> {
         /**
          * 请求图片列表
          * @return 图片列表
          */
         let url: string = this.baseUrl + '/pictures'
-        return await axios.get(url, data as AxiosRequestConfig<PicturesParam>).then(res=> res.data)
+        return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getPicture(data:PictureParam): Promise<Array<any>> {
         /**
@@ -25,14 +25,14 @@ export const api = {
          * @return 图片
          */
         let url: string = this.baseUrl + '/picture'
-        return await axios.get(url, data as AxiosRequestConfig<PictureParam>).then(res=> res.data)
+        return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getTalentsData(): Promise<Array<TalentData>>{
         /**
          * 请求天赋列表（3个天赋）
          * @return 符合TalentData接口的对象列表
          */
-        let url: string = this.baseUrl + '/talents'
+        let url: string = this.remoteUrl + '/talents'
         return await axios.get(url).then(res=> res.data)
     },
     async getMajorData(data:MajorParam): Promise<MajorData> {
@@ -41,8 +41,8 @@ export const api = {
          * @param data - 请求负载参数
          * @return  符合MajorData接口的对象
          */
-        let url: string = this.baseUrl + '/major'
-        return await axios.get(url, data as AxiosRequestConfig<MajorParam>).then(res=> res.data)
+        let url: string = this.remoteUrl + '/major'
+        return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getEventData(data:LifeParam): Promise<LifeData> {
         /**
@@ -51,7 +51,7 @@ export const api = {
          * @return 符合EventData接口的对象
          */
         let url: string = this.baseUrl + '/event'
-        return await axios.get(url, data as AxiosRequestConfig<LifeParam>).then(res=> res.data)
+        return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async postUserData(data: UserParam): Promise<UserData> {
         /**
@@ -60,7 +60,7 @@ export const api = {
          * @return 
          */
         let url: string = this.baseUrl + '/user'
-        return await axios.get(url, data as AxiosRequestConfig<UserParam>).then(res=> res.data)
+        return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getAchievementsData(data: AchievementsParam): Promise<Array<AchievementData>> {
         /**
@@ -69,7 +69,7 @@ export const api = {
          * @return 符合
          */
         let url: string = this.baseUrl + '/achievements'
-        return await axios.get(url, data as AxiosRequestConfig<AchievementsParam>).then(res=> res.data)
+        return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getChoicesData(data?: ChoicesParam): Promise<Array<ChoiceData>> {
         /**
@@ -77,8 +77,9 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合choiceData接口的列表数据
          */
-         let url: string = this.baseUrl + '/choices'
-         return await axios.get(url, data as AxiosRequestConfig<ChoicesParam>).then(res=> res.data)
+        //  let url: string = this.baseUrl + '/choices'
+         let url: string = this.remoteUrl + '/choices'
+         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getGameSourceData(): Promise<GameSource> {
         /**

@@ -83,7 +83,7 @@ export default defineComponent({
   },
   methods: {
     setPageNum(){
-        this.pageNum = (this.getAchievments / 10)+1;
+        this.pageNum = Math.floor(this.getAchievments / 10)+1;
     },
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
