@@ -32,6 +32,7 @@ export const api = {
          * 请求天赋列表（3个天赋）
          * @return 符合TalentData接口的对象列表
          */
+        // let url: string = this.baseUrl + '/talents'
         let url: string = this.remoteUrl + '/talents'
         return await axios.get(url).then(res=> res.data)
     },
@@ -41,6 +42,7 @@ export const api = {
          * @param data - 请求负载参数
          * @return  符合MajorData接口的对象
          */
+        // let url: string = this.baseUrl + '/major'
         let url: string = this.remoteUrl + '/major'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
@@ -50,7 +52,8 @@ export const api = {
          * @param data - 请求负载参数
          * @return 符合EventData接口的对象
          */
-        let url: string = this.baseUrl + '/event'
+        let url: string = this.remoteUrl + '/event'
+        // let url: string = this.baseUrl + '/event'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async postUserData(data: UserParam): Promise<UserData> {
@@ -68,6 +71,7 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合
          */
+        // let url: string = this.remoteUrl + '/achievements'
         let url: string = this.baseUrl + '/achievements'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
@@ -86,7 +90,8 @@ export const api = {
          * 请求游戏资源
          * @return 符合GameSource接口的数据
          */
-         let url: string = this.baseUrl + '/source'
+        let url: string = this.remoteUrl + '/source'
+        //  let url: string = this.baseUrl + '/source'
          return await axios.get(url).then(res=> res.data)
     }
 }
