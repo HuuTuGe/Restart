@@ -15,9 +15,7 @@
         <img src="@/assets/RESTART@1x.png" class='restart' />
         <img src='@/assets/线条@1x.png' class='line' />
         <img src="@/assets/福大人生@1x.png" class='life' />
-        <router-link to="/Choice">
-            <img src="@/assets/play.png" class="play">
-        </router-link>
+        <img src="@/assets/play.png" class="play" @click="startGame">
     </div>
 </template>
 
@@ -27,6 +25,7 @@ import { defineComponent } from "vue";
 import { useSourceStore, useUserStore } from "@/state/store";
 import { api } from '@/api/api'
 import router from "@/router";
+import { storeToRefs } from "pinia";
 export default defineComponent({
     name: 'app',
     data() {
@@ -49,6 +48,8 @@ export default defineComponent({
             }
             api.postUserData().then(data => userStore.setUser(data))
         },500)
+        const {restartNum} = storeToRefs(userStore)
+        return {restartNum}
     },
     watch: {
         '$route': function () {
@@ -56,7 +57,12 @@ export default defineComponent({
                 router.push('/Choice');
             }
         }
-
+    },
+    methods: {
+        startGame() {
+            this.$router.push("/Choice")
+            this.restartNum ++ 
+        }
     }
 
 })

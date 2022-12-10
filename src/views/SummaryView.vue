@@ -114,7 +114,7 @@ export default defineComponent({
     methods: {
         restart() {
             this.restartNum ++
-            this.$router.push('/')
+            this.$router.push('/Choice')
             //TODO 向后端保存用户状态
         }
     }

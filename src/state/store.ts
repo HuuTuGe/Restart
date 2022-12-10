@@ -58,7 +58,7 @@ export const useUserStore = defineStore('user',{
             else{
                 console.log("type error")
             }
-        },
+        }
     }
 })
 
