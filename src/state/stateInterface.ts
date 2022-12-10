@@ -4,16 +4,16 @@ export interface Major {
 }
 
 export interface User {
-    commonAchievementList: Array<number>,
-    specialAchievementList: Array<number>,
+    commonAchievementList: Set<number>,
+    specialAchievementList: Set<number>,
     restartNum: number
 }
 
 export interface Life {
     names:Array<string>,
     props:Array<number>,
-    eventList: Array<number>,
-    achievementList: Array<number>,
+    eventList: Set<number>,
+    achievementList: Set<number>,
     getAchievments: number,
     pictures: Array<Picture>
 }

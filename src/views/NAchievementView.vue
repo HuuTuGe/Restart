@@ -120,7 +120,7 @@ export default defineComponent({
           page: this.nowPage,
           limit: 10,
           type: this.achievementType,
-          ids: []
+          ids: new Set()
         } as AchievementsParam)
         .then((data) => {
           this.items = data;

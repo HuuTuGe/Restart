@@ -55,7 +55,7 @@ import return_box from "../components/return_box.vue";
 import { StyleValue } from "vue/types/jsx";
 import { api, catchError } from "@/api/api";
 import { AchievementsParam } from "@/api/inputInterface";
-import { useLifeStore, useUserStore } from '@/state/store';
+import { useLifeStore} from '@/state/store';
 import { storeToRefs } from "pinia";
 import { AchievementData } from "@/api/outputInterface";
 
@@ -73,10 +73,8 @@ export default defineComponent({
   },
   setup() {
     const lifeStore = useLifeStore()
-    const userStore = useUserStore()
-    const {getAchievments} = storeToRefs(lifeStore)
-    const {commonAchievementList,specialAchievementList} = storeToRefs(userStore)
-    return {lifeStore,getAchievments,commonAchievementList,specialAchievementList}
+    const {getAchievments,achievementList} = storeToRefs(lifeStore)
+    return {lifeStore,getAchievments,achievementList}
   },
   watch: {
     nowPage: "sendRequest", //绑定函数
@@ -124,7 +122,7 @@ export default defineComponent({
           page: this.nowPage,
           limit: 10,
           type: "",
-          ids: this.commonAchievementList.concat(this.specialAchievementList)
+          ids: this.achievementList
         } as AchievementsParam)
         .then((data) => {
           this.items = data;

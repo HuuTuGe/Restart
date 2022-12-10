@@ -53,8 +53,8 @@ export const api = {
          */
         let param:object = {
             props: data.props + '',
-            eventList: data.eventList + '',
-            achievementList: data.achievementList + '',
+            eventList: Array.from(data.eventList) + "",
+            achievementList: Array.from(data.achievementList) + "",
             academyId: data.academyId,
         }
         let url: string = this.remoteUrl + '/event'
@@ -86,7 +86,7 @@ export const api = {
          * @return 符合
          */
         let param: object = {
-            ids: data.ids + '',
+            ids: Array.from(data.ids) + '',
             page: data.page,
             limit: data.limit,
             type: data.type,

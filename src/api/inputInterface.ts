@@ -13,8 +13,8 @@ export interface MajorParam{
 }
 
 export interface LifeParam{
-    eventList: Array<number>, // // 本回合已达成的事件的id
-    achievementList: Array<number>, // 本回合已达成的成就的id
+    eventList: Set<number>, // // 本回合已达成的事件的id
+    achievementList: Set<number>, // 本回合已达成的成就的id
     academyId: number,
     props: Array<number>
 }
@@ -33,7 +33,7 @@ export interface PicturesParam{
 }
 
 export interface AchievementsParam{
-    ids: Array<number>, // 本局游戏获得的id,可以为[]
+    ids: Set<number>, // 本局游戏获得的id,可以为[]
     page: number,
     limit:number,
     type: AchievementType, // 普通成就或特殊成就
