@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {Major, User, Life, GameSource, Picture} from '@/state/stateInterface'
-import { AchievementData } from '@/api/outputInterface'
+import { AchievementData, UserData } from '@/api/outputInterface'
 
 export const useMajorStore = defineStore('major',{
     state: () => {
@@ -39,6 +39,9 @@ export const useUserStore = defineStore('user',{
             state.specialAchievementList.forEach(() => sum++)
             return sum
         },
+        userData(state): UserData{
+            return state
+        }
     },
     actions: {
         setUser(data: User){

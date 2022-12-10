@@ -36,6 +36,7 @@ import comment from '../components/comment.vue';
 import { useLifeStore, useUserStore } from '@/state/store'
 import { defineComponent } from 'vue'
 import { storeToRefs } from 'pinia';
+import { api } from '@/api/api';
 
 export default defineComponent({
     name: "app",
@@ -43,7 +44,7 @@ export default defineComponent({
         const propStore = useLifeStore()
         const userStore = useUserStore()
         const {restartNum} = storeToRefs(userStore)
-        return { propStore,restartNum }
+        return { propStore,restartNum,userStore}
     },
     data() {
         return {
@@ -114,6 +115,7 @@ export default defineComponent({
     methods: {
         restart() {
             this.restartNum ++
+            api.postUserUpdate(this.userStore.userData)
             this.$router.push('/Choice')
             //TODO 向后端保存用户状态
         }

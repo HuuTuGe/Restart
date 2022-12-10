@@ -124,5 +124,27 @@ export const api = {
             console.log('getToken ' + res.data.token as string)
             localStorage.setItem("lifestartToken",res.data.token as string) 
         })
+   },
+   async postUserUpdate(data: Data.UserData): Promise<void> {
+        /**
+         * 更新用户新获得的成就和重开次数
+         */
+        // let url: string = this.remoteUrl + '/user/update'
+        let url: string = this.baseUrl + '/user/update'
+        // 从本地读取token
+        let param = {
+            commonAchievementList: Array.from(data.commonAchievementList) + "",
+            specialAchievementList: Array.from(data.specialAchievementList) + "",
+            restartNum: data.restartNum
+        }
+        let header: object
+        header = {
+            lifestartToken : localStorage.getItem("lifestartToken")
+        }
+        console.log("set token: " + localStorage.getItem("lifestartToken"))
+        await axios.post(url, {
+            headers:header,
+            data:param
+        }).then(res=> res.data)
    }
 }
