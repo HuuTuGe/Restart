@@ -61,7 +61,7 @@ export const api = {
         // let url: string = this.baseUrl + '/event'
         return await axios.get(url, {params: param}).then(res=> res.data)
     },
-    async getUserData(): Promise<Data.UserData> {
+    async postUserData(): Promise<Data.UserData> {
         /**
          * 请求用户信息
          * @param data - 请求负载参数
@@ -76,8 +76,7 @@ export const api = {
             lifestartToken : localStorage.getItem("lifestartToken")
         }
         console.log("set token: " + localStorage.getItem("lifestartToken"))
-        return axios.get(url, {headers:header}
-            ).then(res=> res.data)
+        return axios.post(url, {headers:header}).then(res=> res.data)
     },
     async getAchievementsData(data: Param.AchievementsParam): Promise<Array<Data.AchievementData>> {
         /**
@@ -112,16 +111,16 @@ export const api = {
          */
         let url: string = this.remoteUrl + '/source'
         //  let url: string = this.baseUrl + '/source'
-         return await axios.get(url).then(res=> res.data)
+        return await axios.get(url).then(res=> res.data)
     },
-    getToken(): void{
+    async getToken(): Promise<void>{
         /**
          * 请求token
          * @return 符合TokenParam接口的数据
          */
         let url: string = this.remoteUrl + '/token'
         // let url: string = this.baseUrl + '/token'
-        axios.get(url).then(res=> {
+        await axios.get(url).then(res=> {
             console.log('getToken ' + res.data.token as string)
             localStorage.setItem("lifestartToken",res.data.token as string) 
         })

@@ -96,12 +96,12 @@ export default defineComponent({
           background: "#E99D42",
           color: "black",
         };
-      } else if (rarity == "史诗") {
+      } else if (rarity == "稀有") {
         return {
           background: "#0050B3",
           color: "white",
         };
-      } else if (rarity == "稀有") {
+      } else if (rarity == "史诗") {
         return {
           background: "#591BB7",
           color: "white",

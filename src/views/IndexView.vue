@@ -47,7 +47,7 @@ export default defineComponent({
             while(localStorage.getItem("lifestartToken") == null){
 
             }
-            api.getUserData().then(data => userStore.setUser(data))
+            api.postUserData().then(data => userStore.setUser(data))
         },500)
     },
     watch: {
