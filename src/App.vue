@@ -2,6 +2,10 @@
   <div>
     <div class="left">
       <div class="app">
+        <audio src="./assets/天空之城.mp3"
+            autoplay="true"
+            loop='true'
+            ref="Music"></audio>
         <router-view></router-view>
       </div>
     </div>

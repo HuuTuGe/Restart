@@ -1,7 +1,10 @@
 <template>
     <div id="background">
         <div class="upper_list_left">
-            <img src="@/assets/sound.png" class="sound">
+        <div class="bjcm" onclick="playMusic()" >
+        <img v-if = "IsSounds" src="@/assets/sound.png" class="sound" />
+        <img v-else src="@/assets/notsound.png" class="sound" />
+        </div>
             <img src="@/assets/change.png" class="change">
             <div class="prizeblank"></div>
             <div class="voice_list"></div>
@@ -26,11 +29,22 @@ import { useSourceStore, useUserStore } from "@/state/store";
 import { api } from '@/api/api'
 import router from "@/router";
 import { storeToRefs } from "pinia";
+
 export default defineComponent({
     name: 'app',
     data() {
-        return {
-        }
+    return {
+      IsSounds: true,
+    };
+  },
+  methods: {
+    playMusic() {
+      this.IsSounds = ! this.IsSounds;
+      if (this.IsSounds == true) {
+        this.$emit.$refs.Music.play();
+      } else {
+        this.$parent.$refs.Music.pause();
+      }
     },
     setup() {
         const gameSource = useSourceStore()
@@ -64,8 +78,9 @@ export default defineComponent({
             this.restartNum ++ 
         }
     }
+    this.playMusic(),
 
-})
+});
 </script>
   
 <style scoped lang="scss">
