@@ -57,6 +57,7 @@ export default Vue.extend({
     pro(){
       api.getChoicesData().then(data => this.choices = data)
       console.log(123)
+      console.log("data:"+this.choices)
     },
     change_pro(props:Array<number>){
       this.propStore.apdateProps(props),

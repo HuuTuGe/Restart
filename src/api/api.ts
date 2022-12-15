@@ -16,7 +16,8 @@ export const api = {
          * 请求图片列表
          * @return 图片列表
          */
-        let url: string = this.baseUrl + '/pictures'
+        let url: string = this.remoteUrl + '/pictures'
+        // let url: string = this.baseUrl + '/pictures'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getPicture(data:PictureParam): Promise<Array<any>> {
@@ -24,7 +25,8 @@ export const api = {
          * 请求图片
          * @return 图片
          */
-        let url: string = this.baseUrl + '/picture'
+        let url: string = this.remoteUrl + '/picture'
+        // let url: string = this.baseUrl + '/picture'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getTalentsData(): Promise<Array<TalentData>>{
@@ -52,18 +54,26 @@ export const api = {
          * @param data - 请求负载参数
          * @return 符合EventData接口的对象
          */
-        let url: string = this.remoteUrl + '/event'
-        // let url: string = this.baseUrl + '/event'
+        // let url: string = this.remoteUrl + '/event'
+        let url: string = this.baseUrl + '/event'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async postUserData(data: UserParam): Promise<UserData> {
-        /**
-         * 请求用户信息
-         * @param data - 请求负载参数
-         * @return 
-         */
-        let url: string = this.baseUrl + '/user'
-        return await axios.get(url, {params: data}).then(res=> res.data)
+      /**
+      * 请求用户信息
+      * @param data - 请求负载参数
+      * @return 
+      */
+     // let url: string = this.baseUrl + '/user/data'
+     let url: string = this.remoteUrl + '/user/data'
+
+     // 从本地读取token
+     let header: object
+     header = {
+         lifestartToken : localStorage.getItem("lifestartToken")
+     }
+     console.log("set token: " + localStorage.getItem("lifestartToken"))
+     return axios.post(url, {headers:header}).then(res=> res.data)
     },
     async getAchievementsData(data: AchievementsParam): Promise<Array<AchievementData>> {
         /**
@@ -71,8 +81,8 @@ export const api = {
          * @param data -  请求负载参数
          * @return 符合
          */
-        // let url: string = this.remoteUrl + '/achievements'
-        let url: string = this.baseUrl + '/achievements'
+        let url: string = this.remoteUrl + '/achievements'
+        // let url: string = this.baseUrl + '/achievements'
         return await axios.get(url, {params: data}).then(res=> res.data)
     },
     async getChoicesData(data?: ChoicesParam): Promise<Array<ChoiceData>> {
@@ -90,8 +100,8 @@ export const api = {
          * 请求游戏资源
          * @return 符合GameSource接口的数据
          */
-        let url: string = this.remoteUrl + '/source'
-        //  let url: string = this.baseUrl + '/source'
+        // let url: string = this.remoteUrl + '/source'
+         let url: string = this.baseUrl + '/source'
          return await axios.get(url).then(res=> res.data)
     }
 }
