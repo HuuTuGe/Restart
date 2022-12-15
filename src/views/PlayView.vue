@@ -73,8 +73,8 @@ import { defineComponent } from "vue";
 import {api, catchError} from '@/api/api'
 import {LifeParam} from '@/api/inputInterface'
 import {storeToRefs} from 'pinia'
-
-import {useLifeStore, useMajorStore} from "@/state/store"
+import {AchievementData} from '@/api/outputInterface' 
+import {useLifeStore, useMajorStore, useUserStore} from "@/state/store"
 import { LifeData } from '@/api/outputInterface';
 
 interface Play {
@@ -112,8 +112,9 @@ export default defineComponent( {
   setup() {
     const majorStore = useMajorStore();
     const lifeStore = useLifeStore();
+    const userStore = useUserStore();
     const {names,props,getAchievments} = storeToRefs(lifeStore)
-    return {majorStore,lifeStore,names,props,getAchievments}
+    return {majorStore,lifeStore,names,props,getAchievments,userStore}
   },
   data() {
     return {
@@ -182,11 +183,15 @@ export default defineComponent( {
         achievementList: this.lifeStore.achievementList,
         academyId: this.majorStore.academyId,
       }
+      console.log(param)
       api.getEventData(param).then(data => {
         this.lifeDatas.push(data)
         this.lifeStore.apdateProps(data.lifeEvent.propertyChange)
+        this.lifeStore.addEvent(data.lifeEvent.id)
         if(data.haveAchievement){
           this.lifeStore.addAchievement(data.achievement?.id as number)
+          console.log("add achievement")
+          this.userStore.addAchievement(data.achievement as AchievementData)
         }
         if(this.ef==1&&!this.IsShow){
           this.IsShow=data.lifeEvent.gameOver;//需要修改

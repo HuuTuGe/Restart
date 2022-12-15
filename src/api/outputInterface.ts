@@ -1,5 +1,9 @@
+import { AchievementType } from "./inputInterface"
+
 export interface UserData{
-    
+    commonAchievementList: Set<number>, // 用户已达成的普通成就
+    specialAchievementList: Set<number>, // 用户已达成的特殊成就
+    restartNum: number
 }
 
 export interface MajorData{
@@ -7,6 +11,10 @@ export interface MajorData{
     majorName: string
 }
 
+export interface PictureData{
+    content: string,
+    url: string
+}
 export interface TalentData{
     name: string,
     rarity: string
@@ -23,13 +31,18 @@ export interface EventData{
 export interface AchievementData{
     id: number,
     name: string,
-    rarity: string
+    rarity: string,
+    type: AchievementType
 }
 
 export interface LifeData{
     haveAchievement: boolean,
     achievement?: AchievementData,
     lifeEvent: EventData
+}
+
+export interface TokenData{
+    token:string
 }
 
 export interface ChoiceData{

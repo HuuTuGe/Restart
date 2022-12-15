@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
-import {Major, User, Life, GameSource} from '@/state/stateInterface'
+import {Major, User, Life, GameSource, Picture} from '@/state/stateInterface'
+import { AchievementData, UserData } from '@/api/outputInterface'
 
 export const useMajorStore = defineStore('major',{
     state: () => {
@@ -22,28 +23,44 @@ export const useMajorStore = defineStore('major',{
 export const useUserStore = defineStore('user',{
     state: () => {
         return {
-            userId: undefined,
-            commonAcademyList: [], // 用户已经获得的普通成就id的列表
-            specialAcademyList: [], // 用户已经获得的特殊成就id的列表
-            reStartNum: 0 // 用户重开次数
+            commonAchievementList: new Set(),
+            specialAchievementList: new Set(),
+            restartNum: 0 // 用户重开次数
         } as User
     },
     getters: {
         userCommonAchievementsNum(state): number {
             let sum:number = 0
-            state.commonAcademyList.some(item => {sum+=item})
+            state.commonAchievementList.forEach(() => sum++)
             return sum
         },
         userSpecialAchievementsNum(state): number{
             let sum:number = 0
-            state.specialAcademyList.some(item => {sum+=item})
+            state.specialAchievementList.forEach(() => sum++)
             return sum
         },
+        userData(state): UserData{
+            return state
+        }
     },
     actions: {
-        setUser(id:number, academyList: Array<number>){
-            this.userId = id;
-            // TODO
+        setUser(data: User){
+            this.$state = data
+        },
+        addAchievement(data: AchievementData) {
+            /**
+             * 添加用户新获得的成就
+             * @param - data 从response中获得的成就数据
+             */
+            if(data.type == "普通成就" ) {
+                this.commonAchievementList.add(data.id) 
+            }
+            else if(data.type=="特殊成就"){
+                this.specialAchievementList.add(data.id)
+            }
+            else{
+                console.log("type error")
+            }
         }
     }
 })
@@ -53,9 +70,10 @@ export const useLifeStore = defineStore('life', {
         return {
             names: ["智力","体质","魅力","财富","运气","心情"],
             props:[0,0,0,0,0,0],
-            eventList: [], // 事件id的list
-            achievementList: [], // 成就id的list
-            getAchievments: 0 // 本回合已获得的成就的计数
+            eventList: new Set(), // 事件id的list
+            achievementList: new Set(), // 成就id的list
+            getAchievments: 0, // 本回合已获得的成就的计数
+            pictures: []
         } as Life
     },
     getters: {
@@ -68,8 +86,8 @@ export const useLifeStore = defineStore('life', {
     actions: {
         init() {
             this.props = [0,0,0,0,0,0]
-            this.eventList = []
-            this.achievementList = []
+            this.eventList = new Set()
+            this.achievementList = new Set()
             this.getAchievments = 0
         },
         addEvent(eventId:number) {
@@ -77,7 +95,7 @@ export const useLifeStore = defineStore('life', {
              * 添加触发的事件
              * @param eventId - 事件id
              */
-            this.eventList.push(eventId)
+            this.eventList.add(eventId)
             
         },
         addAchievement(achievementId:number) {
@@ -85,7 +103,7 @@ export const useLifeStore = defineStore('life', {
              * 添加触发的成就
              * @param academyId - 成就id
              */
-                this.achievementList.push(achievementId)
+                this.achievementList.add(achievementId)
                 this.getAchievments++
         },
         
@@ -139,6 +157,12 @@ export const useLifeStore = defineStore('life', {
              let a4 = Math.floor(Math.random() * (25 - a1 - a2 - a3));
              let a5 = 25 - a1 - a2 - a3 - a4;
              this.props = [a1,a2,a3,a4,a5,0]
+        },
+        addPicture(picture: Picture): void{
+            /**
+             * 添加新的图片
+             */
+            this.pictures.push(picture)
         }
     }
 })
@@ -146,8 +170,8 @@ export const useLifeStore = defineStore('life', {
 export const useSourceStore = defineStore("gameSource",{
     state: () => {
         return {
-            commonAchievementsNum: undefined,
-            specialAchievementsNum: undefined
+            commonAchievementsNum: 0,
+            specialAchievementsNum: 0
         } as GameSource
     },
     getters: {

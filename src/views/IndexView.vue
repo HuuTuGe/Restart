@@ -1,44 +1,69 @@
 <template>
     <div id="background">
-        <div class="upper_list">
-            <img src="@/assets/sound.png" class="sound">
-            <img src="@/assets/change.png" class="sound">
+        <div class="upper_list_left">
+        <div class="bjcm" onclick="playMusic()" >
+        <img v-if = "IsSounds" src="@/assets/sound.png" class="sound" />
+        <img v-else src="@/assets/notsound.png" class="sound" />
+        </div>
+            <img src="@/assets/change.png" class="change">
             <div class="prizeblank"></div>
+            <div class="voice_list"></div>
+        </div>
+        <div class="upper_list_right">
             <router-link to="/Success">
                 <img src="@/assets/prize.jpg" class="prize">
             </router-link>
-        </div>
-        <div class="test_list">
             <h1 class="word">成就</h1>
         </div>
-
         <img src="@/assets/RESTART@1x.png" class='restart' />
         <img src='@/assets/线条@1x.png' class='line' />
         <img src="@/assets/福大人生@1x.png" class='life' />
-        <router-link to="/Choice">
-            <img src="@/assets/play.png" class="play">
-        </router-link>
+        <img src="@/assets/play.png" class="play" @click="startGame">
     </div>
 </template>
 
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useSourceStore } from "@/state/store";
+import { useSourceStore, useUserStore } from "@/state/store";
 import { api } from '@/api/api'
 import router from "@/router";
+import { storeToRefs } from "pinia";
+
 export default defineComponent({
     name: 'app',
     data() {
-        return {
-        }
+    return {
+      IsSounds: true,
+    };
+  },
+  methods: {
+    playMusic() {
+      this.IsSounds = ! this.IsSounds;
+      if (this.IsSounds == true) {
+        this.$emit.$refs.Music.play();
+      } else {
+        this.$parent.$refs.Music.pause();
+      }
     },
     setup() {
         const gameSource = useSourceStore()
+        const userStore =  useUserStore()
         api.getGameSourceData()
             .then(data => {
                 gameSource.init(data)
             })
+        if (localStorage.getItem("lifestartToken") == null) {
+            api.getToken()
+        }
+        setTimeout(()=> {
+            while(localStorage.getItem("lifestartToken") == null){
+
+            }
+            api.postUserData().then(data => userStore.setUser(data))
+        },500)
+        const {restartNum} = storeToRefs(userStore)
+        return {restartNum}
     },
     watch: {
         '$route': function () {
@@ -46,9 +71,16 @@ export default defineComponent({
                 router.push('/Choice');
             }
         }
+    },
+    methods: {
+        startGame() {
+            this.$router.push("/Choice")
+            this.restartNum ++ 
+        }
     }
+    this.playMusic(),
 
-})
+});
 </script>
   
 <style scoped lang="scss">
@@ -69,14 +101,33 @@ export default defineComponent({
     background-color: #f7f7f7;
 }
 
-.upper_list {
-    width: 390px;
-    height: 85px;
+.upper_list_left {
+    width: 282px;
+    height: 170px;
+    float: left;
 }
 
-.test_list {
-    width: 390px;
-    height: 10px;
+.upper_list_right {
+    width: 108px;
+    height: 100px;
+    float: left;
+}
+
+.voice_list {
+    width: 250px;
+    height: 85px;
+    margin-left: 20px;
+    float: left;
+    margin-top: 85px;
+    position: fixed;
+    background-color: white;
+    display: none;
+    border-radius: 10px;
+    box-shadow:
+        0.1px 0.3px 0px rgba(0, 0, 0, 0.06),
+        0.4px 0.8px 0px rgba(0, 0, 0, 0.08),
+        0.9px 1.8px 0px rgba(0, 0, 0, 0.094),
+        3px 6px 0px rgba(0, 0, 0, 0.12);
 }
 
 body {
@@ -149,6 +200,18 @@ body {
     float: left;
 }
 
+.sound:hover~.voice_list {
+    display: block;
+}
+
+.change {
+    padding-left: 20px;
+    padding-top: 15px;
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
 
 .play {
     text-align: center;
@@ -176,13 +239,13 @@ body {
 
 .word {
     padding-top: 0px;
-    padding-left: 255px;
+    padding-left: 0px;
     font-size: 24px;
 }
 
 .restart {
     padding-left: 10px;
-    padding-top: 110px;
+    padding-top: 70px;
     padding-bottom: 5px;
     width: 297px;
     height: 77px;

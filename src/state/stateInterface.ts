@@ -4,21 +4,26 @@ export interface Major {
 }
 
 export interface User {
-    userId: number|undefined,
-    commonAcademyList: Array<number>,
-    specialAcademyList: Array<number>,
-    reStartNum: number
+    commonAchievementList: Set<number>,
+    specialAchievementList: Set<number>,
+    restartNum: number
 }
 
 export interface Life {
     names:Array<string>,
     props:Array<number>,
-    eventList: Array<number>,
-    achievementList: Array<number>,
-    getAchievments: number
+    eventList: Set<number>,
+    achievementList: Set<number>,
+    getAchievments: number,
+    pictures: Array<Picture>
+}
+export interface Picture {
+    url: string,
+    content: string,
+    time: string,
 }
 
 export interface GameSource{
-    commonAchievementsNum: number|undefined,
-    specialAchievementsNum: number|undefined
+    commonAchievementsNum: number,
+    specialAchievementsNum: number
 }

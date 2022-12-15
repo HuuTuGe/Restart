@@ -22,19 +22,32 @@
 
 import Return_box from '../components/return_box.vue';
 import month from '../components/month.vue';
+import { useLifeStore } from '@/state/store';
+import { storeToRefs } from 'pinia';
 
 export default {
     name: 'Scroll',
+    components: {
+        Return_box,
+        month
+    },
     data() {
         return {
             scroll: null
         };
     },
-    components: {
-        Return_box,
-        month
+    setup() {
+        /**
+         * 图片（不区分成就和事件）
+         * pictures 是一个Picture类是数组
+         * @usage pictures[i].time 获得图片是时间 如：一月下
+         * @usage pictures[i].url 获得图片的url 如：http://1.1.1.1:8080/picture/1
+         * 写完后就把注释删掉。
+         */
+        const lifeStore = useLifeStore()
+        const {pictures} = storeToRefs(lifeStore)
+        return{pictures}
     }
-
 }
 
 </script>

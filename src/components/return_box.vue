@@ -1,8 +1,8 @@
 <template>
     <div class="return_box">
         <router-link :to="from">
-            <img src="../assets/antFill-home.svg" class="return_icon" v-if="home">
-            <img src="../assets/return_icon.png" class="return_icon" v-if="back">
+            <img src="../assets/antFill-home.svg" class="return_icon" v-if="home" title="返回主页">
+            <img src="../assets/return_icon.png" class="return_icon" v-if="back" title="返回上一级页面">
         </router-link>
     </div>
 </template>

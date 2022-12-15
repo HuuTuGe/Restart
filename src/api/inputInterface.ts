@@ -4,7 +4,8 @@ export enum AchievementType {
      * @usage - Achievement.common(返回普通成就)
      */
     common= "普通成就",
-    special= "特殊成就"
+    special= "特殊成就",
+    null = ""
 }
 
 export interface MajorParam{
@@ -12,8 +13,8 @@ export interface MajorParam{
 }
 
 export interface LifeParam{
-    eventList: Array<number>, // // 本回合已达成的事件的id
-    achievementList: Array<number>, // 本回合已达成的成就的id
+    eventList: Set<number>, // // 本回合已达成的事件的id
+    achievementList: Set<number>, // 本回合已达成的成就的id
     academyId: number,
     props: Array<number>
 }
@@ -23,7 +24,7 @@ export interface ChoicesParam{
 }
 
 export interface Headers{
-    token: string
+    lifestartToken: string|null
 }
 
 export interface PicturesParam{
@@ -32,10 +33,10 @@ export interface PicturesParam{
 }
 
 export interface AchievementsParam{
-    ids?: Array<number>, // 本局游戏获得的id
+    ids: Set<number>, // 本局游戏获得的id,可以为[]
     page: number,
     limit:number,
-    type?: AchievementType, // 普通成就或特殊成就
+    type: AchievementType, // 普通成就或特殊成就
 }
 
 export interface PictureParam{
@@ -44,5 +45,4 @@ export interface PictureParam{
 }
 
 export interface UserParam{
-    usrId: number 
 }
