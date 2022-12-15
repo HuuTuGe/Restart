@@ -51,7 +51,8 @@
           <ach_box :lifeData="lifeData" v-if="lifeData.haveAchievement"></ach_box>
         </div>
       </div>
-      <button @click="(day(),iem(),p(),scrollToBottom())" class="bu" v-show="!DayShow">点击播放</button>
+      <button @click="(day(),iem(),p(),scrollToBottom(),h())" class="bu" v-show="!DayShow">点击播放</button>
+      <button @click="hora()" class="bu" v-show="!DayShow">自动播放</button>
       <div class="end_game" v-show="IsShow">
         <router-link to="/Summary">
           <button class="life_con">人生报告</button>
@@ -89,7 +90,10 @@ interface Play {
   stage:number,
   timeout: any,
   lifeDatas: Array<LifeData>,
-  container:any
+  container:any,
+  aplay:boolean,
+  hplay:boolean,
+  ptime:any
   // ach_is:Array<boolean>
 }
 
@@ -104,6 +108,7 @@ export default defineComponent( {
     ach_box,
     choise_ho,
   },
+  
   setup() {
     const majorStore = useMajorStore();
     const lifeStore = useLifeStore();
@@ -124,10 +129,17 @@ export default defineComponent( {
       timeout: null,
       stage:1,
       lifeDatas:[],
-      container:null
+      container:null,
+      aplay:false,
+      hplay:true,
+      ptime:500
     } as Play
   },
   methods: {
+    h(){
+      this.hplay=true
+      this.aplay=false
+    },
     iem(){
       if(this.item==1){
         this.it="大一上"
@@ -160,7 +172,7 @@ export default defineComponent( {
         this.cDay=18
         this.stage=this.stage+3
       }
-      
+      console.log(1)
       this.cDay-=1
      },
     p(){
@@ -196,13 +208,39 @@ export default defineComponent( {
 	      this.container = this.$el.querySelector(".con");
         this.container.scrollTop = this.container.scrollHeight;
       })
+    },
+    hora(){
+      this.aplay=true
+      this.hplay=false
+      console.log(this.aplay)
+    },
+    auto(){
+      if(this.aplay&&this.IsShow==false&&this.DayShow==false){
+        this.p()
+        this.day()
+        this.iem()
+      }
+      else{
+        console.log("no")
+      }
     }
       
   },
+  created() {//这里是定时器
+    setInterval(this.ptime, 10);
+  },
+  mounted:function() {
+      this.$nextTick(() => {
+      setInterval(this.auto,2000);
+      console.log(111)
+    });
+    
+    
+    
+    // this.pro();
+    this.scrollToBottom();
+  },
   
-mounted () {
-   this.scrollToBottom();
-},
 //每次页面渲染完之后滚动条在最底部
 updated:function(){
    this.scrollToBottom();
@@ -226,6 +264,7 @@ updated:function(){
   height: 20px;
   top:-30px;
   display: inline-block;
+  margin-left: 10px;
 }
 .choise{
   width: 390px;
