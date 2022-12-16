@@ -8,6 +8,12 @@ export enum AchievementType {
     null = ""
 }
 
+export interface UserParam {
+    commonAchievementList: Set<number>,
+    specialAchievementList: Set<number>,
+    restartNum: number
+}
+
 export interface MajorParam{
     majorType: string // 学院类型
 }
@@ -42,7 +48,4 @@ export interface AchievementsParam{
 export interface PictureParam{
     eventId?: number,
     achievementId?: number
-}
-
-export interface UserParam{
 }

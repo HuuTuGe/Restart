@@ -33,18 +33,9 @@ import { storeToRefs } from "pinia";
 export default defineComponent({
     name: 'app',
     data() {
-    return {
-      IsSounds: true,
-    };
-  },
-  methods: {
-    playMusic() {
-      this.IsSounds = ! this.IsSounds;
-      if (this.IsSounds == true) {
-        this.$emit.$refs.Music.play();
-      } else {
-        this.$parent.$refs.Music.pause();
-      }
+        return {
+            IsSounds: true,
+        };
     },
     setup() {
         const gameSource = useSourceStore()
@@ -60,7 +51,9 @@ export default defineComponent({
             while(localStorage.getItem("lifestartToken") == null){
 
             }
-            api.postUserData().then(data => userStore.setUser(data))
+            api.getUserData().then(data => {
+                // console.log(data)
+                userStore.setUser(data)})
         },500)
         const {restartNum} = storeToRefs(userStore)
         return {restartNum}
@@ -76,10 +69,8 @@ export default defineComponent({
         startGame() {
             this.$router.push("/Choice")
             this.restartNum ++ 
-        }
+        },
     }
-    this.playMusic(),
-
 });
 </script>
   

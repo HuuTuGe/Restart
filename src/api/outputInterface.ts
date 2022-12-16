@@ -1,8 +1,8 @@
 import { AchievementType } from "./inputInterface"
 
 export interface UserData{
-    commonAchievementList: Set<number>, // 用户已达成的普通成就
-    specialAchievementList: Set<number>, // 用户已达成的特殊成就
+    commonAchievementList: Array<number>, // 用户已达成的普通成就
+    specialAchievementList: Array<number>, // 用户已达成的特殊成就
     restartNum: number
 }
 

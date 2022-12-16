@@ -30,22 +30,24 @@ export const useUserStore = defineStore('user',{
     },
     getters: {
         userCommonAchievementsNum(state): number {
-            let sum:number = 0
-            state.commonAchievementList.forEach(() => sum++)
-            return sum
+            // let sum:number = 0
+            // state.commonAchievementList.forEach(() => sum++)
+            return this.commonAchievementList.size
         },
         userSpecialAchievementsNum(state): number{
-            let sum:number = 0
-            state.specialAchievementList.forEach(() => sum++)
-            return sum
+            // let sum:number = 0
+            // state.specialAchievementList.forEach(() => sum++)
+            return this.specialAchievementList.size
         },
-        userData(state): UserData{
+        userData(state): User{
             return state
         }
     },
     actions: {
-        setUser(data: User){
-            this.$state = data
+        setUser(data: UserData){
+            this.commonAchievementList = new Set(data.commonAchievementList)
+            this.specialAchievementList = new Set(data.specialAchievementList)
+            this.restartNum = data.restartNum
         },
         addAchievement(data: AchievementData) {
             /**

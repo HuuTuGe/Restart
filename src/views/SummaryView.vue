@@ -115,7 +115,7 @@ export default defineComponent({
     methods: {
         restart() {
             this.restartNum ++
-            api.postUserUpdate(this.userStore.userData)
+            api.getUserUpdate(this.userStore.userData)
             this.$router.push('/Choice')
             //TODO 向后端保存用户状态
         }

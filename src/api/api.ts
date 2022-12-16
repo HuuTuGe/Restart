@@ -63,7 +63,7 @@ export const api = {
         // let url: string = this.baseUrl + '/event'
         return await axios.get(url, {params: param}).then(res=> res.data)
     },
-    async postUserData(): Promise<Data.UserData> {
+    async getUserData(): Promise<Data.UserData> {
         /**
          * 请求用户信息
          * @param data - 请求负载参数
@@ -71,14 +71,13 @@ export const api = {
          */
         // let url: string = this.baseUrl + '/user/data'
         let url: string = this.remoteUrl + '/user/data'
-
         // 从本地读取token
         let header: object
         header = {
             lifestartToken : localStorage.getItem("lifestartToken")
         }
         console.log("set token: " + localStorage.getItem("lifestartToken"))
-        return axios.post(url, {headers:header}).then(res=> res.data)
+        return axios.get(url, {headers:header}).then(res=> res.data)
     },
     async getAchievementsData(data: Param.AchievementsParam): Promise<Array<Data.AchievementData>> {
         /**
@@ -127,26 +126,27 @@ export const api = {
             localStorage.setItem("lifestartToken",res.data.token as string) 
         })
    },
-   async postUserUpdate(data: Data.UserData): Promise<void> {
+   async getUserUpdate(data: Param.UserParam): Promise<void> {
         /**
          * 更新用户新获得的成就和重开次数
          */
-        // let url: string = this.remoteUrl + '/user/update'
-        let url: string = this.baseUrl + '/user/update'
+        let url: string = this.remoteUrl + '/user/update'
+        // let url: string = this.baseUrl + '/user/update'
         // 从本地读取token
         let param = {
             commonAchievementList: Array.from(data.commonAchievementList) + "",
             specialAchievementList: Array.from(data.specialAchievementList) + "",
-            restartNum: data.restartNum
+            restartNum: data.restartNum,
+            // lifestartToken : localStorage.getItem("lifestartToken")
         }
         let header: object
         header = {
             lifestartToken : localStorage.getItem("lifestartToken")
         }
         console.log("set token: " + localStorage.getItem("lifestartToken"))
-        await axios.post(url, {
+        await axios.get(url, {
             headers:header,
-            data:param
+            params:param
         }).then(res=> res.data)
    }
 }

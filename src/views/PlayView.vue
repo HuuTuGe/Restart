@@ -225,9 +225,6 @@ export default defineComponent( {
         this.day()
         this.iem()
       }
-      else{
-        console.log("no")
-      }
     }
       
   },

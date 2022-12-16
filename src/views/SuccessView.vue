@@ -45,6 +45,7 @@
 import return_box from '@/components/return_box.vue';
 import { useSourceStore, useUserStore } from '@/state/store';
 import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router/types/composables';
 export default {
 name: 'success',
 components:{
@@ -53,8 +54,11 @@ components:{
 setup() {
   const sourceStore = useSourceStore()
   const userStore = useUserStore()
+  console.log(userStore.$state)
   const {commonAchievementsNum, specialAchievementsNum} = storeToRefs(sourceStore)
   const {userCommonAchievementsNum, userSpecialAchievementsNum,restartNum} = storeToRefs(userStore)
+  // console.log(userCommonAchievementsNum)
+  console.log(userStore.commonAchievementList)
   return {sourceStore,commonAchievementsNum,specialAchievementsNum,userCommonAchievementsNum, userSpecialAchievementsNum,restartNum}
 },
 data () {
