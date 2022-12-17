@@ -47,7 +47,7 @@ export default defineComponent({
   line-height: 40px;
   background-color: rgb(253, 251, 251);
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px solid rgba(187, 187, 187, 1);
   border: 1px solid #000;
   border-radius: 5px 5px 5px 5px;
