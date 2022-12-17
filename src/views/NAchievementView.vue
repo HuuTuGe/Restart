@@ -89,7 +89,7 @@ export default defineComponent({
   },
   methods: {
     setPageNum(){
-        this.pageNum = Math.floor(this.sourceStore.commonAchievementsNum as number / 10)+1;
+        this.pageNum = Math.ceil(this.sourceStore.commonAchievementsNum as number / 8);
     },
     applyStyle(rarity: string): StyleValue {
       if (rarity == "传说") {
@@ -343,19 +343,18 @@ export default defineComponent({
   color: greenyellow;
 }
 .cont1 {
-  /* padding-bottom: 10px; */
-  /* padding-top: 10px; */
-  padding-left: 16px;
+  padding-left: 15px;
   padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   float: left;
   margin: 10px;
   background-color: rgb(255, 255, 255);
   width: 145px;
-  height: 35px;
-  line-height: 40px;
-  /* background-color: rgb(253, 251, 251); */
+  height: 45px;
+  line-height: 25px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px solid rgba(187, 187, 187, 1);
   border: 1px solid #000;
   border-radius: 5px 5px 5px 5px;
